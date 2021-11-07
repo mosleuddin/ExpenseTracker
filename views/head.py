@@ -117,7 +117,6 @@ class AddHead(Head):
             if result[0]:
                 # if first element of result tuple is TRUE
                 insertHead(self, head_name)
-                setHeadId(head_id)
 
                 msg = f'{head_name} added successfully'
                 self.ui.labelMessage.setText(msg)
@@ -201,7 +200,6 @@ class DeleteHead(Head):
         self.ui.buttonOk.setIcon(QIcon('src/icons/delete.png'))
 
         self.ui.editHeadName.setReadOnly(True)
-        #self.ui.editHeadName.setFrame(False)
         self.ui.editHeadName.setStyleSheet(self.bg)
 
     def onOkPressed(self):

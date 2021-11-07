@@ -65,12 +65,3 @@ def createTables():
 
     query.finish()
 
-    # create table 'tracker' which will keep record of last id created in various tables
-    query.exec("""
-                   CREATE TABLE IF NOT EXISTS tracker(
-                   TrackerId    INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
-                   TableRef     TEXT NOT NULL UNIQUE,
-                   LastId       INTEGER NOT NULL);
-               """)
-
-    query.finish()

@@ -50,49 +50,15 @@ def removeHead(parent, head_id):
 
 
 def getHeadId(parent):
-    """
-    get value of the field LastId from tracker table and
-    the function to be called once only from __init__ method
-    of ExpHead class
-    """
-    ref = 'head_tracker'
     head_id = 0
-
     query = QSqlQuery()
-    query.prepare("SELECT LastId FROM tracker WHERE TableRef = :TableRef")
-    query.bindValue(":TableRef", ref)
-    query.exec()
-
+    query.exec("SELECT seq FROM sqlite_sequence WHERE name = 'head'")
     while query.next():
-        head_id = query.value(0)
-
+        if query.isValid():
+            head_id = int(query.value(0))
+            break
     query.finish()
-
-    head_id += 1
-    parent.ui.labelDispalyId.setText(str(head_id))
-
-
-def setHeadId(val):
-    """
-    1.  set value to the field LastId in tracker table
-
-    2.  the function to be called from onOkPressed function
-        after every successful addition of a head
-   """
-    ref = 'head_tracker'
-    query = QSqlQuery()
-    if val == 1:
-        query.prepare("INSERT INTO tracker(TableRef, LastId) VALUES(:TableRef, :LastId)")
-
-    else:
-        query.prepare("""UPDATE tracker SET LastId = :LastId
-                         WHERE TableRef = :TableRef
-                     """)
-
-    query.bindValue(":LastId", val)
-    query.bindValue(":TableRef", ref)
-    query.exec()
-    query.finish()
+    parent.ui.labelDispalyId.setText(str(head_id + 1))
 
 
 def populateComboHead(parent):
@@ -130,4 +96,3 @@ def populateEditHeadName(parent, head_name):
 
     parent.ui.labelDispalyId.setText(str(h_id))
     parent.ui.editHeadName.setText(h_name)
-
