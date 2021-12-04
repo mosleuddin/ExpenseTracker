@@ -162,8 +162,7 @@ p, li { white-space: pre-wrap; }
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(10, 145, 145);</string>
+            <string notr="true">background-color: rgb(136, 138, 133);</string>
            </property>
            <property name="text">
             <string>&amp;Show License</string>
@@ -272,8 +271,7 @@ background-color: rgb(10, 145, 145);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(10, 145, 145);</string>
+        <string notr="true">background-color: rgb(136, 138, 133);</string>
        </property>
        <property name="text">
         <string>&amp;Website</string>
@@ -311,8 +309,7 @@ background-color: rgb(10, 145, 145);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(10, 145, 145);</string>
+        <string notr="true">background-color: rgb(136, 138, 133);</string>
        </property>
        <property name="text">
         <string>&amp;Back</string>

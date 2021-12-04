@@ -84,8 +84,7 @@ class Ui_AboutWindow(object):
         self.buttonLicense = QPushButton(self.tabApp)
         self.buttonLicense.setObjectName(u"buttonLicense")
         self.buttonLicense.setFont(font1)
-        self.buttonLicense.setStyleSheet(u"color: rgb(255, 255, 255);\n"
-"background-color: rgb(10, 145, 145);")
+        self.buttonLicense.setStyleSheet(u"background-color: rgb(136, 138, 133);")
         icon = QIcon()
         icon.addFile(u":/icons/icons/license.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonLicense.setIcon(icon)
@@ -141,8 +140,7 @@ class Ui_AboutWindow(object):
         font2 = QFont()
         font2.setPointSize(16)
         self.buttonWebsite.setFont(font2)
-        self.buttonWebsite.setStyleSheet(u"color: rgb(255, 255, 255);\n"
-"background-color: rgb(10, 145, 145);")
+        self.buttonWebsite.setStyleSheet(u"background-color: rgb(136, 138, 133);")
         icon3 = QIcon()
         icon3.addFile(u":/icons/icons/website.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonWebsite.setIcon(icon3)
@@ -157,8 +155,7 @@ class Ui_AboutWindow(object):
         self.buttonBack.setObjectName(u"buttonBack")
         self.buttonBack.setMinimumSize(QSize(150, 30))
         self.buttonBack.setFont(font2)
-        self.buttonBack.setStyleSheet(u"color: rgb(255, 255, 255);\n"
-"background-color: rgb(10, 145, 145);")
+        self.buttonBack.setStyleSheet(u"background-color: rgb(136, 138, 133);")
         icon4 = QIcon()
         icon4.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonBack.setIcon(icon4)

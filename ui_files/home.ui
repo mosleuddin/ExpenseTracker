@@ -187,8 +187,7 @@
          <font/>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(10, 145, 145);</string>
+         <string notr="true">background-color: rgb(136, 138, 133);</string>
         </property>
         <property name="text">
          <string>&amp;Bank Balance Details</string>
@@ -260,7 +259,7 @@ background-color: rgb(10, 145, 145);</string>
    </widget>
    <widget class="QMenu" name="menu_Head">
     <property name="title">
-     <string>&amp;Expense Head</string>
+     <string>&amp;Head</string>
     </property>
     <addaction name="action_Add_Head"/>
     <addaction name="action_Edit_Head"/>

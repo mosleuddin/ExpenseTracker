@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ViewHead</class>
- <widget class="QDialog" name="ViewHead">
+ <class>ViewAccount</class>
+ <widget class="QDialog" name="ViewAccount">
   <property name="windowModality">
    <enum>Qt::WindowModal</enum>
   </property>
@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>693</width>
+    <width>601</width>
     <height>480</height>
    </rect>
   </property>
@@ -22,7 +22,7 @@
    <string>Expense Tracker</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(150, 175, 210);</string>
+   <string notr="true">background-color: rgb(238, 226,152);</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -55,7 +55,7 @@
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>Expenditure Head</string>
+      <string>Bank Accounts</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -66,11 +66,11 @@
     <widget class="QTableView" name="tableView">
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(225, 225, 225);</string>
+      <string notr="true">background-color: rgb(225, 225,225);</string>
      </property>
      <property name="sizeAdjustPolicy">
       <enum>QAbstractScrollArea::AdjustToContents</enum>
@@ -93,10 +93,22 @@
      <property name="cornerButtonEnabled">
       <bool>false</bool>
      </property>
+     <attribute name="horizontalHeaderCascadingSectionResizes">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="horizontalHeaderMinimumSectionSize">
+      <number>50</number>
+     </attribute>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>50</number>
+     </attribute>
      <attribute name="horizontalHeaderStretchLastSection">
       <bool>true</bool>
      </attribute>
      <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="verticalHeaderStretchLastSection">
       <bool>false</bool>
      </attribute>
     </widget>
@@ -120,12 +132,13 @@
       <widget class="QPushButton" name="buttonBack">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>15</pointsize>
          <bold>true</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(136, 138, 133);</string>
+        <string notr="true">background-color: rgb(136, 138, 133);
+</string>
        </property>
        <property name="text">
         <string>&amp;Back</string>
@@ -147,7 +160,7 @@
   <connection>
    <sender>buttonBack</sender>
    <signal>clicked()</signal>
-   <receiver>ViewHead</receiver>
+   <receiver>ViewAccount</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">

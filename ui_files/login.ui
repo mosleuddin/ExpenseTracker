@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>690</width>
-    <height>500</height>
+    <height>507</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -78,7 +78,7 @@ background-color: rgb(201, 219, 220);</string>
 </string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>10</number>
@@ -105,7 +105,7 @@ background-color: rgb(201, 219, 220);</string>
     <widget class="QLabel" name="labelMessage">
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
+       <pointsize>14</pointsize>
        <bold>false</bold>
       </font>
      </property>
@@ -147,6 +147,7 @@ background-color: rgb(201, 219, 220);</string>
        </property>
        <property name="font">
         <font>
+         <pointsize>14</pointsize>
          <bold>false</bold>
         </font>
        </property>
@@ -167,7 +168,9 @@ background-color: rgb(201, 219, 220);</string>
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <pointsize>14</pointsize>
+        </font>
        </property>
        <property name="statusTip">
         <string>username should be 4 to 12 characters long</string>
@@ -197,6 +200,7 @@ color: rgb(51, 51, 51);</string>
        </property>
        <property name="font">
         <font>
+         <pointsize>14</pointsize>
          <bold>false</bold>
          <underline>false</underline>
         </font>
@@ -218,7 +222,9 @@ color: rgb(51, 51, 51);</string>
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <pointsize>14</pointsize>
+        </font>
        </property>
        <property name="statusTip">
         <string>username should be 4 to 12 characters long</string>
@@ -291,11 +297,12 @@ color: rgb(51, 51, 51);</string>
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <pointsize>14</pointsize>
+        </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(10, 145, 145);
-color: rgb(255, 255, 255);</string>
+        <string notr="true">background-color: rgb(136, 138, 133);</string>
        </property>
        <property name="text">
         <string>&amp;Cancel</string>
@@ -318,11 +325,12 @@ color: rgb(255, 255, 255);</string>
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <pointsize>14</pointsize>
+        </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(10, 145, 145);
-color: rgb(255, 255, 255);</string>
+        <string notr="true">background-color: rgb(136, 138, 133);</string>
        </property>
        <property name="text">
         <string>&amp;Ok</string>

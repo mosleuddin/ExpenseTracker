@@ -8,6 +8,7 @@ from db.table_user import viewUser, resetUserCredentials
 from views.credentials import ShowUsers, ChangeUsername, ChangePassword
 from views.about import About
 from views.head import AddHead, EditHead, DeleteHead, ViewHead
+from views.account import AddAccount, EditAccount, DeleteAccount, ViewAccount
 
 
 class Home(QMainWindow):
@@ -59,37 +60,32 @@ class Home(QMainWindow):
 
     def about(self):
         dlg = About(self)
-        dlg.show()
 
     # functions for Account Menu
     def add_account(self):
-        print('add_account')
+        dlg = AddAccount(self)
 
     def edit_account(self):
-        print('edit_account')
-
-    def view_account(self):
-        print('view_account')
+        dlg = EditAccount(self)
 
     def delete_account(self):
-        print('delete_account')
+        dlg = DeleteAccount(self)
+
+    def view_account(self):
+        dlg = ViewAccount(self)
 
     # functions for Head Menu
     def add_head(self):
-        dlg = AddHead(parent=self, task='add')
-        dlg.show()
+        dlg = AddHead(self)
 
     def edit_head(self):
-        dlg = EditHead(parent=self, task='edit')
-        dlg.show()
-
-    def view_head(self):
-        dlg = ViewHead(parent=self)
-        dlg.show()
+        dlg = EditHead(self)
 
     def delete_head(self):
-        dlg = DeleteHead(parent=self, task='delete')
-        dlg.show()
+        dlg = DeleteHead(self)
+
+    def view_head(self):
+        dlg = ViewHead(self)
 
     # functions for Transaction Menu
     def add_transaction(self):
@@ -107,7 +103,6 @@ class Home(QMainWindow):
     # function for users
     def show_all_users(self):
         dlg = ShowUsers(self)
-        dlg.show()
 
     def reset_user_credentials(self):
         users = viewUser(self)
@@ -117,11 +112,9 @@ class Home(QMainWindow):
 
     def change_password(self):
         dlg = ChangePassword(self, self.user_id)
-        dlg.show()
 
     def change_username(self):
         dlg = ChangeUsername(self, self.user_id, self.user_name)
-        dlg.show()
 
     # function for initialization
     def initialize_data(self):

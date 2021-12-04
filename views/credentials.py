@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QDialog, QLineEdit, QTableWidgetItem
 from design.ui_credentials import Ui_CredentialsWindow
 from db.table_user import changePassword, getPassword, changeUsername, viewUser, resetUserCredentials
 from design.ui_show_users import Ui_ShowUsers
-from modules.module import resizeMove, CustomButton
+from modules.module import resize_and_move, CustomButton
 
 
 class Credentials(QDialog):
@@ -14,6 +14,7 @@ class Credentials(QDialog):
         self.ui = Ui_CredentialsWindow()
         self.ui.setupUi(self)
         self.ui.labelMessage.hide()
+        self.show()
 
     def function_return_pressed(self, text):
         pass
@@ -41,7 +42,8 @@ class ChangePassword(Credentials):
         super().__init__()
         self.parent = parent
         self.user_id = user_id
-        resizeMove(self, self.parent, .5, .7)
+        resize_and_move(self, self.parent, .5, .7)
+        self.show()
 
         self.ui.editCurrentPassword.addAction(QIcon("src/icons/password.png"), QLineEdit.ActionPosition.LeadingPosition)
         self.ui.editNewPassword.addAction(QIcon("src/icons/password.png"), QLineEdit.ActionPosition.LeadingPosition)
@@ -108,8 +110,9 @@ class ChangeUsername(Credentials):
         self.parent = parent
         self.user_id = user_id
         self.user_name = user_name
-        resizeMove(self, self.parent, .5, .7)
+        resize_and_move(self, self.parent, .5, .7)
         self.setStyleSheet('background-color: rgb(153, 210, 255)')
+        self.show()
         self.initUI()
 
     def initUI(self):
@@ -192,6 +195,7 @@ class ShowUsers(QDialog):
         super(ShowUsers, self).__init__(parent=parent)
         self.ui = Ui_ShowUsers()
         self.ui.setupUi(self)
+        self.show()
         self.loadData()
 
     def loadData(self):

@@ -193,8 +193,7 @@ class Ui_HomeWindow(object):
         self.buttonBankBalance.setMinimumSize(QSize(200, 30))
         self.buttonBankBalance.setMaximumSize(QSize(200, 30))
         self.buttonBankBalance.setFont(font1)
-        self.buttonBankBalance.setStyleSheet(u"color: rgb(255, 255, 255);\n"
-"background-color: rgb(10, 145, 145);")
+        self.buttonBankBalance.setStyleSheet(u"background-color: rgb(136, 138, 133);")
         self.buttonBankBalance.setIcon(icon4)
 
         self.horizontalLayout.addWidget(self.buttonBankBalance)
@@ -503,7 +502,7 @@ class Ui_HomeWindow(object):
         self.buttonBankBalance.setText(QCoreApplication.translate("HomeWindow", u"&Bank Balance Details", None))
         self.menu_File.setTitle(QCoreApplication.translate("HomeWindow", u"&File", None))
         self.menu_Account.setTitle(QCoreApplication.translate("HomeWindow", u"&Account", None))
-        self.menu_Head.setTitle(QCoreApplication.translate("HomeWindow", u"&Expense Head", None))
+        self.menu_Head.setTitle(QCoreApplication.translate("HomeWindow", u"&Head", None))
         self.menu_Transactions.setTitle(QCoreApplication.translate("HomeWindow", u"&Transactions", None))
         self.menu_Users.setTitle(QCoreApplication.translate("HomeWindow", u"&Users", None))
         self.menu_Initiaize.setTitle(QCoreApplication.translate("HomeWindow", u"&Initialization", None))

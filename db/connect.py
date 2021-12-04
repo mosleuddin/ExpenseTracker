@@ -20,7 +20,7 @@ def createTables():
     # create table 'user'
     query.exec("""
             CREATE TABLE IF NOT EXISTS user(
-            UserId      INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
+            UserId      INTEGER PRIMARY KEY AUTOINCREMENT,
             Username    TEXT NOT NULL UNIQUE,
             Password    TEXT NOT NULL);
         """)
@@ -30,7 +30,7 @@ def createTables():
     # create table 'account'
     query.exec("""
                 CREATE TABLE IF NOT EXISTS account(
-                AccountId        INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
+                AccountId        INTEGER PRIMARY KEY AUTOINCREMENT,
                 AccountNumber    TEXT NOT NULL UNIQUE,
                 CustomerName     TEXT NOT NULL,
                 BankName         TEXT NOT NULL,
@@ -42,7 +42,8 @@ def createTables():
     # create table 'head'
     query.exec("""
                 CREATE TABLE IF NOT EXISTS head(
-                HeadId      INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
+                HeadId      INTEGER PRIMARY KEY AUTOINCREMENT,
+                HeadType    TEXT NOT NULL,
                 HeadName    TEXT NOT NULL);
             """)
 
@@ -51,16 +52,14 @@ def createTables():
     # create table 'trans' (short name of transaction)
     query.exec("""
                    CREATE TABLE IF NOT EXISTS trans(
-                   TransId        INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
+                   TransId        INTEGER PRIMARY KEY AUTOINCREMENT,
                    TransType      TEXT NOT NULL,
                    TransDate      TEXT NOT NULL,
-                   ExpHead        INTEGER NOT NULL,
+                   HeadId         INTEGER NOT NULL REFERENCES head(HeadId),
                    TransDetails   TEXT,
                    TransMode      TEXT NOT NULL,
-                   BankAccount    INTEGER NOT NULL,
-                   TransAmount    INTEGER NOT NULL,
-                   FOREIGN KEY(ExpHead) REFERENCES head(HeadId),
-                   FOREIGN KEY(BankAccount) REFERENCES account(AccountId));
+                   AccountId      INTEGER NOT NULL REFERENCES account(AccountId),
+                   TransAmount    INTEGER NOT NULL);
                """)
 
     query.finish()

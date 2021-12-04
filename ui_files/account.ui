@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>HeadWindow</class>
- <widget class="QDialog" name="HeadWindow">
+ <class>AccountWindow</class>
+ <widget class="QDialog" name="AccountWindow">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>513</width>
+    <width>682</width>
     <height>532</height>
    </rect>
   </property>
@@ -56,10 +56,10 @@
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(51, 51, 51);
-background-color: rgb(169, 216, 252);</string>
+background-color: rgb(255, 216, 252);</string>
      </property>
      <property name="text">
-      <string>&lt;h2&gt;Head
+      <string>&lt;h2&gt;Bank Account
 </string>
      </property>
      <property name="alignment">
@@ -79,7 +79,9 @@ background-color: rgb(169, 216, 252);</string>
       </size>
      </property>
      <property name="font">
-      <font/>
+      <font>
+       <pointsize>14</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(102, 26, 216);</string>
@@ -126,22 +128,24 @@ background-color: rgb(169, 216, 252);</string>
       </spacer>
      </item>
      <item>
-      <widget class="QComboBox" name="comboHead">
+      <widget class="QComboBox" name="comboAccount">
        <property name="minimumSize">
         <size>
-         <width>200</width>
+         <width>0</width>
          <height>40</height>
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <pointsize>14</pointsize>
+        </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(254, 255, 211);
+        <string notr="true">background-color: rgb(200, 255, 211);
 color: rgb(51, 51, 51);</string>
        </property>
        <property name="placeholderText">
-        <string>Select head</string>
+        <string>Select bank account number</string>
        </property>
       </widget>
      </item>
@@ -161,6 +165,19 @@ color: rgb(51, 51, 51);</string>
     </layout>
    </item>
    <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>52</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <spacer name="horizontalSpacer_3">
@@ -176,106 +193,6 @@ color: rgb(51, 51, 51);</string>
       </spacer>
      </item>
      <item>
-      <layout class="QFormLayout" name="formLayout">
-       <property name="horizontalSpacing">
-        <number>20</number>
-       </property>
-       <property name="verticalSpacing">
-        <number>10</number>
-       </property>
-       <property name="leftMargin">
-        <number>25</number>
-       </property>
-       <property name="topMargin">
-        <number>6</number>
-       </property>
-       <property name="rightMargin">
-        <number>25</number>
-       </property>
-       <property name="bottomMargin">
-        <number>6</number>
-       </property>
-       <item row="3" column="0">
-        <widget class="QLabel" name="labelHeadName">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>40</height>
-          </size>
-         </property>
-         <property name="font">
-          <font/>
-         </property>
-         <property name="text">
-          <string>Head &amp;Name</string>
-         </property>
-         <property name="buddy">
-          <cstring>editHeadName</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="editHeadName">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>40</height>
-          </size>
-         </property>
-         <property name="font">
-          <font/>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(254, 255, 211);
-color: rgb(51, 51, 51);</string>
-         </property>
-         <property name="maxLength">
-          <number>32</number>
-         </property>
-         <property name="placeholderText">
-          <string>Enter head name</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="labelHeadType">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>40</height>
-          </size>
-         </property>
-         <property name="font">
-          <font/>
-         </property>
-         <property name="text">
-          <string>Head &amp;Type</string>
-         </property>
-         <property name="buddy">
-          <cstring>comboHeadType</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QComboBox" name="comboHeadType">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>40</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(254, 255, 211);
-color: rgb(51, 51, 51);</string>
-         </property>
-         <property name="placeholderText">
-          <string>Select head type</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
       <spacer name="horizontalSpacer_4">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -287,6 +204,208 @@ color: rgb(51, 51, 51);</string>
         </size>
        </property>
       </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <property name="horizontalSpacing">
+      <number>20</number>
+     </property>
+     <property name="verticalSpacing">
+      <number>10</number>
+     </property>
+     <property name="leftMargin">
+      <number>25</number>
+     </property>
+     <property name="topMargin">
+      <number>6</number>
+     </property>
+     <property name="rightMargin">
+      <number>25</number>
+     </property>
+     <property name="bottomMargin">
+      <number>6</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="labelAccountNumber">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Accoun&amp;t Number</string>
+       </property>
+       <property name="buddy">
+        <cstring>editAccountNumber</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="editAccountNumber">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhNone</set>
+       </property>
+       <property name="maxLength">
+        <number>20</number>
+       </property>
+       <property name="placeholderText">
+        <string>Enter account number</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="labelCustomerName">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Custome&amp;r Name</string>
+       </property>
+       <property name="buddy">
+        <cstring>editCustomerName</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="editCustomerName">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhNone</set>
+       </property>
+       <property name="maxLength">
+        <number>40</number>
+       </property>
+       <property name="placeholderText">
+        <string>Enter customer name</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="labelBankName">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Ban&amp;k Name</string>
+       </property>
+       <property name="buddy">
+        <cstring>editBankName</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="editBankName">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhNone</set>
+       </property>
+       <property name="maxLength">
+        <number>40</number>
+       </property>
+       <property name="placeholderText">
+        <string>Enter bank name</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="labelBranchName">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Branc&amp;h Name</string>
+       </property>
+       <property name="buddy">
+        <cstring>editBranchName</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="editBranchName">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhNone</set>
+       </property>
+       <property name="maxLength">
+        <number>40</number>
+       </property>
+       <property name="placeholderText">
+        <string>Enter branch name</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -330,7 +449,7 @@ color: rgb(51, 51, 51);</string>
        </property>
        <property name="font">
         <font>
-         <pointsize>14</pointsize>
+         <pointsize>16</pointsize>
          <bold>false</bold>
         </font>
        </property>
@@ -359,7 +478,7 @@ color: rgb(51, 51, 51);</string>
        </property>
        <property name="font">
         <font>
-         <pointsize>14</pointsize>
+         <pointsize>16</pointsize>
          <bold>false</bold>
         </font>
        </property>
@@ -388,7 +507,7 @@ color: rgb(51, 51, 51);</string>
        </property>
        <property name="font">
         <font>
-         <pointsize>14</pointsize>
+         <pointsize>16</pointsize>
          <bold>false</bold>
         </font>
        </property>
@@ -422,12 +541,14 @@ color: rgb(51, 51, 51);</string>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>comboHead</tabstop>
-  <tabstop>comboHeadType</tabstop>
-  <tabstop>editHeadName</tabstop>
-  <tabstop>buttonBack</tabstop>
-  <tabstop>buttonCancel</tabstop>
+  <tabstop>comboAccount</tabstop>
+  <tabstop>editAccountNumber</tabstop>
+  <tabstop>editCustomerName</tabstop>
+  <tabstop>editBankName</tabstop>
+  <tabstop>editBranchName</tabstop>
   <tabstop>buttonOk</tabstop>
+  <tabstop>buttonCancel</tabstop>
+  <tabstop>buttonBack</tabstop>
  </tabstops>
  <resources>
   <include location="../src/resource.qrc"/>
@@ -436,12 +557,12 @@ color: rgb(51, 51, 51);</string>
   <connection>
    <sender>buttonCancel</sender>
    <signal>clicked()</signal>
-   <receiver>HeadWindow</receiver>
-   <slot>onDiscardPressed()</slot>
+   <receiver>AccountWindow</receiver>
+   <slot>onCancelPressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>328</x>
-     <y>432</y>
+     <x>440</x>
+     <y>499</y>
     </hint>
     <hint type="destinationlabel">
      <x>264</x>
@@ -450,14 +571,14 @@ color: rgb(51, 51, 51);</string>
    </hints>
   </connection>
   <connection>
-   <sender>comboHead</sender>
+   <sender>comboAccount</sender>
    <signal>currentIndexChanged(int)</signal>
-   <receiver>HeadWindow</receiver>
-   <slot>onHeadChanged()</slot>
+   <receiver>AccountWindow</receiver>
+   <slot>onAccountChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>312</x>
-     <y>150</y>
+     <x>406</x>
+     <y>154</y>
     </hint>
     <hint type="destinationlabel">
      <x>264</x>
@@ -468,12 +589,12 @@ color: rgb(51, 51, 51);</string>
   <connection>
    <sender>buttonBack</sender>
    <signal>clicked()</signal>
-   <receiver>HeadWindow</receiver>
+   <receiver>AccountWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>168</x>
-     <y>432</y>
+     <x>225</x>
+     <y>499</y>
     </hint>
     <hint type="destinationlabel">
      <x>264</x>
@@ -482,30 +603,14 @@ color: rgb(51, 51, 51);</string>
    </hints>
   </connection>
   <connection>
-   <sender>buttonOk</sender>
-   <signal>clicked()</signal>
-   <receiver>HeadWindow</receiver>
-   <slot>onOkPressed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>487</x>
-     <y>432</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>264</x>
-     <y>174</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>editHeadName</sender>
+   <sender>editCustomerName</sender>
    <signal>textEdited(QString)</signal>
-   <receiver>HeadWindow</receiver>
+   <receiver>AccountWindow</receiver>
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>383</x>
-     <y>279</y>
+     <x>584</x>
+     <y>316</y>
     </hint>
     <hint type="destinationlabel">
      <x>264</x>
@@ -514,27 +619,75 @@ color: rgb(51, 51, 51);</string>
    </hints>
   </connection>
   <connection>
-   <sender>comboHeadType</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>HeadWindow</receiver>
-   <slot>onHeadTypeChanged()</slot>
+   <sender>buttonOk</sender>
+   <signal>clicked()</signal>
+   <receiver>AccountWindow</receiver>
+   <slot>onOkPressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>308</x>
-     <y>199</y>
+     <x>487</x>
+     <y>464</y>
     </hint>
     <hint type="destinationlabel">
-     <x>256</x>
+     <x>264</x>
+     <y>174</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editAccountNumber</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>AccountWindow</receiver>
+   <slot>onTextEdited()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>423</x>
+     <y>246</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>340</x>
+     <y>265</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editBankName</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>AccountWindow</receiver>
+   <slot>onTextEdited()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>423</x>
+     <y>346</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>340</x>
+     <y>265</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editBranchName</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>AccountWindow</receiver>
+   <slot>onTextEdited()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>423</x>
+     <y>396</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>340</x>
      <y>265</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <slot>onHeadChanged()</slot>
-  <slot>onDiscardPressed()</slot>
+  <slot>onAccountChanged()</slot>
+  <slot>onCancelPressed()</slot>
   <slot>onOkPressed()</slot>
   <slot>onTextEdited()</slot>
-  <slot>onHeadTypeChanged()</slot>
+  <slot>onBankNameChanged()</slot>
  </slots>
 </ui>

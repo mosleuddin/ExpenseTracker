@@ -46,7 +46,7 @@ class Ui_CredentialsWindow(object):
         self.labelHeading.setFont(font1)
         self.labelHeading.setStyleSheet(u"color: rgb(51, 51, 51);\n"
 "background-color: rgb(201, 219, 220);")
-        self.labelHeading.setAlignment(Qt.AlignCenter)
+        self.labelHeading.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.labelHeading.setMargin(10)
 
         self.verticalLayout.addWidget(self.labelHeading)
@@ -157,8 +157,8 @@ class Ui_CredentialsWindow(object):
         self.buttonBack.setSizePolicy(sizePolicy1)
         self.buttonBack.setMinimumSize(QSize(150, 40))
         self.buttonBack.setFont(font)
-        self.buttonBack.setStyleSheet(u"background-color: rgb(10, 145, 145);\n"
-"color: rgb(255, 255, 255);")
+        self.buttonBack.setStyleSheet(u"background-color: rgb(136, 138, 133);\n"
+"")
         icon1 = QIcon()
         icon1.addFile(u"../src/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonBack.setIcon(icon1)
@@ -170,8 +170,8 @@ class Ui_CredentialsWindow(object):
         self.buttonSubmit.setEnabled(False)
         self.buttonSubmit.setMinimumSize(QSize(150, 40))
         self.buttonSubmit.setFont(font)
-        self.buttonSubmit.setStyleSheet(u"background-color: rgb(10, 145, 145);\n"
-"color: rgb(255, 255, 255);")
+        self.buttonSubmit.setStyleSheet(u"background-color: rgb(136, 138, 133);\n"
+"")
         icon2 = QIcon()
         icon2.addFile(u"../src/icons/ok.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonSubmit.setIcon(icon2)

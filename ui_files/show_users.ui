@@ -220,6 +220,9 @@
          <pointsize>14</pointsize>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(136, 138, 133);</string>
+       </property>
        <property name="text">
         <string>&amp;Back</string>
        </property>

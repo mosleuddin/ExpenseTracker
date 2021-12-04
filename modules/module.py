@@ -11,8 +11,17 @@ class CustomButton(QPushButton):
         self.user_name = ''
 
 
+# set custom font
+def custom_font(widget=None, font_size=12, bold=False, underline=False):
+    font = QFont()
+    font.setPointSize(font_size)
+    font.setBold(bold)
+    font.setUnderline(underline)
+    widget.setFont(font)
+
+
 # set window size and position
-def resizeMove(self, parent=None, wd=None, ht=None):
+def resize_and_move(self, parent=None, wd=None, ht=None):
     geometry = QApplication.primaryScreen().availableGeometry()
     screen_wd = geometry.width()
     screen_ht = geometry.height()
@@ -40,13 +49,12 @@ def resizeMove(self, parent=None, wd=None, ht=None):
     self.move(x, y)
 
 
-# set font
-def custom_font(widget=None, font_size=12, bold=False, underline=False):
-    font = QFont()
-    font.setPointSize(font_size)
-    font.setBold(bold)
-    font.setUnderline(underline)
-    widget.setFont(font)
+# make widgets read only
+def read_only(bg, *args):
+    for obj in args:
+        obj.setReadOnly(True)
+        # obj.setFrame(False)
+        obj.setStyleSheet(bg)
 
 
 # validation
@@ -70,64 +78,3 @@ def valid_space(text):
             space = 0
     return True
 
-
-def min_length(length, min_len):
-    if length >= min_len:
-        return True
-    else:
-        return False
-
-
-def is_unique(tbl, search_field, display_field, pk_field,
-              search_field_value, pk_field_value=None):
-    """
-    This function will check a value entered by the user in a field of a
-    table to ensure whether it's value is unique in the table or not
-
-    :param tbl: The name of the table to which the field belongs
-
-    :param search_field: The name of the field which value to be checked
-
-    :param display_field: The value of this field will be shown to the user
-     as a reference of the duplicate record found, if any
-
-    :param pk_field: The name of the Primary Key field of the table
-
-    :param search_field_value: The current value of the search field. It is to be
-    ensured this value dies not exist in the table.
-
-    :param pk_field_value: The current value of the Primary Key. The record holding
-    this value will not be considered to check.
-
-    :return:  returns a tuple of two element
-
-             First element  -->  True or False
-
-             Second element -->  If duplicate found:
-                                    value of display_field of the record which holds the duplicate value
-                                 else:
-                                    an empty string
-    """
-
-    result = (True, '')
-    query = QSqlQuery()
-    if pk_field_value is None:
-        # while inserting record to the table
-        query.prepare(f"SELECT {pk_field}, {display_field}, {search_field} FROM {tbl}")
-
-    else:
-        # while updating an existing record in the table
-        query.prepare(f"""SELECT {pk_field}, {display_field}, {search_field} FROM {tbl}
-                          WHERE  {pk_field} != :current_rec_pk_field_value
-                      """)
-        query.bindValue(":current_rec_pk_field_value", pk_field_value)
-
-    query.exec()
-
-    while query.next():
-        display_value = query.value(1)
-        search_value = query.value(2)
-        if search_value == search_field_value:
-            result = (False, display_value)
-            return result
-    return result

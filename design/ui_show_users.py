@@ -102,6 +102,7 @@ class Ui_ShowUsers(object):
         self.buttonBack.setObjectName(u"buttonBack")
         self.buttonBack.setMinimumSize(QSize(150, 40))
         self.buttonBack.setFont(font)
+        self.buttonBack.setStyleSheet(u"background-color: rgb(136, 138, 133);")
         icon = QIcon()
         icon.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonBack.setIcon(icon)

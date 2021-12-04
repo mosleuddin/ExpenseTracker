@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'head_view.ui'
+## Form generated from reading UI file 'account_view.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.1.3
 ##
@@ -14,22 +14,22 @@ from PySide6.QtWidgets import *  # type: ignore
 
 from src import resource
 
-class Ui_ViewHead(object):
-    def setupUi(self, ViewHead):
-        if not ViewHead.objectName():
-            ViewHead.setObjectName(u"ViewHead")
-        ViewHead.setWindowModality(Qt.WindowModal)
-        ViewHead.resize(693, 480)
+class Ui_ViewAccount(object):
+    def setupUi(self, ViewAccount):
+        if not ViewAccount.objectName():
+            ViewAccount.setObjectName(u"ViewAccount")
+        ViewAccount.setWindowModality(Qt.WindowModal)
+        ViewAccount.resize(601, 480)
         font = QFont()
         font.setPointSize(14)
-        ViewHead.setFont(font)
-        ViewHead.setStyleSheet(u"background-color: rgb(150, 175, 210);")
-        ViewHead.setModal(True)
-        self.verticalLayout = QVBoxLayout(ViewHead)
+        ViewAccount.setFont(font)
+        ViewAccount.setStyleSheet(u"background-color: rgb(238, 226,152);")
+        ViewAccount.setModal(True)
+        self.verticalLayout = QVBoxLayout(ViewAccount)
         self.verticalLayout.setSpacing(30)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(30, 30, 30, 30)
-        self.labelHeading = QLabel(ViewHead)
+        self.labelHeading = QLabel(ViewAccount)
         self.labelHeading.setObjectName(u"labelHeading")
         font1 = QFont()
         font1.setPointSize(14)
@@ -40,12 +40,10 @@ class Ui_ViewHead(object):
 
         self.verticalLayout.addWidget(self.labelHeading)
 
-        self.tableView = QTableView(ViewHead)
+        self.tableView = QTableView(ViewAccount)
         self.tableView.setObjectName(u"tableView")
-        font2 = QFont()
-        font2.setPointSize(12)
-        self.tableView.setFont(font2)
-        self.tableView.setStyleSheet(u"background-color: rgb(225, 225, 225);")
+        self.tableView.setFont(font)
+        self.tableView.setStyleSheet(u"background-color: rgb(225, 225,225);")
         self.tableView.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.tableView.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tableView.setAlternatingRowColors(False)
@@ -53,8 +51,12 @@ class Ui_ViewHead(object):
         self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tableView.setSortingEnabled(False)
         self.tableView.setCornerButtonEnabled(False)
+        self.tableView.horizontalHeader().setCascadingSectionResizes(True)
+        self.tableView.horizontalHeader().setMinimumSectionSize(50)
+        self.tableView.horizontalHeader().setDefaultSectionSize(50)
         self.tableView.horizontalHeader().setStretchLastSection(True)
         self.tableView.verticalHeader().setVisible(False)
+        self.tableView.verticalHeader().setStretchLastSection(False)
 
         self.verticalLayout.addWidget(self.tableView)
 
@@ -64,13 +66,14 @@ class Ui_ViewHead(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.buttonBack = QPushButton(ViewHead)
+        self.buttonBack = QPushButton(ViewAccount)
         self.buttonBack.setObjectName(u"buttonBack")
-        font3 = QFont()
-        font3.setPointSize(12)
-        font3.setBold(True)
-        self.buttonBack.setFont(font3)
-        self.buttonBack.setStyleSheet(u"background-color: rgb(136, 138, 133);")
+        font2 = QFont()
+        font2.setPointSize(15)
+        font2.setBold(True)
+        self.buttonBack.setFont(font2)
+        self.buttonBack.setStyleSheet(u"background-color: rgb(136, 138, 133);\n"
+"")
         icon = QIcon()
         icon.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonBack.setIcon(icon)
@@ -81,15 +84,15 @@ class Ui_ViewHead(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
 
 
-        self.retranslateUi(ViewHead)
-        self.buttonBack.clicked.connect(ViewHead.close)
+        self.retranslateUi(ViewAccount)
+        self.buttonBack.clicked.connect(ViewAccount.close)
 
-        QMetaObject.connectSlotsByName(ViewHead)
+        QMetaObject.connectSlotsByName(ViewAccount)
     # setupUi
 
-    def retranslateUi(self, ViewHead):
-        ViewHead.setWindowTitle(QCoreApplication.translate("ViewHead", u"Expense Tracker", None))
-        self.labelHeading.setText(QCoreApplication.translate("ViewHead", u"Expenditure Head", None))
-        self.buttonBack.setText(QCoreApplication.translate("ViewHead", u"&Back", None))
+    def retranslateUi(self, ViewAccount):
+        ViewAccount.setWindowTitle(QCoreApplication.translate("ViewAccount", u"Expense Tracker", None))
+        self.labelHeading.setText(QCoreApplication.translate("ViewAccount", u"Bank Accounts", None))
+        self.buttonBack.setText(QCoreApplication.translate("ViewAccount", u"&Back", None))
     # retranslateUi
 

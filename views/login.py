@@ -4,7 +4,7 @@ from PySide6.QtGui import QIcon
 from PySide6.QtSql import QSqlDatabase
 from PySide6.QtWidgets import QDialog, QLineEdit
 
-from modules.module import resizeMove
+from modules.module import resize_and_move
 from design.ui_login import Ui_LoginWindow
 from db.connect import createConnection
 from db.table_user import userExist, createUser, checkCredentials
@@ -30,7 +30,7 @@ class Login(QDialog):
     def initUI(self):
         self.ui = Ui_LoginWindow()
         self.ui.setupUi(self)
-        resizeMove(self, wd=.5, ht=.7)
+        resize_and_move(self, wd=.5, ht=.7)
         self.ui.labelMessage.hide()
         self.ui.editUsername.addAction(QIcon("src/icons/user.png"), QLineEdit.ActionPosition.LeadingPosition)
         self.ui.editPassword.addAction(QIcon("src/icons/password.png"), QLineEdit.ActionPosition.LeadingPosition)

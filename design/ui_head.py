@@ -40,7 +40,7 @@ class Ui_HeadWindow(object):
         self.labelHeading.setFont(font1)
         self.labelHeading.setStyleSheet(u"color: rgb(51, 51, 51);\n"
 "background-color: rgb(169, 216, 252);")
-        self.labelHeading.setAlignment(Qt.AlignCenter)
+        self.labelHeading.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.labelHeading.setMargin(10)
 
         self.verticalLayout.addWidget(self.labelHeading)
@@ -65,7 +65,7 @@ class Ui_HeadWindow(object):
 
         self.comboHead = QComboBox(HeadWindow)
         self.comboHead.setObjectName(u"comboHead")
-        self.comboHead.setMinimumSize(QSize(0, 40))
+        self.comboHead.setMinimumSize(QSize(200, 40))
         self.comboHead.setFont(font)
         self.comboHead.setStyleSheet(u"background-color: rgb(254, 255, 211);\n"
 "color: rgb(51, 51, 51);")
@@ -79,10 +79,6 @@ class Ui_HeadWindow(object):
 
         self.verticalLayout.addLayout(self.comboLayout)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 52, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout.addItem(self.verticalSpacer_2)
-
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -94,37 +90,37 @@ class Ui_HeadWindow(object):
         self.formLayout.setHorizontalSpacing(20)
         self.formLayout.setVerticalSpacing(10)
         self.formLayout.setContentsMargins(25, 6, 25, 6)
-        self.labelHeadId = QLabel(HeadWindow)
-        self.labelHeadId.setObjectName(u"labelHeadId")
-        self.labelHeadId.setMinimumSize(QSize(0, 40))
-        self.labelHeadId.setFont(font)
-
-        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.labelHeadId)
-
-        self.labelDispalyId = QLabel(HeadWindow)
-        self.labelDispalyId.setObjectName(u"labelDispalyId")
-        self.labelDispalyId.setMinimumSize(QSize(0, 40))
-        self.labelDispalyId.setFont(font)
-        self.labelDispalyId.setStyleSheet(u"color: rgb(102, 26, 216);")
-
-        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.labelDispalyId)
-
         self.labelHeadName = QLabel(HeadWindow)
         self.labelHeadName.setObjectName(u"labelHeadName")
         self.labelHeadName.setMinimumSize(QSize(0, 40))
         self.labelHeadName.setFont(font)
 
-        self.formLayout.setWidget(2, QFormLayout.LabelRole, self.labelHeadName)
+        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.labelHeadName)
 
         self.editHeadName = QLineEdit(HeadWindow)
         self.editHeadName.setObjectName(u"editHeadName")
-        self.editHeadName.setMinimumSize(QSize(0, 40))
+        self.editHeadName.setMinimumSize(QSize(200, 40))
         self.editHeadName.setFont(font)
         self.editHeadName.setStyleSheet(u"background-color: rgb(254, 255, 211);\n"
 "color: rgb(51, 51, 51);")
         self.editHeadName.setMaxLength(32)
 
-        self.formLayout.setWidget(2, QFormLayout.FieldRole, self.editHeadName)
+        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.editHeadName)
+
+        self.labelHeadType = QLabel(HeadWindow)
+        self.labelHeadType.setObjectName(u"labelHeadType")
+        self.labelHeadType.setMinimumSize(QSize(0, 40))
+        self.labelHeadType.setFont(font)
+
+        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.labelHeadType)
+
+        self.comboHeadType = QComboBox(HeadWindow)
+        self.comboHeadType.setObjectName(u"comboHeadType")
+        self.comboHeadType.setMinimumSize(QSize(200, 40))
+        self.comboHeadType.setStyleSheet(u"background-color: rgb(254, 255, 211);\n"
+"color: rgb(51, 51, 51);")
+
+        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.comboHeadType)
 
 
         self.horizontalLayout_2.addLayout(self.formLayout)
@@ -151,8 +147,7 @@ class Ui_HeadWindow(object):
         font2.setPointSize(14)
         font2.setBold(False)
         self.buttonBack.setFont(font2)
-        self.buttonBack.setStyleSheet(u"background-color: rgb(10, 125, 130);\n"
-"color: rgb(255, 255, 255);")
+        self.buttonBack.setStyleSheet(u"background-color: rgb(136, 138, 133);")
         icon1 = QIcon()
         icon1.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonBack.setIcon(icon1)
@@ -164,8 +159,7 @@ class Ui_HeadWindow(object):
         self.buttonCancel.setEnabled(True)
         self.buttonCancel.setMinimumSize(QSize(0, 40))
         self.buttonCancel.setFont(font2)
-        self.buttonCancel.setStyleSheet(u"background-color: rgb(10, 125, 130);\n"
-"color: rgb(255, 255, 255);")
+        self.buttonCancel.setStyleSheet(u"background-color: rgb(136, 138, 133);")
         icon2 = QIcon()
         icon2.addFile(u":/icons/icons/cancel.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonCancel.setIcon(icon2)
@@ -177,8 +171,7 @@ class Ui_HeadWindow(object):
         self.buttonOk.setEnabled(False)
         self.buttonOk.setMinimumSize(QSize(0, 40))
         self.buttonOk.setFont(font2)
-        self.buttonOk.setStyleSheet(u"background-color: rgb(10, 125, 130);\n"
-"color: rgb(255, 255, 255);")
+        self.buttonOk.setStyleSheet(u"background-color: rgb(136, 138, 133);")
         icon3 = QIcon()
         icon3.addFile(u":/icons/icons/ok.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonOk.setIcon(icon3)
@@ -194,16 +187,21 @@ class Ui_HeadWindow(object):
 
 #if QT_CONFIG(shortcut)
         self.labelHeadName.setBuddy(self.editHeadName)
+        self.labelHeadType.setBuddy(self.comboHeadType)
 #endif // QT_CONFIG(shortcut)
-        QWidget.setTabOrder(self.editHeadName, self.buttonOk)
-        QWidget.setTabOrder(self.buttonOk, self.buttonBack)
+        QWidget.setTabOrder(self.comboHead, self.comboHeadType)
+        QWidget.setTabOrder(self.comboHeadType, self.editHeadName)
+        QWidget.setTabOrder(self.editHeadName, self.buttonBack)
+        QWidget.setTabOrder(self.buttonBack, self.buttonCancel)
+        QWidget.setTabOrder(self.buttonCancel, self.buttonOk)
 
         self.retranslateUi(HeadWindow)
         self.buttonCancel.clicked.connect(HeadWindow.onDiscardPressed)
-        self.comboHead.currentIndexChanged.connect(HeadWindow.onIndexChanged)
+        self.comboHead.currentIndexChanged.connect(HeadWindow.onHeadChanged)
         self.buttonBack.clicked.connect(HeadWindow.close)
-        self.editHeadName.textEdited.connect(HeadWindow.onTextEdited)
         self.buttonOk.clicked.connect(HeadWindow.onOkPressed)
+        self.editHeadName.textEdited.connect(HeadWindow.onTextEdited)
+        self.comboHeadType.currentIndexChanged.connect(HeadWindow.onHeadTypeChanged)
 
         QMetaObject.connectSlotsByName(HeadWindow)
     # setupUi
@@ -213,11 +211,11 @@ class Ui_HeadWindow(object):
         self.labelHeading.setText(QCoreApplication.translate("HeadWindow", u"<h2>Head\n"
 "", None))
         self.labelMessage.setText(QCoreApplication.translate("HeadWindow", u"TextLabel", None))
-        self.comboHead.setPlaceholderText(QCoreApplication.translate("HeadWindow", u"Select Head", None))
-        self.labelHeadId.setText(QCoreApplication.translate("HeadWindow", u"Head ID", None))
-        self.labelDispalyId.setText(QCoreApplication.translate("HeadWindow", u"TextLabel", None))
+        self.comboHead.setPlaceholderText(QCoreApplication.translate("HeadWindow", u"Select head", None))
         self.labelHeadName.setText(QCoreApplication.translate("HeadWindow", u"Head &Name", None))
         self.editHeadName.setPlaceholderText(QCoreApplication.translate("HeadWindow", u"Enter head name", None))
+        self.labelHeadType.setText(QCoreApplication.translate("HeadWindow", u"Head &Type", None))
+        self.comboHeadType.setPlaceholderText(QCoreApplication.translate("HeadWindow", u"Select head type", None))
         self.buttonBack.setText(QCoreApplication.translate("HeadWindow", u"&Back", None))
         self.buttonCancel.setText(QCoreApplication.translate("HeadWindow", u"&Cancel", None))
         self.buttonOk.setText(QCoreApplication.translate("HeadWindow", u"&Ok", None))

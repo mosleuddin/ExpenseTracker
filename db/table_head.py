@@ -4,13 +4,14 @@ from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QMessageBox
 
 
-def insertHead(parent, head_name):
+def insertHead(parent, head_type, head_name):
     try:
         query = QSqlQuery()
-        query.prepare(""" INSERT INTO head(HeadName)
-                          VALUES(:HeadName)
+        query.prepare(""" INSERT INTO head(HeadType, HeadName)
+                          VALUES(:HeadType, :HeadName)
                      """)
 
+        query.bindValue(":HeadType", head_type)
         query.bindValue(":HeadName", head_name)
         query.exec()
         query.finish()
@@ -19,14 +20,19 @@ def insertHead(parent, head_name):
         QMessageBox.critical(parent, "DataBase Error", "Can not add head!!!")
 
 
-def updateHead(parent, head_id, head_name):
+def updateHead(parent, head_id, head_type, head_name):
     try:
         query = QSqlQuery()
-        query.prepare(""" UPDATE head SET HeadName = :HeadName
-                                         WHERE HeadId = :HeadId """)
+        query.prepare(""" UPDATE head SET
+                                        HeadType = :HeadType,
+                                        HeadName = :HeadName
+                          WHERE HeadId = :HeadId
+                      """)
 
-        query.bindValue(":HeadId", head_id)
+        query.bindValue(":HeadType", head_type)
         query.bindValue(":HeadName", head_name)
+        query.bindValue(":HeadId", head_id)
+
         query.exec()
         query.finish()
 
@@ -34,31 +40,19 @@ def updateHead(parent, head_id, head_name):
         QMessageBox.critical(parent, "DataBase Error", "Can not edit head!!!")
 
 
-def removeHead(parent, head_id):
+def removeHead(parent, head_name):
     try:
         query = QSqlQuery()
         query.prepare(""" DELETE from head
-                          WHERE HeadId = :HeadId
+                          WHERE HeadName = :HeadName
                       """)
 
-        query.bindValue(":HeadId", head_id)
+        query.bindValue(":HeadName", head_name)
         query.exec()
         query.finish()
 
     except sqlite3.Error:
         QMessageBox.critical(parent, "DataBase Error", "Can not delete head!!!")
-
-
-def getHeadId(parent):
-    head_id = 0
-    query = QSqlQuery()
-    query.exec("SELECT seq FROM sqlite_sequence WHERE name = 'head'")
-    while query.next():
-        if query.isValid():
-            head_id = int(query.value(0))
-            break
-    query.finish()
-    parent.ui.labelDispalyId.setText(str(head_id + 1))
 
 
 def populateComboHead(parent):
@@ -69,19 +63,15 @@ def populateComboHead(parent):
         parent.ui.comboHead.addItem(item)
     query.finish()
 
+    if parent.ui.comboHead.count() == 0:
+        parent.ui.comboHead.setPlaceholderText("No head available")
 
-def populateEditHeadName(parent, head_name):
-    """
-    Populate Head Id and Head Name depending on the value selected in the
-    comboHeadName.
 
-    The function needs to be called from onSearchPressed function
-
-   """
-    h_id = 0
-    h_name = ''
+def populateWidgets(parent, head_name):
+    head_id =''
+    head_type = ''
     query = QSqlQuery()
-    query.prepare("""SELECT HeadId, HeadName
+    query.prepare("""SELECT HeadId, HeadType
                      FROM head
                      WHERE HeadName = :HeadName
                  """)
@@ -89,10 +79,16 @@ def populateEditHeadName(parent, head_name):
     query.exec()
 
     while query.next():
-        h_id = query.value(0)
-        h_name = query.value(1)
+        head_id = query.value(0)
+        head_type = query.value(1)
 
     query.finish()
 
-    parent.ui.labelDispalyId.setText(str(h_id))
-    parent.ui.editHeadName.setText(h_name)
+    # set parent widget values
+    parent.ui.comboHeadType.setCurrentText(head_type)
+    parent.ui.editHeadName.setText(head_name)
+
+    # set parent variables values
+    parent.selected_head_id = head_id
+    parent.selected_head_name = head_name
+

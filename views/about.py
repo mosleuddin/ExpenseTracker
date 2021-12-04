@@ -3,7 +3,7 @@ from PySide6.QtCore import QUrl
 from PySide6.QtWidgets import QDialog
 
 from design.ui_about import Ui_AboutWindow
-from modules.module import resizeMove
+from modules.module import resize_and_move
 
 
 class About(QDialog):
@@ -13,7 +13,8 @@ class About(QDialog):
         self.ui = Ui_AboutWindow()
         self.ui.setupUi(self)
         self.configTabs()
-        resizeMove(self, self.parent, .75, .8)
+        resize_and_move(self, self.parent, .75, .8)
+        self.show()
 
     def configTabs(self):
         text = open('LICENSE').read()
