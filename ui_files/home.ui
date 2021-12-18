@@ -3,15 +3,21 @@
  <class>HomeWindow</class>
  <widget class="QMainWindow" name="HomeWindow">
   <property name="windowModality">
-   <enum>Qt::NonModal</enum>
+   <enum>Qt::WindowModal</enum>
   </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>733</width>
-    <height>480</height>
+    <width>1100</width>
+    <height>600</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="font">
    <font>
@@ -26,8 +32,7 @@
     <normaloff>:/icons/expense_tracker_sm.png</normaloff>:/icons/expense_tracker_sm.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(114, 159, 207);
-</string>
+   <string notr="true">background-color: rgb(211, 215, 207);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -187,7 +192,8 @@
          <font/>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(136, 138, 133);</string>
+         <string notr="true">background-color: rgb(255, 255, 255);
+border-color: rgb(64, 107, 191);</string>
         </property>
         <property name="text">
          <string>&amp;Bank Balance Details</string>
@@ -233,11 +239,19 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>733</width>
+     <width>1100</width>
      <height>23</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(200, 200, 200);</string>
+   </property>
    <widget class="QMenu" name="menu_File">
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(243, 243, 243);
+selection-background-color: rgb(32, 74, 135);
+selection-color: rgb(243, 243, 243);</string>
+    </property>
     <property name="title">
      <string>&amp;File</string>
     </property>
@@ -247,6 +261,11 @@
     <addaction name="action_Exit"/>
    </widget>
    <widget class="QMenu" name="menu_Account">
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(243, 243, 243);
+selection-background-color: rgb(32, 74, 135);
+selection-color: rgb(243, 243, 243);</string>
+    </property>
     <property name="title">
      <string>&amp;Account</string>
     </property>
@@ -258,6 +277,11 @@
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menu_Head">
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(243, 243, 243);
+selection-background-color: rgb(32, 74, 135);
+selection-color: rgb(243, 243, 243);</string>
+    </property>
     <property name="title">
      <string>&amp;Head</string>
     </property>
@@ -269,6 +293,11 @@
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menu_Transactions">
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(243, 243, 243);
+selection-background-color: rgb(32, 74, 135);
+selection-color: rgb(243, 243, 243);</string>
+    </property>
     <property name="title">
      <string>&amp;Transactions</string>
     </property>
@@ -280,6 +309,11 @@
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menu_Users">
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(243, 243, 243);
+selection-background-color: rgb(32, 74, 135);
+selection-color: rgb(243, 243, 243);</string>
+    </property>
     <property name="title">
      <string>&amp;Users</string>
     </property>
@@ -289,6 +323,11 @@
     <addaction name="action_Change_Username"/>
    </widget>
    <widget class="QMenu" name="menu_Initiaize">
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(243, 243, 243);
+selection-background-color: rgb(32, 74, 135);
+selection-color: rgb(243, 243, 243);</string>
+    </property>
     <property name="title">
      <string>&amp;Initialization</string>
     </property>
@@ -313,7 +352,8 @@
     <string>toolBar</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(200, 255, 210);</string>
+    <string notr="true">background-color: rgb(200, 255, 210);
+</string>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>

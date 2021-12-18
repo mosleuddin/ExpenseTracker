@@ -1,7 +1,10 @@
 import sqlite3
 
+from PySide6.QtGui import QIcon
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QMessageBox
+
+from modules.module import read_only
 
 
 def insertAccount(parent, account_number, customer_name, bank_name, branch_name):
@@ -72,7 +75,7 @@ def populateComboAccount(parent):
         parent.ui.comboAccount.setPlaceholderText("No account available")
 
 
-def populateWidgets(parent, account_number):
+def populateWidgets(parent, account_number, action=''):
     account_id = ''
     customer_name = ''
     bank_name = ''
@@ -94,10 +97,35 @@ def populateWidgets(parent, account_number):
 
     query.finish()
 
-    # set parent widget values
+    if action == 'delete':
+        # set parent widget values for delete account window
+        parent.ui.labelBankName2.hide()
+        parent.ui.comboBankName.hide()
+
+        parent.ui.editBankName.setText(bank_name)
+        parent.ui.labelBankName1.show()
+        parent.ui.editBankName.show()
+
+        read_only(parent.bg, parent.ui.editAccountNumber, parent.ui.editCustomerName,
+                  parent.ui.editBankName, parent.ui.editBranchName)
+
+        parent.ui.labelAccountNumber.setText('Account Number')
+        parent.ui.labelCustomerName.setText('Customer Name')
+        parent.ui.labelBranchName.setText('Branch Name')
+
+        parent.ui.buttonOk.setEnabled(True)
+        parent.ui.buttonOk.setFocus()
+
+    else:
+        # set parent widget value for edit account windows
+        parent.ui.comboBankName.setCurrentText(bank_name)
+        read_only(parent.bg, parent.ui.editAccountNumber)
+        parent.ui.labelAccountNumber.setText('Account Number')
+        parent.ui.buttonOk.setEnabled(False)
+
+    # set parent widget values for the both edit & delete account windows
     parent.ui.editAccountNumber.setText(str(account_number))
     parent.ui.editCustomerName.setText(customer_name)
-    parent.ui.editBankName.setText(bank_name)
     parent.ui.editBranchName.setText(branch_name)
 
     # set parent variables values

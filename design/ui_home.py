@@ -18,16 +18,20 @@ class Ui_HomeWindow(object):
     def setupUi(self, HomeWindow):
         if not HomeWindow.objectName():
             HomeWindow.setObjectName(u"HomeWindow")
-        HomeWindow.setWindowModality(Qt.NonModal)
-        HomeWindow.resize(733, 480)
+        HomeWindow.setWindowModality(Qt.WindowModal)
+        HomeWindow.resize(1100, 600)
+        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(HomeWindow.sizePolicy().hasHeightForWidth())
+        HomeWindow.setSizePolicy(sizePolicy)
         font = QFont()
         font.setPointSize(10)
         HomeWindow.setFont(font)
         icon = QIcon()
         icon.addFile(u":/icons/expense_tracker_sm.png", QSize(), QIcon.Normal, QIcon.Off)
         HomeWindow.setWindowIcon(icon)
-        HomeWindow.setStyleSheet(u"background-color: rgb(114, 159, 207);\n"
-"")
+        HomeWindow.setStyleSheet(u"background-color: rgb(211, 215, 207);")
         self.action_Exit = QAction(HomeWindow)
         self.action_Exit.setObjectName(u"action_Exit")
         icon1 = QIcon()
@@ -193,7 +197,8 @@ class Ui_HomeWindow(object):
         self.buttonBankBalance.setMinimumSize(QSize(200, 30))
         self.buttonBankBalance.setMaximumSize(QSize(200, 30))
         self.buttonBankBalance.setFont(font1)
-        self.buttonBankBalance.setStyleSheet(u"background-color: rgb(136, 138, 133);")
+        self.buttonBankBalance.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"border-color: rgb(64, 107, 191);")
         self.buttonBankBalance.setIcon(icon4)
 
         self.horizontalLayout.addWidget(self.buttonBankBalance)
@@ -212,19 +217,38 @@ class Ui_HomeWindow(object):
         HomeWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(HomeWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 733, 23))
+        self.menubar.setGeometry(QRect(0, 0, 1100, 23))
+        self.menubar.setStyleSheet(u"background-color: rgb(200, 200, 200);")
         self.menu_File = QMenu(self.menubar)
         self.menu_File.setObjectName(u"menu_File")
+        self.menu_File.setStyleSheet(u"background-color: rgb(243, 243, 243);\n"
+"selection-background-color: rgb(32, 74, 135);\n"
+"selection-color: rgb(243, 243, 243);")
         self.menu_Account = QMenu(self.menubar)
         self.menu_Account.setObjectName(u"menu_Account")
+        self.menu_Account.setStyleSheet(u"background-color: rgb(243, 243, 243);\n"
+"selection-background-color: rgb(32, 74, 135);\n"
+"selection-color: rgb(243, 243, 243);")
         self.menu_Head = QMenu(self.menubar)
         self.menu_Head.setObjectName(u"menu_Head")
+        self.menu_Head.setStyleSheet(u"background-color: rgb(243, 243, 243);\n"
+"selection-background-color: rgb(32, 74, 135);\n"
+"selection-color: rgb(243, 243, 243);")
         self.menu_Transactions = QMenu(self.menubar)
         self.menu_Transactions.setObjectName(u"menu_Transactions")
+        self.menu_Transactions.setStyleSheet(u"background-color: rgb(243, 243, 243);\n"
+"selection-background-color: rgb(32, 74, 135);\n"
+"selection-color: rgb(243, 243, 243);")
         self.menu_Users = QMenu(self.menubar)
         self.menu_Users.setObjectName(u"menu_Users")
+        self.menu_Users.setStyleSheet(u"background-color: rgb(243, 243, 243);\n"
+"selection-background-color: rgb(32, 74, 135);\n"
+"selection-color: rgb(243, 243, 243);")
         self.menu_Initiaize = QMenu(self.menubar)
         self.menu_Initiaize.setObjectName(u"menu_Initiaize")
+        self.menu_Initiaize.setStyleSheet(u"background-color: rgb(243, 243, 243);\n"
+"selection-background-color: rgb(32, 74, 135);\n"
+"selection-color: rgb(243, 243, 243);")
         HomeWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(HomeWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -232,7 +256,8 @@ class Ui_HomeWindow(object):
         HomeWindow.setStatusBar(self.statusbar)
         self.toolBar = QToolBar(HomeWindow)
         self.toolBar.setObjectName(u"toolBar")
-        self.toolBar.setStyleSheet(u"background-color: rgb(200, 255, 210);")
+        self.toolBar.setStyleSheet(u"background-color: rgb(200, 255, 210);\n"
+"")
         HomeWindow.addToolBar(Qt.TopToolBarArea, self.toolBar)
 
         self.menubar.addAction(self.menu_File.menuAction())

@@ -27,36 +27,21 @@ class Ui_ShowUsers(object):
         ShowUsers.setStyleSheet(u"background-color: rgb(170, 176, 224);")
         ShowUsers.setModal(True)
         self.verticalLayout = QVBoxLayout(ShowUsers)
+        self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(-1, 20, -1, 30)
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout.addItem(self.horizontalSpacer)
-
+        self.verticalLayout.setContentsMargins(30, 30, 30, 30)
         self.labelHeading = QLabel(ShowUsers)
         self.labelHeading.setObjectName(u"labelHeading")
         font1 = QFont()
-        font1.setPointSize(16)
+        font1.setPointSize(14)
+        font1.setBold(True)
         self.labelHeading.setFont(font1)
+        self.labelHeading.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"background-color: rgb(25, 25, 112);")
         self.labelHeading.setAlignment(Qt.AlignCenter)
+        self.labelHeading.setMargin(10)
 
-        self.horizontalLayout.addWidget(self.labelHeading)
-
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout.addItem(self.horizontalSpacer_2)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout)
-
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(-1, 30, -1, -1)
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_2.addItem(self.horizontalSpacer_3)
+        self.verticalLayout.addWidget(self.labelHeading)
 
         self.tableWidget = QTableWidget(ShowUsers)
         if (self.tableWidget.columnCount() < 4):
@@ -64,7 +49,7 @@ class Ui_ShowUsers(object):
         self.tableWidget.setObjectName(u"tableWidget")
         self.tableWidget.setMinimumSize(QSize(500, 300))
         self.tableWidget.setFont(font)
-        self.tableWidget.setStyleSheet(u"background-color: rgb(255, 255, 255);")
+        self.tableWidget.setStyleSheet(u"background-color: rgb(225, 225,225);")
         self.tableWidget.setSizeAdjustPolicy(QAbstractScrollArea.AdjustIgnored)
         self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tableWidget.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -79,46 +64,37 @@ class Ui_ShowUsers(object):
         self.tableWidget.verticalHeader().setDefaultSectionSize(22)
         self.tableWidget.verticalHeader().setHighlightSections(False)
 
-        self.horizontalLayout_2.addWidget(self.tableWidget)
+        self.verticalLayout.addWidget(self.tableWidget)
 
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_2.addItem(self.horizontalSpacer_4)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
-
-        self.verticalSpacer_2 = QSpacerItem(20, 29, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout.addItem(self.verticalSpacer_2)
-
-        self.horizontalLayout_3 = QHBoxLayout()
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_3.addItem(self.horizontalSpacer_5)
-
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setSpacing(0)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(-1, 30, -1, -1)
         self.buttonBack = QPushButton(ShowUsers)
         self.buttonBack.setObjectName(u"buttonBack")
-        self.buttonBack.setMinimumSize(QSize(150, 40))
-        self.buttonBack.setFont(font)
-        self.buttonBack.setStyleSheet(u"background-color: rgb(136, 138, 133);")
+        self.buttonBack.setMinimumSize(QSize(100, 30))
+        self.buttonBack.setMaximumSize(QSize(100, 30))
+        font2 = QFont()
+        font2.setPointSize(12)
+        self.buttonBack.setFont(font2)
+        self.buttonBack.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"\n"
+"")
         icon = QIcon()
         icon.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonBack.setIcon(icon)
 
-        self.horizontalLayout_3.addWidget(self.buttonBack)
-
-        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_3.addItem(self.horizontalSpacer_6)
+        self.horizontalLayout.addWidget(self.buttonBack)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout_3)
+        self.verticalLayout.addLayout(self.horizontalLayout)
 
 
         self.retranslateUi(ShowUsers)
         self.buttonBack.clicked.connect(ShowUsers.close)
+
+        self.buttonBack.setDefault(True)
+
 
         QMetaObject.connectSlotsByName(ShowUsers)
     # setupUi

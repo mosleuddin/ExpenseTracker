@@ -30,7 +30,7 @@ class Login(QDialog):
     def initUI(self):
         self.ui = Ui_LoginWindow()
         self.ui.setupUi(self)
-        resize_and_move(self, wd=.5, ht=.7)
+        resize_and_move(self, wd=.6, ht=.4)
         self.ui.labelMessage.hide()
         self.ui.editUsername.addAction(QIcon("src/icons/user.png"), QLineEdit.ActionPosition.LeadingPosition)
         self.ui.editPassword.addAction(QIcon("src/icons/password.png"), QLineEdit.ActionPosition.LeadingPosition)

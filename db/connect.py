@@ -1,13 +1,14 @@
 from PySide6.QtSql import QSqlQuery, QSqlDatabase
-from PySide6.QtWidgets import QMessageBox
-
+from modules.module import CustomMessage
 
 def createConnection(parent):
     conn = QSqlDatabase.addDatabase("QSQLITE")
     conn.setDatabaseName("src/expenditure.sqlite3")
     if not conn.open():
-        QMessageBox.warning(None, "Database Error",
-                            f"Unable to connect to the database\n\n{conn.lastError().text()}")
+        title = "Database Error"
+        msg = f"Unable to connect to the database\n\n{conn.lastError().text().upper()}"
+        button_0 = '&Close'
+        CustomMessage().danger(title=title, msg=msg, button_0= button_0)
         return False
     parent.conn = conn
     createTables()
@@ -63,4 +64,3 @@ def createTables():
                """)
 
     query.finish()
-

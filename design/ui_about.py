@@ -22,7 +22,7 @@ class Ui_AboutWindow(object):
         AboutWindow.setMaximumSize(QSize(32000, 32000))
         font = QFont()
         AboutWindow.setFont(font)
-        AboutWindow.setStyleSheet(u"background-color: rgb(255, 255, 255);")
+        AboutWindow.setStyleSheet(u"background-color: rgb(200,200,200);")
         AboutWindow.setModal(True)
         self.verticalLayout = QVBoxLayout(AboutWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -31,7 +31,7 @@ class Ui_AboutWindow(object):
         font1 = QFont()
         font1.setPointSize(12)
         self.tabWidget.setFont(font1)
-        self.tabWidget.setStyleSheet(u"background-color: rgb(255, 255, 255);")
+        self.tabWidget.setStyleSheet(u"")
         self.tabApp = QWidget()
         self.tabApp.setObjectName(u"tabApp")
         self.verticalLayout_3 = QVBoxLayout(self.tabApp)
@@ -83,8 +83,11 @@ class Ui_AboutWindow(object):
 
         self.buttonLicense = QPushButton(self.tabApp)
         self.buttonLicense.setObjectName(u"buttonLicense")
+        self.buttonLicense.setMinimumSize(QSize(130, 30))
+        self.buttonLicense.setMaximumSize(QSize(130, 30))
         self.buttonLicense.setFont(font1)
-        self.buttonLicense.setStyleSheet(u"background-color: rgb(136, 138, 133);")
+        self.buttonLicense.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"")
         icon = QIcon()
         icon.addFile(u":/icons/icons/license.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonLicense.setIcon(icon)
@@ -129,6 +132,7 @@ class Ui_AboutWindow(object):
         self.verticalLayout.addWidget(self.tabWidget)
 
         self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -136,26 +140,24 @@ class Ui_AboutWindow(object):
 
         self.buttonWebsite = QPushButton(AboutWindow)
         self.buttonWebsite.setObjectName(u"buttonWebsite")
-        self.buttonWebsite.setMinimumSize(QSize(150, 30))
-        font2 = QFont()
-        font2.setPointSize(16)
-        self.buttonWebsite.setFont(font2)
-        self.buttonWebsite.setStyleSheet(u"background-color: rgb(136, 138, 133);")
+        self.buttonWebsite.setMinimumSize(QSize(100, 30))
+        self.buttonWebsite.setMaximumSize(QSize(100, 30))
+        self.buttonWebsite.setFont(font1)
+        self.buttonWebsite.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"border-color: rgb(204, 0, 0);")
         icon3 = QIcon()
         icon3.addFile(u":/icons/icons/website.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonWebsite.setIcon(icon3)
 
         self.horizontalLayout.addWidget(self.buttonWebsite)
 
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout.addItem(self.horizontalSpacer_4)
-
         self.buttonBack = QPushButton(AboutWindow)
         self.buttonBack.setObjectName(u"buttonBack")
-        self.buttonBack.setMinimumSize(QSize(150, 30))
-        self.buttonBack.setFont(font2)
-        self.buttonBack.setStyleSheet(u"background-color: rgb(136, 138, 133);")
+        self.buttonBack.setMinimumSize(QSize(100, 30))
+        self.buttonBack.setMaximumSize(QSize(100, 30))
+        self.buttonBack.setFont(font1)
+        self.buttonBack.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"border-color: rgb(204, 0, 0);")
         icon4 = QIcon()
         icon4.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonBack.setIcon(icon4)

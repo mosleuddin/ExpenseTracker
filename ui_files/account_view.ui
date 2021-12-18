@@ -29,7 +29,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
-    <number>30</number>
+    <number>0</number>
    </property>
    <property name="leftMargin">
     <number>30</number>
@@ -52,13 +52,17 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(25, 25, 112);</string>
      </property>
      <property name="text">
       <string>Bank Accounts</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="margin">
+      <number>10</number>
      </property>
     </widget>
    </item>
@@ -115,29 +119,29 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
+     <property name="topMargin">
+      <number>20</number>
+     </property>
      <item>
       <widget class="QPushButton" name="buttonBack">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>30</height>
+        </size>
+       </property>
        <property name="font">
-        <font>
-         <pointsize>15</pointsize>
-         <bold>true</bold>
-        </font>
+        <font/>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(136, 138, 133);
+        <string notr="true">background-color: rgb(255, 255, 255);
+
 </string>
        </property>
        <property name="text">
@@ -146,6 +150,9 @@
        <property name="icon">
         <iconset resource="../src/resource.qrc">
          <normaloff>:/icons/icons/back.png</normaloff>:/icons/icons/back.png</iconset>
+       </property>
+       <property name="default">
+        <bool>true</bool>
        </property>
       </widget>
      </item>

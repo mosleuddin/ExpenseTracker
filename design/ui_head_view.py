@@ -23,10 +23,10 @@ class Ui_ViewHead(object):
         font = QFont()
         font.setPointSize(14)
         ViewHead.setFont(font)
-        ViewHead.setStyleSheet(u"background-color: rgb(150, 175, 210);")
+        ViewHead.setStyleSheet(u"background-color: rgb(175, 200, 155);")
         ViewHead.setModal(True)
         self.verticalLayout = QVBoxLayout(ViewHead)
-        self.verticalLayout.setSpacing(30)
+        self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(30, 30, 30, 30)
         self.labelHeading = QLabel(ViewHead)
@@ -35,8 +35,10 @@ class Ui_ViewHead(object):
         font1.setPointSize(14)
         font1.setBold(True)
         self.labelHeading.setFont(font1)
-        self.labelHeading.setStyleSheet(u"")
-        self.labelHeading.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.labelHeading.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"background-color: rgb(32, 74, 135);")
+        self.labelHeading.setAlignment(Qt.AlignCenter)
+        self.labelHeading.setMargin(10)
 
         self.verticalLayout.addWidget(self.labelHeading)
 
@@ -55,22 +57,23 @@ class Ui_ViewHead(object):
         self.tableView.setCornerButtonEnabled(False)
         self.tableView.horizontalHeader().setStretchLastSection(True)
         self.tableView.verticalHeader().setVisible(False)
+        self.tableView.verticalHeader().setStretchLastSection(False)
 
         self.verticalLayout.addWidget(self.tableView)
 
         self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout.addItem(self.horizontalSpacer)
-
+        self.horizontalLayout.setContentsMargins(-1, 30, -1, -1)
         self.buttonBack = QPushButton(ViewHead)
         self.buttonBack.setObjectName(u"buttonBack")
+        self.buttonBack.setMinimumSize(QSize(100, 30))
+        self.buttonBack.setMaximumSize(QSize(100, 30))
         font3 = QFont()
         font3.setPointSize(12)
         font3.setBold(True)
         self.buttonBack.setFont(font3)
-        self.buttonBack.setStyleSheet(u"background-color: rgb(136, 138, 133);")
+        self.buttonBack.setStyleSheet(u"background-color: rgb(255, 255, 255);")
         icon = QIcon()
         icon.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonBack.setIcon(icon)
@@ -83,6 +86,9 @@ class Ui_ViewHead(object):
 
         self.retranslateUi(ViewHead)
         self.buttonBack.clicked.connect(ViewHead.close)
+
+        self.buttonBack.setDefault(True)
+
 
         QMetaObject.connectSlotsByName(ViewHead)
     # setupUi

@@ -1,9 +1,10 @@
 from PySide6.QtCore import Qt
 from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
-from PySide6.QtWidgets import QMainWindow, QInputDialog, QMessageBox
+from PySide6.QtWidgets import QMainWindow, QInputDialog
 
 from design.ui_home import Ui_HomeWindow
 from db.table_user import viewUser, resetUserCredentials
+from modules.module import CustomMessage, resize_and_move
 
 from views.credentials import ShowUsers, ChangeUsername, ChangePassword
 from views.about import About
@@ -20,7 +21,8 @@ class Home(QMainWindow):
 
         self.ui = Ui_HomeWindow()
         self.ui.setupUi(self)
-        self.setWindowState(Qt.WindowFullScreen)
+        # self.setWindowState(Qt.WindowFullScreen)
+        resize_and_move(self, wd=.9, ht=.8)
         self.show()
 
         # The below portion will be changed in future
@@ -40,8 +42,10 @@ class Home(QMainWindow):
             self.close()
 
     def closeEvent(self, event):
-        confirm = QMessageBox.question(self, "Confirm Exit ", f"Are you sure you want to exit?")
-        if confirm == QMessageBox.Yes:
+        title = 'Confirm Exit'
+        msg = '<h4 color: rgb(255, 0, 0);>Are you sure you want to exit?</h4>'
+
+        if CustomMessage().confirm(title, msg, 'E&xit',  '&Cancel'):
             self.conn.close()
             self.conn.setDatabaseName("")
             QSqlDatabase.removeDatabase(QSqlDatabase.database().connectionName())
@@ -52,7 +56,7 @@ class Home(QMainWindow):
 
     # function for button Bank Balance
     def bank_balance_details(self):
-        print('Bank balance details')
+        CustomMessage().info('Bank Balance', 'This function is not completed', '&Ok' )
 
     # functions for File Menu
     def print_transactions(self):
@@ -119,5 +123,3 @@ class Home(QMainWindow):
     # function for initialization
     def initialize_data(self):
         print('initialize_data')
-
-

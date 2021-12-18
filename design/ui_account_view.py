@@ -26,7 +26,7 @@ class Ui_ViewAccount(object):
         ViewAccount.setStyleSheet(u"background-color: rgb(238, 226,152);")
         ViewAccount.setModal(True)
         self.verticalLayout = QVBoxLayout(ViewAccount)
-        self.verticalLayout.setSpacing(30)
+        self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(30, 30, 30, 30)
         self.labelHeading = QLabel(ViewAccount)
@@ -35,8 +35,10 @@ class Ui_ViewAccount(object):
         font1.setPointSize(14)
         font1.setBold(True)
         self.labelHeading.setFont(font1)
-        self.labelHeading.setStyleSheet(u"")
-        self.labelHeading.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.labelHeading.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"background-color: rgb(25, 25, 112);")
+        self.labelHeading.setAlignment(Qt.AlignCenter)
+        self.labelHeading.setMargin(10)
 
         self.verticalLayout.addWidget(self.labelHeading)
 
@@ -62,17 +64,15 @@ class Ui_ViewAccount(object):
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout.addItem(self.horizontalSpacer)
-
+        self.horizontalLayout.setContentsMargins(-1, 20, -1, -1)
         self.buttonBack = QPushButton(ViewAccount)
         self.buttonBack.setObjectName(u"buttonBack")
+        self.buttonBack.setMinimumSize(QSize(100, 30))
+        self.buttonBack.setMaximumSize(QSize(100, 30))
         font2 = QFont()
-        font2.setPointSize(15)
-        font2.setBold(True)
         self.buttonBack.setFont(font2)
-        self.buttonBack.setStyleSheet(u"background-color: rgb(136, 138, 133);\n"
+        self.buttonBack.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"\n"
 "")
         icon = QIcon()
         icon.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -86,6 +86,9 @@ class Ui_ViewAccount(object):
 
         self.retranslateUi(ViewAccount)
         self.buttonBack.clicked.connect(ViewAccount.close)
+
+        self.buttonBack.setDefault(True)
+
 
         QMetaObject.connectSlotsByName(ViewAccount)
     # setupUi

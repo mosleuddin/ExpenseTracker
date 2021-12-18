@@ -23,7 +23,7 @@
    <string>About ExpenseTracker</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);</string>
+   <string notr="true">background-color: rgb(200,200,200);</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -37,7 +37,7 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
+      <string notr="true"/>
      </property>
      <property name="currentIndex">
       <number>0</number>
@@ -156,13 +156,26 @@ p, li { white-space: pre-wrap; }
          </item>
          <item>
           <widget class="QPushButton" name="buttonLicense">
+           <property name="minimumSize">
+            <size>
+             <width>130</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>130</width>
+             <height>30</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <pointsize>12</pointsize>
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(136, 138, 133);</string>
+            <string notr="true">background-color: rgb(255, 255, 255);
+</string>
            </property>
            <property name="text">
             <string>&amp;Show License</string>
@@ -244,6 +257,9 @@ p, li { white-space: pre-wrap; }
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <item>
       <spacer name="horizontalSpacer_2">
        <property name="orientation">
@@ -261,17 +277,24 @@ p, li { white-space: pre-wrap; }
       <widget class="QPushButton" name="buttonWebsite">
        <property name="minimumSize">
         <size>
-         <width>150</width>
+         <width>100</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
          <height>30</height>
         </size>
        </property>
        <property name="font">
         <font>
-         <pointsize>16</pointsize>
+         <pointsize>12</pointsize>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(136, 138, 133);</string>
+        <string notr="true">background-color: rgb(255, 255, 255);
+border-color: rgb(204, 0, 0);</string>
        </property>
        <property name="text">
         <string>&amp;Website</string>
@@ -283,33 +306,27 @@ p, li { white-space: pre-wrap; }
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
       <widget class="QPushButton" name="buttonBack">
        <property name="minimumSize">
         <size>
-         <width>150</width>
+         <width>100</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
          <height>30</height>
         </size>
        </property>
        <property name="font">
         <font>
-         <pointsize>16</pointsize>
+         <pointsize>12</pointsize>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(136, 138, 133);</string>
+        <string notr="true">background-color: rgb(255, 255, 255);
+border-color: rgb(204, 0, 0);</string>
        </property>
        <property name="text">
         <string>&amp;Back</string>

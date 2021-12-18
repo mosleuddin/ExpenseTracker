@@ -1,6 +1,6 @@
 from PySide6.QtGui import QFont, QIcon
-from PySide6.QtSql import QSqlQuery
-from PySide6.QtWidgets import QApplication, QPushButton
+from PySide6.QtSql import QSqlRelationalDelegate
+from PySide6.QtWidgets import QApplication, QPushButton, QMessageBox, QLineEdit
 
 
 class CustomButton(QPushButton):
@@ -9,6 +9,64 @@ class CustomButton(QPushButton):
         self.setIcon(QIcon("src/icons/reset.png"))
         self.setStyleSheet("background-color:rgb(255, 100, 100)")
         self.user_name = ''
+
+
+class CustomMessage(QMessageBox):
+    def __init__(self):
+        super(CustomMessage, self).__init__()
+
+    def confirm(self, title='Title', msg='Message', button_0='&Accept', button_1='&Reject'):
+        acceptButton = QPushButton(icon=QIcon('./src/icons/ok.png'), text=button_0)
+        rejectButton = QPushButton(icon=QIcon('./src/icons/cancel.png'), text=button_1)
+        rejectButton.setStyleSheet('background-color: rgb(0, 60, 150)')
+
+        self.addButton(acceptButton, QMessageBox.AcceptRole)
+        self.addButton(rejectButton, QMessageBox.RejectRole)
+        self.setDefaultButton(rejectButton)
+
+        self.setStyleSheet('background-color: rgb(75, 75, 75); color: rgb(255, 255, 255)')
+        self.setIcon(QMessageBox.Question)
+        self.setWindowTitle(title)
+        self.setText(msg)
+        self.exec()
+
+        if self.clickedButton() == acceptButton:
+            return True
+        else:
+            return False
+
+    def info(self, title='Title', msg='Message', button_0='&Accept'):
+        acceptButton = QPushButton(icon=QIcon('./src/icons/ok.png'), text=button_0)
+        acceptButton.setStyleSheet('background-color: rgb(245, 245, 245); color: rgb(51, 51, 51)')
+        self.addButton(acceptButton, QMessageBox.AcceptRole)
+
+        self.setStyleSheet('background-color: rgb(0, 150, 150); color: rgb(0, 0, 0)')
+        self.setIcon(QMessageBox.Information)
+        self.setWindowTitle(title)
+        self.setText(msg)
+        self.exec()
+
+    def warn(self, title='Title', msg='Message', button_0='&Accept'):
+        acceptButton = QPushButton(icon=QIcon('./src/icons/ok.png'), text=button_0)
+        acceptButton.setStyleSheet('background-color: rgb(245, 245, 245); color: rgb(51, 51, 51)')
+        self.addButton(acceptButton, QMessageBox.AcceptRole)
+
+        self.setStyleSheet('background-color: rgb(255, 200, 200); color: rgb(0, 0, 0)')
+        self.setIcon(QMessageBox.Warning)
+        self.setWindowTitle(title)
+        self.setText(msg)
+        self.exec()
+
+    def danger(self, title='Title', msg='Message', button_0='&Accept'):
+        acceptButton = QPushButton(icon=QIcon('./src/icons/ok.png'), text=button_0)
+        acceptButton.setStyleSheet('background-color: rgb(245, 245, 245); color: rgb(51, 51, 51)')
+        self.addButton(acceptButton, QMessageBox.AcceptRole)
+
+        self.setStyleSheet('background-color: rgb(255, 50, 50); color: rgb(0, 0, 0)')
+        self.setIcon(QMessageBox.Critical)
+        self.setWindowTitle(title)
+        self.setText(msg)
+        self.exec()
 
 
 # set custom font
@@ -78,3 +136,12 @@ def valid_space(text):
             space = 0
     return True
 
+
+class CustomDelegate(QSqlRelationalDelegate):
+    def __init__(self, index, parent):
+        super(CustomDelegate, self).__init__(parent)
+
+    def createEditor(self, index, parent):
+        editor = QLineEdit()
+        editor.setMaxLength(6)
+        return editor

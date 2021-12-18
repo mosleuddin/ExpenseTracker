@@ -1,9 +1,9 @@
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon
 from PySide6.QtSql import QSqlQuery, QSqlQueryModel
-from PySide6.QtWidgets import QDialog, QLineEdit, QMessageBox, QTableView, QLabel
+from PySide6.QtWidgets import QDialog, QLineEdit, QTableView, QLabel
 
-from modules.module import resize_and_move, read_only, valid_char, valid_space
+from modules.module import CustomMessage, resize_and_move, valid_char, valid_space
 from design.ui_account import Ui_AccountWindow
 from design.ui_account_view import Ui_ViewAccount
 from db.table_account import (insertAccount, updateAccount, removeAccount,
@@ -28,9 +28,17 @@ class Account(QDialog):
 
     def configUI(self):
         self.setWindowTitle('Expense Tracker')
-        resize_and_move(self, self.parent, .4, .6)
+        resize_and_move(self, self.parent, .9, .7)
         self.hideWidgets()
         self.ui.labelMessage.hide()
+
+        # configure comboBankName
+        icon = QIcon('src/icons/common.png')
+        bank_list = ['Canara Bank', 'HDFC Bank Limited', 'State Bank of India',
+                     'Uttarbanga Kshetrya Gramin Bank']
+
+        for bank_name in bank_list:
+            self.ui.comboBankName.addItem(icon, bank_name)
 
         self.ui.editAccountNumber.addAction(QIcon('src/icons/common.png'), QLineEdit.ActionPosition.LeadingPosition)
         self.ui.editCustomerName.addAction(QIcon('src/icons/common.png'), QLineEdit.ActionPosition.LeadingPosition)
@@ -40,12 +48,12 @@ class Account(QDialog):
     def showWidgets(self):
         self.ui.labelAccountNumber.show()
         self.ui.labelCustomerName.show()
-        self.ui.labelBankName.show()
+        self.ui.labelBankName2.show()
         self.ui.labelBranchName.show()
 
         self.ui.editAccountNumber.show()
         self.ui.editCustomerName.show()
-        self.ui.editBankName.show()
+        self.ui.comboBankName.show()
         self.ui.editBranchName.show()
 
         self.ui.buttonOk.show()
@@ -56,11 +64,13 @@ class Account(QDialog):
     def hideWidgets(self):
         self.ui.labelAccountNumber.hide()
         self.ui.labelCustomerName.hide()
-        self.ui.labelBankName.hide()
+        self.ui.labelBankName1.hide()
+        self.ui.labelBankName2.hide()
         self.ui.labelBranchName.hide()
 
         self.ui.editAccountNumber.hide()
         self.ui.editCustomerName.hide()
+        self.ui.comboBankName.hide()
         self.ui.editBankName.hide()
         self.ui.editBranchName.hide()
 
@@ -68,41 +78,16 @@ class Account(QDialog):
         self.ui.buttonCancel.hide()
 
     def onAccountChanged(self, index):
-        if index != -1:
-            self.ui.labelMessage.hide()
-            self.ui.comboAccount.hide()
-            self.showWidgets()
-
-            account_number = self.ui.comboAccount.currentText()
-            populateWidgets(self, account_number)
+        pass
 
     def onBankNameChanged(self, index):
-        if index != -1:
-            self.ui.editBranchName.setFocus()
+        self.ui.labelMessage.hide()
+        self.ui.buttonOk.setEnabled(True)
+        self.ui.editBranchName.setFocus()
 
     def onTextEdited(self, text):
-        sender = self.sender()
-
-        if sender == self.ui.editAccountNumber:
-            if len(text) >= 3 and text.upper() != self.selected_account_number:
-                self.ui.buttonOk.setEnabled(True)
-
-        elif sender == self.ui.editCustomerName:
-            if len(text) >= 3 and text.upper() != self.selected_customer_name:
-                self.ui.buttonOk.setEnabled(True)
-
-        elif sender == self.ui.editBankName:
-            if len(text) >= 3 and text.upper() != self.selected_bank_name:
-                self.ui.buttonOk.setEnabled(True)
-
-        elif sender == self.ui.editBranchName:
-            if len(text) >= 3 and text.upper() != self.selected_branch_name:
-                self.ui.buttonOk.setEnabled(True)
-
-        else:
-            self.ui.buttonOk.setEnabled(False)
-
         self.ui.labelMessage.hide()
+        self.ui.buttonOk.setEnabled(True)
 
     def onCancelPressed(self):
         self.hideWidgets()
@@ -138,7 +123,7 @@ class AddAccount(Account):
     def __init__(self, parent=None):
         super(AddAccount, self).__init__(parent)
         self.parent = parent
-        self.setStyleSheet('background-color: rgb(200, 255, 100)')
+        self.setStyleSheet('background-color: rgb(255,239,213);')
 
         # hide/show widgets
         self.ui.comboAccount.hide()
@@ -146,103 +131,93 @@ class AddAccount(Account):
         self.ui.buttonCancel.hide()
 
         # Change value of some widgets
-        self.ui.labelHeading.setText('Add New Bank Account')
-        self.ui.buttonOk.setText('&Add')
-        self.ui.buttonOk.setIcon(QIcon('src/icons/add.png'))
+        self.ui.labelHeading.setText('ADD ACCOUNT')
         self.ui.editAccountNumber.setFocus()
+        self.ui.comboBankName.setCurrentIndex(-1)
+        self.ui.buttonOk.setText('&ADD')
+        self.ui.buttonOk.setIcon(QIcon('src/icons/add.png'))
 
     def onOkPressed(self):
         account_number = self.ui.editAccountNumber.text().strip()
         customer_name = self.ui.editCustomerName.text().strip().upper()
-        bank_name = self.ui.editBankName.text().strip().upper()
-        branch_name = self.ui.editBranchName.text().strip().upper()
+        bank_name = self.ui.comboBankName.currentText()
+        branch_name = self.ui.editBranchName.text().strip().title()
         obj = None
         chars = [' ', '-']
 
+        # ###########################  Validating Bank Name ##############################
+        if self.ui.comboBankName.currentIndex() < 0:
+            obj = self.ui.comboBankName
+            title = 'Bank Name'
+            msg = 'Please select a bank'
+
         # ###########################  Validating Customer Name ##############################
-        if len(customer_name) < 3:
+        elif len(customer_name) < 3:
             obj = self.ui.editCustomerName
-            title = 'Invalid Customer Name'
+            title = 'Customer Name'
             msg = 'Minimum 3 characters required'
 
         elif not valid_char(customer_name, chars):
             obj = self.ui.editCustomerName
-            title = 'Invalid Customer Name'
+            title = 'Customer Name'
             msg = 'Only Alphabet, space and hyphen are allowed'
 
         elif not valid_space(customer_name):
             obj = self.ui.editCustomerName
-            title = 'Invalid Customer Name'
-            msg = 'Only single space between to characters is allowed'
-
-        # ###########################  Validating Bank Name ##############################
-
-        elif len(bank_name) < 3:
-            obj = self.ui.editBankName
-            title = 'Invalid Bank Name'
-            msg = 'Minimum 3 characters required'
-
-        elif not valid_char(bank_name, chars):
-            obj = self.ui.editBankName
-            title = 'Invalid Bank Name'
-            msg = 'Only Alphabet, space and hyphen are allowed'
-
-        elif not valid_space(bank_name):
-            obj = self.ui.editBankName
-            title = 'Invalid Bank Name'
+            title = 'Customer Name'
             msg = 'Only single space between to characters is allowed'
 
         # ###########################  Validating Branch Name ##############################
 
         elif len(branch_name) < 3:
             obj = self.ui.editBranchName
-            title = 'Invalid Branch Name'
+            title = 'Branch Name'
             msg = 'Minimum 3 characters required'
 
         elif not valid_char(branch_name, chars):
             obj = self.ui.editBranchName
-            title = 'Invalid Branch Name'
+            title = 'Branch Name'
             msg = 'Only Alphabet, space and hyphen are allowed'
 
         elif not valid_space(branch_name):
             obj = self.ui.editBranchName
-            title = 'Invalid Branch Name'
+            title = 'Branch Name'
             msg = 'Only single space between to characters is allowed'
 
         # ###########################  Validating Account Number ##############################
         elif len(account_number) < 10:
             obj = self.ui.editAccountNumber
-            title = 'Invalid Account Number'
-            msg = 'Minimum 10 characters required'
+            title = 'Account Number'
+            msg = 'Minimum 10 digits are required'
 
         elif not account_number.isdigit():
             obj = self.ui.editAccountNumber
-            title = 'Invalid Account Number'
+            title = 'Account Number'
             msg = 'Only digits are allowed'
 
         elif self.accountExists(account_number, 'add'):
             obj = self.ui.editAccountNumber
-            title = 'Duplicate Data'
-            msg = f'Account Number {account_number} exists!!!'
+            title = 'Account Number'
+            msg = f'A/c No.  {account_number} exists!!!'
 
         else:
             insertAccount(self, account_number, customer_name, bank_name, branch_name)
-            msg = f'Bank account No. {account_number} added successfully'
+            msg = f'Bank Account No. {account_number} added successfully'
             self.ui.labelMessage.setText(msg)
             self.ui.labelMessage.show()
 
             self.ui.editAccountNumber.setText('')
             self.ui.editCustomerName.setText('')
-            self.ui.editBankName.setText('')
+            self.ui.comboBankName.setCurrentIndex(-1)
             self.ui.editBranchName.setText('')
             self.ui.editAccountNumber.setFocus()
             self.ui.buttonOk.setEnabled(False)
             return
-
-        QMessageBox.warning(self, title, msg)
-        obj.setFocus()
-        obj.end(False)
+        CustomMessage().warn(title, msg, '&Got it')
         self.ui.buttonOk.setEnabled(False)
+        obj.setFocus()
+        if obj != self.ui.comboBankName:
+            obj.end(False)
         return
 
 
@@ -250,123 +225,129 @@ class EditAccount(Account):
     def __init__(self, parent=None):
         super(EditAccount, self).__init__(parent)
         self.parent = parent
-        self.bg = 'background-color: LightGreen'
+        self.bg = 'background-color: rgb(255,228,225)'
         self.setStyleSheet(self.bg)
         populateComboAccount(self)
 
         # Change value of some widgets
-        self.ui.labelHeading.setText('Edit Account')
-        self.ui.buttonOk.setText('&Edit')
+        self.ui.labelHeading.setText('EDIT ACCOUNT')
+        self.ui.buttonOk.setText('&EDIT')
         self.ui.buttonOk.setIcon(QIcon('src/icons/edit.png'))
-        read_only(self.bg, self.ui.editAccountNumber)
 
     def onOkPressed(self):
         account_number = self.ui.editAccountNumber.text().strip()
         customer_name = self.ui.editCustomerName.text().strip().upper()
-        bank_name = self.ui.editBankName.text().strip().upper()
-        branch_name = self.ui.editBranchName.text().strip().upper()
+        bank_name = self.ui.comboBankName.currentText()
+        branch_name = self.ui.editBranchName.text().strip().title()
         obj = None
         chars = [' ', '-']
 
-        # ###########################  Validating Customer Name ##############################
-        if len(customer_name) < 3:
+        # Check whether data changed or not
+        if customer_name == self.selected_customer_name and \
+                bank_name == self.selected_bank_name and \
+                branch_name == self.selected_branch_name:
             obj = self.ui.editCustomerName
-            title = 'Invalid Customer Name'
+            title = 'Account Details'
+            msg = 'Nothing to update???'
+
+        # ###########################  Validating Bank Name ##############################
+        elif self.ui.comboBankName.currentIndex() < 0:
+            obj = self.ui.comboBankName
+            title = 'Bank Name'
+            msg = 'Please select a bank'
+
+        # ###########################  Validating Customer Name ##############################
+        elif len(customer_name) < 3:
+            obj = self.ui.editCustomerName
+            title = 'Customer Name'
             msg = 'Minimum 3 characters required'
 
         elif not valid_char(customer_name, chars):
             obj = self.ui.editCustomerName
-            title = 'Invalid Customer Name'
+            title = 'Customer Name'
             msg = 'Only Alphabet, space and hyphen are allowed'
 
         elif not valid_space(customer_name):
             obj = self.ui.editCustomerName
-            title = 'Invalid Customer Name'
-            msg = 'Only single space between to characters is allowed'
-
-        # ###########################  Validating Bank Name ##############################
-
-        elif len(bank_name) < 3:
-            obj = self.ui.editBankName
-            title = 'Invalid Bank Name'
-            msg = 'Minimum 3 characters required'
-
-        elif not valid_char(bank_name, chars):
-            obj = self.ui.editBankName
-            title = 'Invalid Bank Name'
-            msg = 'Only Alphabet, space and hyphen are allowed'
-
-        elif not valid_space(bank_name):
-            obj = self.ui.editBankName
-            title = 'Invalid Bank Name'
+            title = 'Customer Name'
             msg = 'Only single space between to characters is allowed'
 
         # ###########################  Validating Branch Name ##############################
-
         elif len(branch_name) < 3:
             obj = self.ui.editBranchName
-            title = 'Invalid Branch Name'
+            title = 'Branch Name'
             msg = 'Minimum 3 characters required'
 
         elif not valid_char(branch_name, chars):
             obj = self.ui.editBranchName
-            title = 'Invalid Branch Name'
+            title = 'Branch Name'
             msg = 'Only Alphabet, space and hyphen are allowed'
 
         elif not valid_space(branch_name):
             obj = self.ui.editBranchName
-            title = 'Invalid Branch Name'
+            title = 'Branch Name'
             msg = 'Only single space between to characters is allowed'
 
         else:
             updateAccount(self, account_number, customer_name, bank_name, branch_name)
-            msg = f'Bank account No. "{account_number}" updated successfully'
-            self.ui.comboAccount.clear()
-            populateComboAccount(self)
+            msg = f'Bank Account No. "{account_number}" updated successfully'
+
             self.hideWidgets()
+            self.ui.labelHeading.hide()
+
             self.ui.labelMessage.setText(msg)
             self.ui.labelMessage.show()
             return
 
-        QMessageBox.warning(self, title, msg)
+        CustomMessage().warn(title, msg, '&Got it')
         obj.setFocus()
-        obj.end(False)
-        self.ui.buttonOk.setEnabled(False)
+        if obj != self.ui.comboBankName:
+            obj.end(False)
+        return
+
+    def onAccountChanged(self, index):
+        account_number = self.ui.comboAccount.currentText()
+        self.ui.labelMessage.hide()
+        self.ui.comboAccount.hide()
+
+        self.showWidgets()
+        populateWidgets(self, account_number, 'edit')
 
 
 class DeleteAccount(Account):
     def __init__(self, parent=None):
         super(DeleteAccount, self).__init__(parent)
         self.parent = parent
-        self.bg = 'background-color: LightBlue;'
+        self.bg = 'background-color: rgb(255,240,245);'
         self.setStyleSheet(self.bg)
         populateComboAccount(self)
 
         # Change value of some widgets
         self.ui.labelHeading.setText('Delete Account')
-        self.ui.buttonOk.setText('&Delete')
+        self.ui.buttonOk.setText('&DELETE')
         self.ui.buttonOk.setIcon(QIcon('src/icons/delete.png'))
-        self.ui.buttonOk.setEnabled(True)
-
-        read_only(self.bg, self.ui.editAccountNumber, self.ui.editCustomerName,
-                  self.ui.editBankName, self.ui.editBranchName)
 
     def onOkPressed(self):
         account_number = self.ui.editAccountNumber.text().strip()
-        title = 'Delete'
+        title = 'Confirm Delete'
         msg = f' Delete account number "{account_number}" ?'
-        answer = QMessageBox.question(self, title, msg)
-        if answer == QMessageBox.Yes:
+        if CustomMessage().confirm(title, msg, '&Delete', '&Cancel'):
             removeAccount(self, account_number)
+            msg = f'Bank Account No. "{account_number}" deleted successfully'
+            self.hideWidgets()
+            self.ui.labelHeading.hide()
 
-            msg = f'Account number "{account_number}" deleted successfully'
             self.ui.labelMessage.setText(msg)
             self.ui.labelMessage.show()
-
-            self.ui.comboAccount.clear()
-            populateComboAccount(self)
-            self.hideWidgets()
         return
+
+    def onAccountChanged(self, index):
+        account_number = self.ui.comboAccount.currentText()
+        self.ui.labelMessage.hide()
+        self.ui.comboAccount.hide()
+
+        self.showWidgets()
+        populateWidgets(self, account_number, 'delete')
 
 
 class ViewAccount(QDialog):

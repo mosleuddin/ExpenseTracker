@@ -42,7 +42,7 @@ class ChangePassword(Credentials):
         super().__init__()
         self.parent = parent
         self.user_id = user_id
-        resize_and_move(self, self.parent, .5, .7)
+        resize_and_move(self, self.parent, .6, .6)
         self.show()
 
         self.ui.editCurrentPassword.addAction(QIcon("src/icons/password.png"), QLineEdit.ActionPosition.LeadingPosition)
@@ -110,7 +110,7 @@ class ChangeUsername(Credentials):
         self.parent = parent
         self.user_id = user_id
         self.user_name = user_name
-        resize_and_move(self, self.parent, .5, .7)
+        resize_and_move(self, self.parent, .6, .6)
         self.setStyleSheet('background-color: rgb(153, 210, 255)')
         self.show()
         self.initUI()
@@ -132,7 +132,7 @@ class ChangeUsername(Credentials):
         self.editNewUsername.returnPressed.connect(lambda: self.function_return_pressed('new'))
         self.editConfirmUsername.returnPressed.connect(lambda: self.function_return_pressed('confirm'))
 
-        self.ui.labelHeading.setText('<h2>Change Username')
+        self.ui.labelHeading.setText('Change Username')
         self.ui.labelCurrentPassword.setText('Password')
         self.ui.labelNewPassword.setText('New Username')
         self.ui.labelConfirmPassword.setText('Confirm Username')
