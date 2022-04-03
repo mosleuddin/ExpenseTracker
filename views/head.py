@@ -31,14 +31,11 @@ class Head(QDialog):
         self.ui.labelMessage.hide()
 
         # configure comboHeadType
-        icon = QIcon('src/icons/common.png')
-        head_types = ['Payment', 'Receipt', 'Contra Entry']
+        for item in self.parent.trans_types_list:
+            self.ui.comboHeadType.addItem(self.parent.common_icon, item)
 
-        for head_type in head_types:
-            self.ui.comboHeadType.addItem(icon, head_type)
-
-        self.ui.editHeadType.addAction(QIcon('src/icons/common.png'), QLineEdit.ActionPosition.LeadingPosition)
-        self.ui.editHeadName.addAction(QIcon('src/icons/common.png'), QLineEdit.ActionPosition.LeadingPosition)
+        self.ui.editHeadType.addAction(self.parent.common_icon, QLineEdit.ActionPosition.LeadingPosition)
+        self.ui.editHeadName.addAction(self.parent.common_icon, QLineEdit.ActionPosition.LeadingPosition)
 
     def showWidgets(self):
         self.ui.labelHeadType2.show()
@@ -66,12 +63,6 @@ class Head(QDialog):
 
     def onHeadChanged(self, index):
         pass
-        head_name = self.ui.comboHead.currentText()
-        self.ui.labelMessage.hide()
-        self.ui.comboHead.hide()
-
-        self.showWidgets()
-        populateWidgets(self, head_name)
 
     def onHeadTypeChanged(self, index):
         self.ui.labelMessage.hide()
@@ -90,7 +81,7 @@ class Head(QDialog):
     def onOkPressed(self):
         pass
 
-    def headExists(self, head_name, task):
+    def headNameExists(self, head_name, task):
         query = QSqlQuery()
         if task == 'add':
             query.exec("SELECT HeadName FROM head")
@@ -98,7 +89,7 @@ class Head(QDialog):
             query.exec(f"""SELECT HeadName FROM head
                            WHERE HeadId != {self.selected_head_id}""")
         while query.next():
-            if query.value(0) == head_name:
+            if query.value(0).lower() == head_name.lower():
                 return True
         return False
 
@@ -154,10 +145,15 @@ class AddHead(Head):
             title = 'Invalid Head'
             msg = 'Only single space between to characters is allowed'
 
-        elif self.headExists(head_name, 'add'):
+        elif self.headNameExists(head_name, 'add'):
             obj = self.ui.editHeadName
             title = 'Duplicate Head'
             msg = f'            {head_name} exists!!!'
+
+        elif 'contra' in (head_name.lower()):
+            obj = self.ui.editHeadName
+            title = 'The word "Contra" is reserved'
+            msg = 'It can not be used for user defined Head Name'
         else:
             insertHead(self, head_type, head_name)
             msg = f'{head_name} added successfully'
@@ -220,7 +216,7 @@ class EditHead(Head):
             title = 'Invalid Head'
             msg = 'Only single space between to characters is allowed'
         else:
-            if self.headExists(head_name, 'edit'):
+            if self.headNameExists(head_name, 'edit'):
                 title = 'Duplicate Head'
                 msg = f'         {head_name} exists!!!'
 

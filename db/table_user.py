@@ -5,21 +5,17 @@ from PySide6.QtWidgets import QMessageBox
 from modules.module import CustomMessage
 
 
-def userExist(parent):
+def userExists(parent):
     users = 0
     try:
         query = QSqlQuery()
-        query.prepare("SELECT COUNT(Username) from user")
-        query.exec()
+        query.exec("SELECT COUNT(Username) FROM user")
         while query.next():
             users = query.value(0)
 
         query.finish()
 
-        if users:
-            return True
-        else:
-            return False
+        return users
 
     except sqlite3.Error:
         QMessageBox.critical(parent, "DataBase Error", "Could not count users!!!")
@@ -37,8 +33,10 @@ def createUser(parent):
 
             query.bindValue(":Username", users[i])
             query.bindValue(":Password", password[i])
+
             query.exec()
             query.finish()
+
         except sqlite3.Error:
             QMessageBox.critical(parent, "DataBase Error", "Could not create user!!!")
             break
@@ -82,7 +80,6 @@ def viewUser(parent):
         query.prepare("SELECT UserId, Username, Password from user")
         query.exec()
         while query.next():
-            record = []
             status = 'customized'
             u_id = str(query.value(0))
             u_name = query.value(1)

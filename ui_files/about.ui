@@ -68,7 +68,7 @@
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="../src/resource.qrc">:/icons/icons/expense_tracker_md.png</pixmap>
+            <pixmap resource="../src/resource.qrc">:/icons/icons/app_icon.png</pixmap>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>

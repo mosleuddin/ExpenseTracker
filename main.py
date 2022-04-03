@@ -7,6 +7,7 @@ from views.login import Login
 def main():
     app = QApplication(sys.argv)
     win = Login()
+
     app.exec()
     sys.exit()
 

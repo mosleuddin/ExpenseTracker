@@ -1,6 +1,5 @@
 import sqlite3
 
-from PySide6.QtGui import QIcon
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QMessageBox
 
@@ -10,7 +9,8 @@ from modules.module import read_only
 def insertAccount(parent, account_number, customer_name, bank_name, branch_name):
     try:
         query = QSqlQuery()
-        query.prepare(""" INSERT INTO account(AccountNumber, CustomerName, BankName, BranchName)
+        query.prepare(""" INSERT INTO account(
+                          AccountNumber, CustomerName, BankName, BranchName)
                           VALUES(:AccountNumber, :CustomerName, :BankName, :BranchName)
                      """)
 
@@ -63,12 +63,46 @@ def removeAccount(parent, account_number):
         QMessageBox.critical(parent, "DataBase Error", "Can not delete bank account!!!")
 
 
+def cashAccountExists(parent):
+    account_number = "Cash".capitalize()
+    result = 0
+    query = QSqlQuery()
+    query.prepare("SELECT COUNT(AccountNumber) FROM account WHERE AccountNumber = :AccountNumber")
+    query.bindValue(":AccountNumber", account_number)
+    query.exec()
+    while query.next():
+        acct = query.value(0)
+    query.finish()
+
+    return result
+
+
+def bankAccountExists(account_number, task):
+    query = QSqlQuery()
+    if task == 'add':
+        query.prepare("SELECT AccountNumber FROM account")
+    else:
+        query.prepare(f"SELECT AccountNumber FROM account WHERE AccountId != :AccountId")
+        query.bindValue(":AccountId", account_number)
+    query.exec()
+
+    while query.next():
+        if query.value(0) == account_number:
+            query.finish()
+            return True
+    query.finish()
+    return False
+
+
 def populateComboAccount(parent):
+    parent.ui.comboAccount.clear()
+
     query = QSqlQuery()
     query.exec("SELECT AccountNumber FROM account ORDER BY AccountNumber")
     while query.next():
         item = query.value(0)
-        parent.ui.comboAccount.addItem(item)
+        if not item.lower() == "cash":
+            parent.ui.comboAccount.addItem(parent.common_icon, item)
     query.finish()
 
     if parent.ui.comboAccount.count() == 0:
@@ -97,40 +131,41 @@ def populateWidgets(parent, account_number, action=''):
 
     query.finish()
 
-    if action == 'delete':
-        # set parent widget values for delete account window
-        parent.ui.labelBankName2.hide()
-        parent.ui.comboBankName.hide()
-
-        parent.ui.editBankName.setText(bank_name)
-        parent.ui.labelBankName1.show()
-        parent.ui.editBankName.show()
-
-        read_only(parent.bg, parent.ui.editAccountNumber, parent.ui.editCustomerName,
-                  parent.ui.editBankName, parent.ui.editBranchName)
-
-        parent.ui.labelAccountNumber.setText('Account Number')
-        parent.ui.labelCustomerName.setText('Customer Name')
-        parent.ui.labelBranchName.setText('Branch Name')
-
-        parent.ui.buttonOk.setEnabled(True)
-        parent.ui.buttonOk.setFocus()
-
-    else:
-        # set parent widget value for edit account windows
-        parent.ui.comboBankName.setCurrentText(bank_name)
-        read_only(parent.bg, parent.ui.editAccountNumber)
-        parent.ui.labelAccountNumber.setText('Account Number')
-        parent.ui.buttonOk.setEnabled(False)
-
-    # set parent widget values for the both edit & delete account windows
-    parent.ui.editAccountNumber.setText(str(account_number))
+    # set values to parent widget
+    parent.ui.editAccountNumber.setText(account_number)
     parent.ui.editCustomerName.setText(customer_name)
+    parent.ui.comboBankName.setCurrentText(bank_name)
     parent.ui.editBranchName.setText(branch_name)
 
-    # set parent variables values
+    # make editAccountNumber read-only & change it's label to remove access key
+    read_only(parent.bg, parent.ui.editAccountNumber)
+    parent.ui.labelAccountNumber.setText('Account Number')
+
+    # set values to parent variables
     parent.selected_account_id = account_id
     parent.selected_account_number = account_number
     parent.selected_customer_name = customer_name
     parent.selected_bank_name = bank_name
     parent.selected_branch_name = branch_name
+
+    if action == 'delete':
+        # make all remaining widgets read-only & change their label to remove access key
+        read_only(parent.bg, parent.ui.editCustomerName, parent.ui.editBranchName)
+
+        parent.ui.comboBankName.setEnabled(False)
+        parent.ui.comboBankName.setStyleSheet(parent.bg)
+
+        parent.ui.labelCustomerName.setText('Customer Name')
+        parent.ui.labelBankName.setText('Bank Name')
+        parent.ui.labelBranchName.setText('Branch Name')
+
+
+def getAllAccountNumbers(parent):
+    account_numbers = []
+    query = QSqlQuery()
+    query.exec("SELECT AccountNumber FROM account")
+    while query.next():
+        item = query.value(0)
+        account_numbers.append(item)
+    query.finish()
+    return account_numbers

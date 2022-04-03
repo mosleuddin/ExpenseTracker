@@ -4,26 +4,26 @@ from PySide6.QtGui import QIcon
 from PySide6.QtSql import QSqlDatabase
 from PySide6.QtWidgets import QDialog, QLineEdit
 
+from db.table_balance import getOpeningBalance
 from modules.module import resize_and_move
 from design.ui_login import Ui_LoginWindow
 from db.connect import createConnection
-from db.table_user import userExist, createUser, checkCredentials
+from db.table_user import checkCredentials
+from db.table_basic_details import getOwner, validPeriod
 from views.home import Home
+from views.basic_details import BasicDetailsWindow
 
 
 class Login(QDialog):
     def __init__(self):
         super(Login, self).__init__()
         self.conn = None
+
         if not createConnection(self):
             sys.exit(1)
 
-        self.main_window_open = False  # whether MainWindow is called or not
-        self.initUI()             # set up ui and other related tasks
-
-        # confirm whether users already created or not
-        if not userExist(self):
-            createUser(self)
+        self.login_success = False
+        self.initUI()  # set up ui and other related tasks
 
         self.show()
 
@@ -55,15 +55,43 @@ class Login(QDialog):
         record = checkCredentials(self, input_username, input_password)
 
         if record:
-            self.win = Home(conn=self.conn, user_id=record[0], user_name=record[1])
-            self.main_window_open = True
-            if record[1] != "admin":
-                self.win.ui.action_Show_Users.setEnabled(False)
-                self.win.ui.action_Data_Initialization.setEnabled(False)
-            else:
-                self.win.ui.action_Change_Username.setEnabled(False)
-
+            self.login_success = True
             self.close()
+
+            # check owner details, period & cash balance
+
+            name, address = getOwner()
+
+            result = validPeriod(self)
+            # month, year = getPeriod()
+            # month = month.capitalize()
+
+            cash_balance = getOpeningBalance(account_number="Cash")
+            cash_balance = cash_balance[-1].strip()
+            if not cash_balance.isnumeric():
+                cash_balance = "0"
+
+            if (name.strip() == "" or
+                    address.strip() == "" or
+                    int(cash_balance) < 0 or
+                    not result[0]
+            ):
+
+                self.win = BasicDetailsWindow(conn=self.conn,
+                                              user_id=record[0],
+                                              user_name=record[1],
+                                              )
+
+            else:
+                self.win = Home(conn=self.conn,
+                                user_id=record[0],
+                                user_name=record[1],
+                                )
+                if record[1] != "admin":
+                    self.win.ui.actionShowUsers.setEnabled(False)
+                    self.win.ui.actionInitialization.setEnabled(False)
+                else:
+                    self.win.ui.actionChangeUsername.setEnabled(False)
 
         else:
             self.ui.labelMessage.show()
@@ -83,9 +111,10 @@ class Login(QDialog):
             self.close()
 
     def closeEvent(self, event):
-        if not self.main_window_open:
+        if not self.login_success:
             self.conn.close()
             self.conn.setDatabaseName("")
             QSqlDatabase.removeDatabase(QSqlDatabase.database().connectionName())
+
         print('is database open while closing loginwindow? ', self.conn.isOpen())
         event.accept()

@@ -1,6 +1,5 @@
 from PySide6.QtGui import QFont, QIcon
-from PySide6.QtSql import QSqlRelationalDelegate
-from PySide6.QtWidgets import QApplication, QPushButton, QMessageBox, QLineEdit
+from PySide6.QtWidgets import QApplication, QPushButton, QMessageBox
 
 
 class CustomButton(QPushButton):
@@ -11,9 +10,16 @@ class CustomButton(QPushButton):
         self.user_name = ''
 
 
-class CustomMessage(QMessageBox):
+class CustomButtonBalance(QPushButton):
     def __init__(self):
-        super(CustomMessage, self).__init__()
+        super(CustomButtonBalance, self).__init__()
+        self.setIcon(QIcon("src/icons/edit.png"))
+        self.account_number = None
+
+
+class CustomMessage(QMessageBox):
+    def __init__(self, parent=None):
+        super(CustomMessage, self).__init__(parent)
 
     def confirm(self, title='Title', msg='Message', button_0='&Accept', button_1='&Reject'):
         acceptButton = QPushButton(icon=QIcon('./src/icons/ok.png'), text=button_0)
@@ -40,7 +46,7 @@ class CustomMessage(QMessageBox):
         acceptButton.setStyleSheet('background-color: rgb(245, 245, 245); color: rgb(51, 51, 51)')
         self.addButton(acceptButton, QMessageBox.AcceptRole)
 
-        self.setStyleSheet('background-color: rgb(0, 150, 150); color: rgb(0, 0, 0)')
+        self.setStyleSheet('background-color: rgb(100, 150, 255); color: rgb(0, 0, 0)')
         self.setIcon(QMessageBox.Information)
         self.setWindowTitle(title)
         self.setText(msg)
@@ -59,10 +65,10 @@ class CustomMessage(QMessageBox):
 
     def danger(self, title='Title', msg='Message', button_0='&Accept'):
         acceptButton = QPushButton(icon=QIcon('./src/icons/ok.png'), text=button_0)
-        acceptButton.setStyleSheet('background-color: rgb(245, 245, 245); color: rgb(51, 51, 51)')
+        acceptButton.setStyleSheet('background-color: rgb(255, 0, 0); color: rgb(245, 245, 245)')
         self.addButton(acceptButton, QMessageBox.AcceptRole)
 
-        self.setStyleSheet('background-color: rgb(255, 50, 50); color: rgb(0, 0, 0)')
+        self.setStyleSheet('background-color: rgb(255, 255, 0); color: rgb(0, 0, 0)')
         self.setIcon(QMessageBox.Critical)
         self.setWindowTitle(title)
         self.setText(msg)
@@ -137,6 +143,47 @@ def valid_space(text):
     return True
 
 
+def showMismatchMessage(parent, title=None, button=None):
+    message_title = title
+    message_button = button
+
+    if message_title is None:
+        message_title = "Attention please!!!"
+
+    if message_button is None:
+        message_button = "&Ok"
+
+    char = "_"
+    width = 55
+
+    horizontal_line = " ".rjust(width, char)
+
+    msg1 = " ".ljust(28, " ") + "For rectification go to....."
+    msg1 = msg1 + "\n" + horizontal_line
+
+    msg2 = " ".ljust(28, " ") + "File ---> Period Mismatch"
+
+    msg3 = " ".ljust(28, " ") + "Receipt ---> Edit Receipt"
+
+    msg4 = " ".ljust(28, " ") + "Payment ---> Edit  Payment"
+
+    msg_or = " ".ljust(48, " ") + "OR"
+
+    messages = [msg1, msg2, msg_or, msg3, msg_or, msg4]
+
+    # now configure message
+    message = "\nTransaction Date not matching with Transaction Period\n"
+    message = message + "\n" + horizontal_line
+
+    for msg in messages:
+        message = message + "\n\n" + msg
+
+    message = message + "\n\n" + horizontal_line + "\n\n"
+
+    CustomMessage(parent).warn(message_title, message, message_button)
+
+
+"""
 class CustomDelegate(QSqlRelationalDelegate):
     def __init__(self, index, parent):
         super(CustomDelegate, self).__init__(parent)
@@ -145,3 +192,4 @@ class CustomDelegate(QSqlRelationalDelegate):
         editor = QLineEdit()
         editor.setMaxLength(6)
         return editor
+"""

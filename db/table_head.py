@@ -1,13 +1,28 @@
 import sqlite3
 
-from PySide6.QtGui import QIcon
 from PySide6.QtSql import QSqlQuery
-from PySide6.QtWidgets import QMessageBox, QLineEdit
+from PySide6.QtWidgets import QMessageBox
 
 from modules.module import read_only
 
 
-def insertHead(parent, head_type, head_name):
+def headExists(parent=None):
+    head = 0
+    try:
+        query = QSqlQuery()
+        query.exec("SELECT COUNT(HeadId) FROM head")
+        while query.next():
+            head = query.value(0)
+
+        query.finish()
+
+        return head
+
+    except sqlite3.Error:
+        QMessageBox.critical(parent, "DataBase Error", "Could not count head!!!")
+
+
+def insertHead(parent=None, head_type=None, head_name=None):
     try:
         query = QSqlQuery()
         query.prepare(""" INSERT INTO head(HeadType, HeadName)
@@ -59,11 +74,21 @@ def removeHead(parent, head_name):
 
 
 def populateComboHead(parent):
+    head_name1 = "ContraReceipt"
+    head_name2 = "ContraPayment"
+
     query = QSqlQuery()
-    query.exec("SELECT HeadName FROM head ORDER BY HeadName")
+    query.prepare("""SELECT HeadName FROM head
+                  WHERE HeadName NOT IN (:HeadName1, :HeadName2)
+                  ORDER BY HeadName
+                """)
+    query.bindValue(":HeadName1", head_name1)
+    query.bindValue(":HeadName2", head_name2)
+    query.exec()
+
     while query.next():
         item = query.value(0)
-        parent.ui.comboHead.addItem(item)
+        parent.ui.comboHead.addItem(parent.parent.common_icon, item)
     query.finish()
 
     if parent.ui.comboHead.count() == 0:
@@ -71,7 +96,7 @@ def populateComboHead(parent):
 
 
 def populateWidgets(parent, head_name, action=''):
-    head_id =''
+    head_id = ''
     head_type = ''
     query = QSqlQuery()
     query.prepare("""SELECT HeadId, HeadType
@@ -99,7 +124,7 @@ def populateWidgets(parent, head_name, action=''):
         parent.ui.buttonOk.setEnabled(True)
         parent.ui.buttonOk.setFocus()
 
-        read_only(parent.bg,  parent.ui.editHeadType, parent.ui.editHeadName)
+        read_only(parent.bg, parent.ui.editHeadType, parent.ui.editHeadName)
         parent.ui.labelHeadName.setText('Head Name')
     else:
         # set parent widget value for edit head windows
@@ -113,4 +138,3 @@ def populateWidgets(parent, head_name, action=''):
     parent.selected_head_id = head_id
     parent.selected_head_type = head_type
     parent.selected_head_name = head_name
-

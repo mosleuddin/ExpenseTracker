@@ -205,6 +205,7 @@ class ShowUsers(QDialog):
 
         rows = len(users)
         cols = len(headers)
+
         self.ui.tableWidget.setRowCount(rows)
         self.ui.tableWidget.setColumnWidth(0, 60)
         self.ui.tableWidget.setColumnWidth(1, 200)
