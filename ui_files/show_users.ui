@@ -21,14 +21,45 @@
   </property>
   <property name="font">
    <font>
-    <pointsize>14</pointsize>
+    <pointsize>-1</pointsize>
    </font>
   </property>
   <property name="windowTitle">
    <string>Reset Credentials</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(170, 176, 224);</string>
+   <string notr="true">
+*{
+  background-color :#10141b;
+  color:rgba(255, 255, 255, .75);
+  border: none;
+  font-size: 16px;
+}
+
+QLabel{
+  color:rgba(255, 255, 255, .5);
+}
+
+
+#tableBalance
+{
+  background-color: #1f232a;
+  color:rgba(255, 255, 255, .5);
+}
+
+QPushButton{
+	height: 30px;
+	border-radius: 10px;
+	text-align: center;
+	padding: 5px, 10px;
+	border: 1px solid #264BF6;
+}
+
+QPushButton::hover{
+	background-color: rgba(0, 0, 255, .30);
+}
+
+</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -53,13 +84,12 @@
     <widget class="QLabel" name="labelHeading">
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
+       <pointsize>-1</pointsize>
        <bold>true</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(25, 25, 112);</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>List of users</string>
@@ -82,11 +112,11 @@ background-color: rgb(25, 25, 112);</string>
      </property>
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
+       <pointsize>-1</pointsize>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(225, 225,225);</string>
+      <string notr="true"/>
      </property>
      <property name="sizeAdjustPolicy">
       <enum>QAbstractScrollArea::AdjustIgnored</enum>
@@ -145,25 +175,20 @@ background-color: rgb(25, 25, 112);</string>
       <widget class="QPushButton" name="buttonBack">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>30</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>30</height>
+         <width>16777215</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>-1</pointsize>
         </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-
-</string>
        </property>
        <property name="text">
         <string>&amp;Back</string>

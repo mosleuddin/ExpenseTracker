@@ -1,11 +1,30 @@
-from PySide6.QtWidgets import QDialog, QMessageBox
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+from PySide6.QtWidgets import QDialog
 
 from db.table_basic_details import getPeriod
 from db.table_trans import getMisMatchRecordId, populateMisMatchRecord, removeTransaction, \
     updateTransaction, validDate
 from design.ui_period_mismatch import Ui_PeriodMismatch
 
-from modules.module import resize_and_move, CustomMessage
+from modules.module import resize_and_move, MsgBox
 
 
 class PeriodMisMatch(QDialog):
@@ -42,9 +61,9 @@ class PeriodMisMatch(QDialog):
         self.record_count = len(self.records)
 
         if self.record_count == 0:
-
-            QMessageBox.information(self.parent, "No MisMatch Records Found",
-                                    "Transaction Date of all records match with current period")
+            title = "No MisMatch Records Found"
+            msg = "Transaction Date of all records match with current period"
+            MsgBox(title, msg, '&Got it').info()
             self.close()
         else:
             self.navigateRecords(0)
@@ -69,23 +88,22 @@ class PeriodMisMatch(QDialog):
         if date == self.old_trans_date:
             title = 'No change found '
             msg = 'Nothing to update???'
-
-        elif not validDate(self, date):
-            title = f'Expenditure period is {self.trans_month} {self.trans_year}'
-            msg = f'                Please enter correct date            '
-
         else:
-            updateTransaction(self, self.records[self.current_index],
-                              date, head, details, account, amount)
+            date_status = validDate(self, date)
+            if date_status != "ok":
+                title = f'Incorrect Transaction Date'
+                msg = date_status
+            else:
+                updateTransaction(self, self.records[self.current_index],
+                                  date, head, details, account, amount)
 
-            msg = f'Record updated successfully'
-            self.ui.labelMessage.setText(msg)
-            self.ui.labelMessage.show()
-            self.loadRecords()
-            self.ui.dateTrans.setFocus()
-            return
+                msg = f'Record updated successfully'
+                self.ui.labelMessage.setText(msg)
+                self.ui.labelMessage.show()
+                self.loadRecords()
+                self.ui.dateTrans.setFocus()
 
-        CustomMessage().warn(title, msg, '&Got it')
+        MsgBox(title, msg, '&Got it').warn()
         self.navigateRecords(self.current_index)
         self.ui.dateTrans.setFocus()
         return
@@ -94,7 +112,11 @@ class PeriodMisMatch(QDialog):
         self.navigateRecords(self.current_index)
 
     def onDelete(self):
-        if CustomMessage(self).confirm("Delete mismatch record", "Do you want to proceed?", "&Delete", "&Cancel"):
+        if MsgBox("Delete mismatch record",
+                         "Do you want to proceed?",
+                         "&Delete",
+                         "&Cancel").confirm():
+
             removeTransaction(self, self.records[self.current_index])
             self.ui.labelMessage.setText("Record deleted")
             self.ui.labelMessage.show()

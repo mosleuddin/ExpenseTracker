@@ -1,3 +1,24 @@
+
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+
 # -*- coding: utf-8 -*-
 
 ################################################################################
@@ -32,8 +53,9 @@ class Ui_ShowOpeningBalance(object):
         ShowOpeningBalance.setFont(font)
         ShowOpeningBalance.setStyleSheet(u"\n"
 "*{\n"
-"border: none;\n"
-"background-color: rgb(85, 87, 83);\n"
+"  background-color :#10141b;\n"
+"  border: none;\n"
+"  font-size: 16px;\n"
 "}\n"
 "\n"
 "\n"
@@ -41,38 +63,39 @@ class Ui_ShowOpeningBalance(object):
 "#tableBalance\n"
 "{\n"
 "	\n"
-"	background-color: rgb(211, 215, 207);\n"
+"  background-color: #1f232a;\n"
+"  color:rgba(255, 255, 255, .5);\n"
 "}\n"
 "\n"
+"\n"
 "QPushButton{\n"
-"	background-color: rgb(100, 100, 255);\n"
+"    background-color: #1f232a;\n"
+"    color:rgba(255, 255, 255, .75);\n"
 "    width: 75px;\n"
 "	height: 15px;\n"
-"	text-align: center;\n"
-"	padding: 5px, 10px;\n"
-"	border-radius: 15px;\n"
-"	border: 2px solid #fff;\n"
+"	padding: 10px;\n"
+"	border-radius: 10px;\n"
 "}\n"
 "\n"
 "QPushButton::hover{\n"
-"	background-color: rgb(239, 41, 41);\n"
+"	background-color: rgba(0, 0, 255, .30);\n"
 "}\n"
 "\n"
+"\n"
 "#frameFooter QPushButton{\n"
-"	width: 150px;\n"
-"	height: 30px;\n"
+"	width: 100px;\n"
+"	height: 20px;\n"
 "	text-align: center;\n"
 "	padding: 5px, 10px;\n"
 "	border: 2px solid #264BF6;\n"
 "	border-radius: 15px;\n"
-"    background-color: rgb(186, 189, 182);\n"
-"	color: rgb(0, 0, 255);\n"
+"   \n"
 "}\n"
 "\n"
 "#frameFooter QPushButton::hover{\n"
-"	background-color: rgb(0, 0, 255);\n"
-"    color: white;\n"
-"}")
+"	background-color: rgba(0, 0, 255, .30);\n"
+"}\n"
+"")
         ShowOpeningBalance.setModal(True)
         self.verticalLayout = QVBoxLayout(ShowOpeningBalance)
         self.verticalLayout.setSpacing(0)
@@ -102,10 +125,7 @@ class Ui_ShowOpeningBalance(object):
             self.tableBalance.setColumnCount(5)
         self.tableBalance.setObjectName(u"tableBalance")
         self.tableBalance.setMinimumSize(QSize(0, 0))
-        font1 = QFont()
-        font1.setFamilies([u"Sans Serif"])
-        font1.setPointSize(14)
-        self.tableBalance.setFont(font1)
+        self.tableBalance.setFont(font)
         self.tableBalance.setFrameShape(QFrame.HLine)
         self.tableBalance.setFrameShadow(QFrame.Raised)
         self.tableBalance.setLineWidth(1)
@@ -137,11 +157,9 @@ class Ui_ShowOpeningBalance(object):
         self.horizontalLayout.setContentsMargins(0, 20, 15, 20)
         self.buttonBack = QPushButton(self.frameFooter)
         self.buttonBack.setObjectName(u"buttonBack")
-        self.buttonBack.setMinimumSize(QSize(100, 30))
-        self.buttonBack.setMaximumSize(QSize(100, 30))
-        font2 = QFont()
-        font2.setFamilies([u"Sans Serif"])
-        self.buttonBack.setFont(font2)
+        self.buttonBack.setMinimumSize(QSize(0, 0))
+        self.buttonBack.setMaximumSize(QSize(16777215, 16777215))
+        self.buttonBack.setFont(font)
         icon = QIcon()
         icon.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonBack.setIcon(icon)

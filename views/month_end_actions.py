@@ -1,44 +1,40 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import os
 
-from PySide6.QtGui import QIcon, Qt, QColor
-from PySide6.QtSql import QSqlQuery, QSqlQueryModel
+from PySide6.QtCore import QDate
+from PySide6.QtGui import QIcon, Qt
 from PySide6.QtWidgets import QDialog, QLineEdit
 
-from db.table_balance import updateBalanceTable
-from db.table_basic_details import getPeriod, increasePeriod
-from db.table_trans import removeAllTransactions
-from db.table_user import getPassword
 from design.ui_initialize import Ui_InitializeTransactionWindow
-from modules.module import CustomMessage, resize_and_move
+
+from views.progress_bar import MonthEndProgressBar
 from views.pdf_generator import PDF
 
+from db.table_basic_details import getPeriod, increasePeriod
+from db.table_trans import removeAllTransactions
+from db.save_pdf_data import getAllTransactions, trans_data_exist, getHeadTotals
+from db.table_balance import getOpeningBalanceGrandTotal, InitializeBalanceTable, getAccountTotals
+from db.table_user import getPassword
 
-class PdfDataModel(QSqlQueryModel):
-    def __init__(self, query=None):
-        super(PdfDataModel, self).__init__()
-
-        self.setQuery(query)
-
-    def data(self, index, role):
-        if index.isValid():
-            col = index.column()
-            row = index.row()
-
-            if role == Qt.TextAlignmentRole:
-                if col == 3:
-                    return Qt.AlignRight
-                elif col == 4:
-                    return Qt.AlignHCenter
-                else:
-                    return Qt.AlignLeft
-
-            if role == Qt.BackgroundRole:
-                if row % 2 == 0:
-                    return QColor("#d4e5f6")
-                else:
-                    return QColor("#EAF1CE")
-
-        return QSqlQueryModel.data(self, index, role)
+from modules.module import MsgBox, resize_and_move
 
 
 class InitializeTransaction(QDialog):
@@ -47,14 +43,6 @@ class InitializeTransaction(QDialog):
         self.user_id = user_id
         self.parent = parent
         self.common_icon = QIcon("./src/icons/common.png")
-
-        self.cash_receipt_total = 0
-        self.bank_receipt_total = 0
-        self.contra_receipt_total = 0
-
-        self.cash_payment_total = 0
-        self.bank_payment_total = 0
-        self.contra_payment_total = 0
 
         self.ui = Ui_InitializeTransactionWindow()
         self.ui.setupUi(self)
@@ -97,181 +85,116 @@ class InitializeTransaction(QDialog):
             self.ui.editPassword.setFocus()
             return
 
+        self.ui.framePassword.hide()
         self.savePDF()
 
-    def createModel(self):
-        query = QSqlQuery()
-        query.exec("""SELECT TransDate, HeadName, TransDetails,
-                      TransAmount, BankName, AccountNumber, HeadType
-                      FROM trans
-                      JOIN head ON head.HeadId = trans.HeadId
-                      JOIN account ON account.AccountId = trans.AccountId
-                      ORDER BY TransDate
-                    """)
-
-        # create model
-        self.model = PdfDataModel(query)
-
-        rows = self.model.rowCount()
-        if rows:
-            self.cash_receipt_total = 0
-            self.bank_receipt_total = 0
-            self.contra_receipt_total = 0
-
-            self.cash_payment_total = 0
-            self.bank_payment_total = 0
-            self.contra_payment_total = 0
-
-            for row in range(rows):
-                transaction_head = self.model.record(row).field(1).value()
-                transaction_amount = self.model.record(row).field(3).value()
-                transaction_mode = self.model.record(row).field(5).value()
-                transaction_type = self.model.record(row).field(6).value()
-
-                if transaction_type == "Receipt":
-                    if transaction_mode == "Cash":
-                        self.cash_receipt_total += transaction_amount
-                    else:
-                        self.bank_receipt_total += transaction_amount
-
-                    if transaction_head == "ContraReceipt":
-                        self.contra_receipt_total += transaction_amount
-
-                else:
-                    if transaction_mode == "Cash":
-                        self.cash_payment_total += transaction_amount
-                    else:
-                        self.bank_payment_total += transaction_amount
-
-                    if transaction_head == "ContraPayment":
-                        self.contra_payment_total += transaction_amount
-
-    def getData(self):
-        data = []
-        query = QSqlQuery()
-        query.exec("""SELECT TransDate, HeadName, TransDetails,
-                      BankName, CustomerName, AccountNumber,  TransAmount, HeadType
-                      FROM trans
-                      JOIN head ON head.HeadId = trans.HeadId
-                      JOIN account ON account.AccountId = trans.AccountId
-                      ORDER BY TransDate
-                    """)
-
-        while query.next():
-            receipt_amount = 0
-            payment_amount = 0
-
-            date = query.value(0)
-
-            head = query.value(1)
-            details = query.value(2)
-
-            bank = query.value(3)
-            customer = query.value(4)
-            account = query.value(5)
-
-            amount = query.value(6)
-            trans_type = query.value(7)
-
-            if trans_type == "Receipt":
-                receipt_amount = amount
-
-                # update cash and bank receipt totals
-                if account == "Cash":
-                    self.cash_receipt_total += amount
-                else:
-                    self.bank_receipt_total += amount
-
-                # update contra receipt total
-                if head == "ContraReceipt":
-                    self.contra_receipt_total += amount
-
-            else:
-                payment_amount = amount
-
-                # update cash and bank payment totals
-                if account == "Cash":
-                    self.cash_payment_total += amount
-                else:
-                    self.bank_payment_total += amount
-
-                # update contra payment total
-                if head == "ContraPayment":
-                    self.contra_payment_total += amount
-
-            record = (date, head, details, bank, customer, account, receipt_amount, payment_amount, trans_type)
-            data.append(record)
-        query.finish()
-        return data
-
     def savePDF(self):
+        exp_month, exp_year = getPeriod()
+        current_date = QDate().currentDate()
+
         ok = True
-        cols_width = [25, 55, 55, 25, 25]
-        cols_heading = ["Date", "Particulars", "Account Details", "Receipt", "Payment"]
-        data = self.getData()
-        if not data:
-            ok = CustomMessage(self).confirm(
-                title="No data entered for this month",
-                msg="Do you want proceed for initialization?",
-                button_0="&Ok",
-                button_1="&Cancel")
-
-        # summary
-        summary_headings = ["Transaction Type", "Cash", "Bank", "Total", "Contra Amount"]
-
-        summary_totals = [
-            ("Receipt", self.cash_receipt_total, self.bank_receipt_total,
-             self.cash_receipt_total + self.bank_receipt_total, self.contra_receipt_total),
-
-            ("Payment", self.cash_payment_total, self.bank_payment_total,
-             self.cash_payment_total + self.bank_payment_total, self.contra_payment_total),
-        ]
+        if not trans_data_exist(self):
+            ok = MsgBox(title="No data entered for this month",
+                        msg="Do you want proceed for initialization?",
+                        button_0="&Ok",
+                        button_1="&Cancel").confirm()
 
         if ok:
-            self.ui.btnPasswordSubmit.setEnabled(False)
-
-            # create class to generate pdf file
-            pdf = PDF(cols_width=cols_width,
-                      cols_heading=cols_heading,
-                      data=data,
-                      summary_headings=summary_headings,
-                      summary_totals=summary_totals
-                      )
-
-            pdf.add_page()
-            pdf.create_data_table()
-
-            pdf.add_page()
-            pdf.create_summary_table()
-
             # # # # # creating directory  # # # # #
-
             parent_dir = os.environ['HOME']
             target_dir = "ExpenseTracker/Previous Months Expenses"
             dir_path = os.path.join(parent_dir, target_dir)
-
             try:
                 os.makedirs(dir_path)
             except FileExistsError:
                 pass
             finally:
-                month, year = getPeriod()
-                f_name = f"{month}-{year}.pdf"
-                file_name = os.path.join(dir_path, f_name)
 
-                if os.path.exists(file_name):
-                    CustomMessage(self).warn(title="Error : File Exists",
-                                             msg="Expenditures for this Month and Year already saved", button_0="&Ok")
+                file_name = f"{exp_month}-{exp_year}.pdf"
+                self.file_path = os.path.join(dir_path, file_name)
 
+                if os.path.exists(self.file_path):
+                    MsgBox(title="Initialization not done",
+                           msg="Expenditures for this Month and Year already saved",
+                           button_0="&Ok").danger()
+                    self.close()
                 else:
-                    pdf.output(file_name)
-                    updateBalanceTable(self)
+                    # show progress bar
+                    pb = MonthEndProgressBar(self)
+                    pb.start_progress()
+
+                    # set pdf page title
+                    first_date = QDate().fromString(f"01-{exp_month}-{exp_year}", "dd-MMMM-yyyy")
+                    days_in_month = first_date.daysInMonth()
+                    last_date = QDate().fromString(f"{days_in_month}-{exp_month}-{exp_year}", "dd-MMMM-yyyy")
+
+                    if current_date < last_date:
+                        last_exp_date = current_date.toString("dd-MM-yyyy")
+                    else:
+                        last_exp_date = last_date.toString("dd-MM-yyyy")
+
+                    first_date = first_date.toString("dd-MM-yyyy")
+                    page_title = f"Details of Expenditures from {first_date} to {last_exp_date}"
+
+                    # for exp
+                    exp_fields_width = [25, 60, 60, 20, 20]
+                    exp_fields_heading = ["Date", "Particulars", "Account Details", "Receipt", "Payment"]
+                    exp_data = getAllTransactions()
+
+                    # for head total
+                    head_total_fields_width = [120, 30, 30]
+                    head_total_fields_heading = ["Expenditure Head", "Receipt ", "Payment"]
+                    head_total_data = getHeadTotals()
+
+                    # for grand total
+                    grand_total_fields_width = [30, 30, 30, 30, 30, 30]
+                    grand_total_fields_heading = ["Balance B/F", "Actual Receipt", "Contra Receipt",
+                                                  "Actual Payment", "Contra Payment", "Balance C/F"]
+                    grand_total_data = getOpeningBalanceGrandTotal()
+
+                    # for account_summary
+                    account_summary_fields_width = [60, 25, 25, 25, 25, 25]
+                    account_summary_fields_heading = ["Account Details", "Balance B/F", "Receipt", "Gross Total",
+                                                      "Payment", "Balance C/F"]
+                    account_summary_data = getAccountTotals()
+
+                    # create class to generate pdf file
+                    pdf = PDF(exp_fields_width=exp_fields_width,
+                              exp_fields_heading=exp_fields_heading,
+                              exp_data=exp_data,
+
+                              head_total_fields_width=head_total_fields_width,
+                              head_total_fields_heading=head_total_fields_heading,
+                              head_total_data=head_total_data,
+
+                              grand_total_fields_width=grand_total_fields_width,
+                              grand_total_fields_heading=grand_total_fields_heading,
+                              grand_total_data=grand_total_data,
+
+                              account_summary_fields_width=account_summary_fields_width,
+                              account_summary_fields_heading=account_summary_fields_heading,
+                              account_summary_data=account_summary_data,
+
+                              page_title=page_title
+                              )
+
+                    pdf.add_page()
+                    pdf.create_exp_table()
+
+                    pdf.add_page()
+                    pdf.create_head_total_table()
+
+                    pdf.add_page()
+                    pdf.create_account_summary_table()
+
+                    pdf.output(self.file_path)
+
+                    InitializeBalanceTable(month_end=True)
                     removeAllTransactions(self)
                     increasePeriod()
-                    CustomMessage(self).info(title="Data saved successfully at the following location",
-                                             msg=file_name, button_0="&Ok")
 
-        self.close()
+        else:
+            self.close()
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:

@@ -9,24 +9,57 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>601</width>
+    <width>677</width>
     <height>480</height>
    </rect>
   </property>
   <property name="font">
    <font>
-    <pointsize>14</pointsize>
+    <pointsize>-1</pointsize>
    </font>
   </property>
   <property name="windowTitle">
    <string>Expense Tracker</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(238, 226,152);
+   <string notr="true">*{
+     background-color :#10141b;
+	color:rgb(0, 145, 145);
+  	border: none;
+	font-size: 16px;
+}
+
+#labelHeading{
+    background-color: rgba(238, 226,15, .20);
+}
+
+#tableView{
+	background-color: #1f232a;
+	color:rgba(255, 255, 255, .60);
+}
 
 QLineEdit{
-	background-color: rgb(243, 243, 243);
-}</string>
+		background-color: #1f232a;
+		color:rgba(255, 255, 255, .60);
+		font-size: 20px;
+}
+
+QPushButton{
+    background-color:#1f232a;
+ 	color:rgba(0, 255, 0, .60);
+    width: 80px;
+	height: 18px;
+	text-align: center;
+	padding: 5px, 10px;
+	border: 1px solid #264BF6;
+	border-radius: 10px;
+
+}
+
+QPushButton::hover{
+	background-color: rgba(0, 0, 255, .30);
+}
+</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -36,98 +69,132 @@ QLineEdit{
     <number>0</number>
    </property>
    <property name="leftMargin">
-    <number>30</number>
+    <number>0</number>
    </property>
    <property name="topMargin">
-    <number>30</number>
+    <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>30</number>
+    <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>30</number>
+    <number>0</number>
    </property>
    <item>
-    <widget class="QLabel" name="labelHeading">
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-       <bold>true</bold>
-      </font>
+    <layout class="QHBoxLayout" name="heading_layout">
+     <property name="spacing">
+      <number>0</number>
      </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(25, 25, 112);</string>
-     </property>
-     <property name="text">
-      <string>Transaction</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="margin">
-      <number>10</number>
-     </property>
-    </widget>
+     <item>
+      <widget class="QLabel" name="labelHeading">
+       <property name="font">
+        <font>
+         <pointsize>-1</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Transaction</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="margin">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
-    <widget class="QTableView" name="tableView">
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
+    <layout class="QHBoxLayout" name="table_layout">
+     <property name="spacing">
+      <number>0</number>
      </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(225, 225,225);</string>
+     <property name="leftMargin">
+      <number>25</number>
      </property>
-     <property name="sizeAdjustPolicy">
-      <enum>QAbstractScrollArea::AdjustToContents</enum>
+     <property name="topMargin">
+      <number>25</number>
      </property>
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
+     <property name="rightMargin">
+      <number>25</number>
      </property>
-     <property name="alternatingRowColors">
-      <bool>false</bool>
+     <property name="bottomMargin">
+      <number>25</number>
      </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::SingleSelection</enum>
-     </property>
-     <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectRows</enum>
-     </property>
-     <property name="sortingEnabled">
-      <bool>false</bool>
-     </property>
-     <property name="cornerButtonEnabled">
-      <bool>false</bool>
-     </property>
-     <attribute name="horizontalHeaderCascadingSectionResizes">
-      <bool>true</bool>
-     </attribute>
-     <attribute name="horizontalHeaderMinimumSectionSize">
-      <number>50</number>
-     </attribute>
-     <attribute name="horizontalHeaderDefaultSectionSize">
-      <number>50</number>
-     </attribute>
-     <attribute name="horizontalHeaderStretchLastSection">
-      <bool>true</bool>
-     </attribute>
-     <attribute name="verticalHeaderVisible">
-      <bool>false</bool>
-     </attribute>
-     <attribute name="verticalHeaderStretchLastSection">
-      <bool>false</bool>
-     </attribute>
-    </widget>
+     <item>
+      <widget class="QTableView" name="tableView">
+       <property name="font">
+        <font>
+         <pointsize>-1</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QAbstractScrollArea::AdjustToContents</enum>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>false</bool>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <property name="sortingEnabled">
+        <bool>false</bool>
+       </property>
+       <property name="cornerButtonEnabled">
+        <bool>false</bool>
+       </property>
+       <attribute name="horizontalHeaderCascadingSectionResizes">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="horizontalHeaderMinimumSectionSize">
+        <number>50</number>
+       </attribute>
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>50</number>
+       </attribute>
+       <attribute name="horizontalHeaderStretchLastSection">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="verticalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderStretchLastSection">
+        <bool>false</bool>
+       </attribute>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="footer">
+    <layout class="QHBoxLayout" name="bottom_layout">
      <property name="spacing">
       <number>10</number>
      </property>
+     <property name="leftMargin">
+      <number>25</number>
+     </property>
      <property name="topMargin">
-      <number>20</number>
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>25</number>
+     </property>
+     <property name="bottomMargin">
+      <number>25</number>
      </property>
      <item>
       <spacer name="horizontalSpacer_2">
@@ -152,8 +219,7 @@ background-color: rgb(25, 25, 112);</string>
      <item>
       <widget class="QLineEdit" name="editReceiptTotal">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-font: 14pt &quot;Ubuntu&quot;;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>0</string>
@@ -176,8 +242,7 @@ font: 14pt &quot;Ubuntu&quot;;</string>
      <item>
       <widget class="QLineEdit" name="editPaymentTotal">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-font: 14pt &quot;Ubuntu&quot;;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>0</string>
@@ -218,12 +283,12 @@ font: 14pt &quot;Ubuntu&quot;;</string>
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <pointsize>-1</pointsize>
+        </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-
-</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>&amp;Back</string>

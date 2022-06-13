@@ -32,7 +32,9 @@
    </size>
   </property>
   <property name="font">
-   <font/>
+   <font>
+    <pointsize>-1</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Expense Tracker</string>
@@ -42,7 +44,64 @@
     <normaloff>:/icons/expense_tracker_sm.png</normaloff>:/icons/expense_tracker_sm.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(200, 225, 240);</string>
+   <string notr="true">*{
+     background-color :#10141b;
+	color:rgba(255, 255, 255, .5);
+	font-size: 16px;
+
+}
+QLabel{
+		color:rgba(255, 255, 255, .5);
+     
+}
+
+#labelMessage{
+	color: rgb(239, 41, 41);
+}
+
+
+#labelHeading{
+	color: rgba(.06, 140, 140, 1);
+	font-size: 20px;
+}
+
+
+#labelCopyright{
+	color:rgba(255, 255, 255, .75);
+}
+
+QLineEdit{
+            background-color :#1f232a;
+            color:rgba(0, 255, 255, .60);
+            height: 30px;
+        }
+
+QPushButton{
+    background-color:#10141b;
+ 	color:rgba(0, 255, 0, .50);
+    width: 75px;
+	height: 18px;
+	text-align: center;
+	padding: 5px, 10px;
+	border: 1px solid #264BF6;
+	border-radius: 10px;
+
+}
+
+QPushButton::hover{
+	background-color: rgba(0, 0, 255, .30);
+     color: rgba(255, 255, 255, .50);
+}
+
+QPushButton::disabled{
+	background-color: rgba(0, 0, 0, .50);
+     color: rgba(255, 255, 255, .50);
+}
+ 
+ 
+        
+
+</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0">
    <property name="spacing">
@@ -70,12 +129,12 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
+       <pointsize>-1</pointsize>
        <bold>false</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(241, 42, 42);</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>Invalid username / password</string>
@@ -98,23 +157,22 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
+       <pointsize>-1</pointsize>
        <bold>false</bold>
        <underline>false</underline>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(25, 25, 112);</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>Log In</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="margin">
-      <number>10</number>
+      <number>4</number>
      </property>
      <property name="openExternalLinks">
       <bool>false</bool>
@@ -151,12 +209,12 @@ background-color: rgb(25, 25, 112);</string>
        </property>
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>-1</pointsize>
          <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(32, 74, 135);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Username&lt;span style=&quot; color:#ef2929;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -168,20 +226,19 @@ background-color: rgb(25, 25, 112);</string>
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>40</height>
+         <height>20</height>
         </size>
        </property>
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>-1</pointsize>
         </font>
        </property>
        <property name="statusTip">
         <string>username should be 4 to 12 characters long</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(245,245,245);
-</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string/>
@@ -204,13 +261,13 @@ background-color: rgb(25, 25, 112);</string>
        </property>
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>-1</pointsize>
          <bold>false</bold>
          <underline>false</underline>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(32, 74, 135);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Password&lt;span style=&quot; color:#ef2929;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -222,20 +279,16 @@ background-color: rgb(25, 25, 112);</string>
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>40</height>
+         <height>20</height>
         </size>
        </property>
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>-1</pointsize>
         </font>
        </property>
        <property name="statusTip">
         <string>username should be 4 to 12 characters long</string>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(245,245,245);
-</string>
        </property>
        <property name="inputMask">
         <string/>
@@ -259,7 +312,7 @@ background-color: rgb(25, 25, 112);</string>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="spacing">
-      <number>0</number>
+      <number>10</number>
      </property>
      <property name="leftMargin">
       <number>50</number>
@@ -305,20 +358,20 @@ background-color: rgb(25, 25, 112);</string>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>30</height>
+         <width>16777215</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>-1</pointsize>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
-        <string>&amp;CANCEL</string>
+        <string>&amp;Cancel</string>
        </property>
        <property name="icon">
         <iconset resource="../src/resource.qrc">
@@ -339,20 +392,20 @@ background-color: rgb(25, 25, 112);</string>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>300</height>
+         <width>16777215</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>-1</pointsize>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
-        <string>&amp;OK</string>
+        <string>&amp;Ok</string>
        </property>
        <property name="icon">
         <iconset resource="../src/resource.qrc">
@@ -375,14 +428,14 @@ background-color: rgb(25, 25, 112);</string>
      </property>
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
+       <pointsize>-1</pointsize>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(186, 189, 182);</string>
+      <string notr="true"/>
      </property>
      <property name="text">
-      <string>Copyright (c) 2021 Mosleuddin Sarkar</string>
+      <string>Copyright</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

@@ -1,3 +1,22 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 from PySide6.QtGui import QIcon, QDesktopServices
 from PySide6.QtCore import QUrl
 from PySide6.QtWidgets import QDialog
@@ -42,5 +61,5 @@ class About(QDialog):
             self.ui.buttonLicense.setIcon(QIcon('src/icons/license.png'))
 
     def open_website(self):
-        url = QUrl('https://github.com/mosleuddin/MyContacts.git')
+        url = QUrl('https://github.com/mosleuddin/ExpenseTracker.git')
         QDesktopServices.openUrl(url)

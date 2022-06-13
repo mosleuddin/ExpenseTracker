@@ -1,12 +1,32 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import sqlite3
 
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QMessageBox
 
-from modules.module import read_only
-
 
 def insertAccount(parent, account_number, customer_name, bank_name, branch_name):
+    """
+        The function create a new account in accordance with the parameters
+    """
     try:
         query = QSqlQuery()
         query.prepare(""" INSERT INTO account(
@@ -27,6 +47,9 @@ def insertAccount(parent, account_number, customer_name, bank_name, branch_name)
 
 
 def updateAccount(parent, account_number, customer_name, bank_name, branch_name):
+    """
+        The function update an existing account in accordance with the parameters
+     """
     try:
         query = QSqlQuery()
         query.prepare(""" UPDATE account SET 
@@ -49,6 +72,9 @@ def updateAccount(parent, account_number, customer_name, bank_name, branch_name)
 
 
 def removeAccount(parent, account_number):
+    """
+        The function delete an existing account in accordance with the parameters
+    """
     try:
         query = QSqlQuery()
         query.prepare(""" DELETE from account
@@ -64,6 +90,10 @@ def removeAccount(parent, account_number):
 
 
 def cashAccountExists(parent):
+    """
+    The function confirm whether Cash account exist or not return a numeric value accordingly
+    """
+
     account_number = "Cash".capitalize()
     result = 0
     query = QSqlQuery()
@@ -71,30 +101,37 @@ def cashAccountExists(parent):
     query.bindValue(":AccountNumber", account_number)
     query.exec()
     while query.next():
-        acct = query.value(0)
+        result = query.value(0)
     query.finish()
 
     return result
 
 
-def bankAccountExists(account_number, task):
+def bankAccountExists(account_number):
+    """
+        The function confirm whether a particular bank account exists or not and
+        return a numeric value accordingly
+    """
+    account_number = account_number.capitalize()
+    result = 0
+
     query = QSqlQuery()
-    if task == 'add':
-        query.prepare("SELECT AccountNumber FROM account")
-    else:
-        query.prepare(f"SELECT AccountNumber FROM account WHERE AccountId != :AccountId")
-        query.bindValue(":AccountId", account_number)
+    query.prepare("SELECT COUNT(AccountNumber) FROM account WHERE AccountNumber = :AccountNumber")
+    query.bindValue(":AccountNumber", account_number)
     query.exec()
 
     while query.next():
-        if query.value(0) == account_number:
-            query.finish()
-            return True
+        result = query.value(0)
     query.finish()
-    return False
+
+    return result
 
 
 def populateComboAccount(parent):
+    """
+    The function populate all account number in a combo box to make available for selection
+    """
+
     parent.ui.comboAccount.clear()
 
     query = QSqlQuery()
@@ -102,7 +139,7 @@ def populateComboAccount(parent):
     while query.next():
         item = query.value(0)
         if not item.lower() == "cash":
-            parent.ui.comboAccount.addItem(parent.common_icon, item)
+            parent.ui.comboAccount.addItem(item)
     query.finish()
 
     if parent.ui.comboAccount.count() == 0:
@@ -110,6 +147,11 @@ def populateComboAccount(parent):
 
 
 def populateWidgets(parent, account_number, action=''):
+    """
+    The function populate all the corresponding data of the selected bank account
+    in different widgets to update or delete
+    """
+
     account_id = ''
     customer_name = ''
     bank_name = ''
@@ -137,8 +179,8 @@ def populateWidgets(parent, account_number, action=''):
     parent.ui.comboBankName.setCurrentText(bank_name)
     parent.ui.editBranchName.setText(branch_name)
 
-    # make editAccountNumber read-only & change it's label to remove access key
-    read_only(parent.bg, parent.ui.editAccountNumber)
+    # disable editAccountNumber & change it's label to remove access key
+    parent.ui.editAccountNumber.setEnabled(False)
     parent.ui.labelAccountNumber.setText('Account Number')
 
     # set values to parent variables
@@ -149,18 +191,23 @@ def populateWidgets(parent, account_number, action=''):
     parent.selected_branch_name = branch_name
 
     if action == 'delete':
-        # make all remaining widgets read-only & change their label to remove access key
-        read_only(parent.bg, parent.ui.editCustomerName, parent.ui.editBranchName)
-
+        # disable all remaining widgets & change their label to remove access key
+        parent.ui.editCustomerName.setEnabled(False)
         parent.ui.comboBankName.setEnabled(False)
-        parent.ui.comboBankName.setStyleSheet(parent.bg)
+        parent.ui.editBranchName.setEnabled(False)
 
         parent.ui.labelCustomerName.setText('Customer Name')
         parent.ui.labelBankName.setText('Bank Name')
         parent.ui.labelBranchName.setText('Branch Name')
 
 
-def getAllAccountNumbers(parent):
+def getAllAccountNumbers():
+    """
+    The function collects all Account Numbers from account table and return them
+    as a list of items
+
+    """
+
     account_numbers = []
     query = QSqlQuery()
     query.exec("SELECT AccountNumber FROM account")
@@ -169,3 +216,24 @@ def getAllAccountNumbers(parent):
         account_numbers.append(item)
     query.finish()
     return account_numbers
+
+
+def account_related_transaction_exists(account_number):
+    """
+     The function checks whether any transaction of a
+     particular account number, exists in the trans table or not
+    """
+
+    query = QSqlQuery()
+    query.prepare("""SELECT count(TransId)
+                     FROM trans
+                     join account using(AccountId)
+                     WHERE account.AccountNumber = :AccountNumber
+                     """)
+
+    query.bindValue(":AccountNumber", account_number)
+    query.exec()
+
+    while query.next():
+        count = query.value(0)
+        return count

@@ -1,12 +1,33 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import sqlite3
 
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QMessageBox
 
-from modules.module import read_only
-
 
 def headExists(parent=None):
+    """
+    The function count the the number of heads available in head table
+    """
+
     head = 0
     try:
         query = QSqlQuery()
@@ -23,6 +44,9 @@ def headExists(parent=None):
 
 
 def insertHead(parent=None, head_type=None, head_name=None):
+    """
+    The function add new record in head table using head_type and head_name parameters.
+    """
     try:
         query = QSqlQuery()
         query.prepare(""" INSERT INTO head(HeadType, HeadName)
@@ -39,6 +63,11 @@ def insertHead(parent=None, head_type=None, head_name=None):
 
 
 def updateHead(parent, head_id, head_type, head_name):
+    """
+     The function edit an existing record in head table using
+     head_id, head_type and head_name parameters.
+    """
+
     try:
         query = QSqlQuery()
         query.prepare(""" UPDATE head SET
@@ -59,6 +88,10 @@ def updateHead(parent, head_id, head_type, head_name):
 
 
 def removeHead(parent, head_name):
+    """
+    The function delete an existing record in head table using head_name parameters.
+    """
+
     try:
         query = QSqlQuery()
         query.prepare(""" DELETE from head
@@ -74,6 +107,12 @@ def removeHead(parent, head_name):
 
 
 def populateComboHead(parent):
+    """
+    The function collects all the HeadName from head table
+    (other than ContraReceipt and ContraPayment heads) and
+    populate them in a combo box
+    """
+
     head_name1 = "ContraReceipt"
     head_name2 = "ContraPayment"
 
@@ -88,7 +127,7 @@ def populateComboHead(parent):
 
     while query.next():
         item = query.value(0)
-        parent.ui.comboHead.addItem(parent.parent.common_icon, item)
+        parent.ui.comboHead.addItem(item)
     query.finish()
 
     if parent.ui.comboHead.count() == 0:
@@ -96,6 +135,11 @@ def populateComboHead(parent):
 
 
 def populateWidgets(parent, head_name, action=''):
+    """
+    The function collects HeadId and HeadType from head table
+    using the head_name criteria and populate respective widgets
+    """
+
     head_id = ''
     head_type = ''
     query = QSqlQuery()
@@ -124,7 +168,8 @@ def populateWidgets(parent, head_name, action=''):
         parent.ui.buttonOk.setEnabled(True)
         parent.ui.buttonOk.setFocus()
 
-        read_only(parent.bg, parent.ui.editHeadType, parent.ui.editHeadName)
+        parent.ui.editHeadType.setEnabled(False)
+        parent.ui.editHeadName.setEnabled(False)
         parent.ui.labelHeadName.setText('Head Name')
     else:
         # set parent widget value for edit head windows
@@ -138,3 +183,24 @@ def populateWidgets(parent, head_name, action=''):
     parent.selected_head_id = head_id
     parent.selected_head_type = head_type
     parent.selected_head_name = head_name
+
+
+def head_related_transaction_exists(head_name):
+    """
+     The function checks whether any transaction of a
+     particular head, exists in the trans table or not
+    """
+
+    query = QSqlQuery()
+    query.prepare("""SELECT count(TransId)
+                     FROM trans
+                     join head using(HeadId)
+                     WHERE head.HeadName = :HeadName
+                     """)
+
+    query.bindValue(":HeadName", head_name)
+    query.exec()
+
+    while query.next():
+        count = query.value(0)
+        return count

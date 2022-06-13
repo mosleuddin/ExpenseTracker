@@ -1,9 +1,28 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 from PySide6.QtGui import QIcon, QIntValidator, Qt
 from PySide6.QtWidgets import QDialog, QTableWidgetItem, QLineEdit
 
 from design.ui_show_opening_balance import Ui_ShowOpeningBalance
 from design.ui_update_opening_balance import Ui_UpdateOpeningBalance
-from db.table_balance import getOpeningBalance, updateOpeningBalance
+from db.table_balance import getOpeningBalanceAndBankDetails, updateOpeningBalance
 
 from modules.module import CustomButtonBalance
 
@@ -21,7 +40,7 @@ class ShowOpeningBalance(QDialog):
 
     def loadData(self):
         self.ui.tableBalance.clear()
-        bank_data = getOpeningBalance("all")
+        bank_data = getOpeningBalanceAndBankDetails()
         headers = ['A/c No.', 'Bank Name', 'Customer Name', 'Balance', 'Action']
 
         rows = len(bank_data)  # to determine number of rows in table widget
@@ -50,7 +69,7 @@ class ShowOpeningBalance(QDialog):
                     self.buttonUpdate = CustomButtonBalance()
                     self.buttonUpdate.setMaximumSize(75, 30)
 
-                    # store the corrent row's account number in this button's account number attribute
+                    # store the current row's account number in this button's account number attribute
                     self.buttonUpdate.account_number = account_number
 
                     # add update button's functionality
@@ -88,7 +107,7 @@ class UpdateOpeningBalance(QDialog):
         self.ui.editBalance.addAction(self.common_icon, QLineEdit.ActionPosition.LeadingPosition)
 
     def populateWidgets(self, account_number):
-        data = getOpeningBalance(account_number)
+        data = getOpeningBalanceAndBankDetails(account_number)
 
         customer_name = data[0]
         bank_name = data[1]

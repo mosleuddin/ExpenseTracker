@@ -1,9 +1,31 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 from PySide6.QtCore import QDate
 from PySide6.QtSql import QSqlQuery
 
 
 # owner table
 def ownerExists():
+    """
+    The function checks whether owner exists or not in owner table
+    """
     result = 0
     query = QSqlQuery()
     query.exec("SELECT COUNT(OwnerName) FROM owner")
@@ -14,6 +36,9 @@ def ownerExists():
 
 
 def getOwner():
+    """
+    The function collect owner name and owner address from the owner table
+    """
     query = QSqlQuery()
     query.exec("SELECT OwnerName, OwnerAddress FROM owner")
 
@@ -25,6 +50,9 @@ def getOwner():
 
 
 def insertOwner(owner_name, owner_address):
+    """
+    The function simply insert a new record in the owner table using the parameters value
+    """
     owner = owner_name.strip().title()
     address = owner_address.strip().title()
 
@@ -41,6 +69,10 @@ def insertOwner(owner_name, owner_address):
 
 
 def updateOwner(owner_name, owner_address):
+    """
+    The function update an existing owner using the parameters value
+    """
+
     owner = owner_name.title()
     address = owner_address.title()
 
@@ -59,6 +91,10 @@ def updateOwner(owner_name, owner_address):
 
 # period table
 def periodExists():
+    """
+     The function checks whether period exists or not in period table
+    """
+
     result = 0
     query = QSqlQuery()
     query.exec("SELECT COUNT(ExpMonth) FROM period")
@@ -69,6 +105,9 @@ def periodExists():
 
 
 def getPeriod():
+    """
+     The function collect month and year from the period table
+    """
     query = QSqlQuery()
     query.exec("SELECT ExpMonth, ExpYear FROM period")
 
@@ -80,6 +119,9 @@ def getPeriod():
 
 
 def insertPeriod():
+    """
+     The function insert current month and current year in period table
+    """
     month = QDate().currentDate().toString('MMMM')
     year = QDate().currentDate().toString('yyyy')
 
@@ -96,6 +138,9 @@ def insertPeriod():
 
 
 def updatePeriod(month, year):
+    """
+    The function update month and year in period table using parameter values
+    """
     query = QSqlQuery()
     query.prepare(""" UPDATE period SET
                        ExpMonth = :ExpMonth,
@@ -110,6 +155,9 @@ def updatePeriod(month, year):
 
 
 def increasePeriod():
+    """
+    The function increase existing period by 1 month
+    """
     month, year = getPeriod()
 
     date_string = f"01-{month}-{year}"
@@ -131,11 +179,16 @@ def increasePeriod():
     query.bindValue(":ExpYear", new_year)
     query.exec()
     query.finish()
-    print(f"Period increased {new_month}  {new_year} ")
 
 
 # validate period
 def validPeriod(month_arg=None, year_arg=None):
+    """
+    The function ensure that a valid month name is entered.
+
+    It also allows a user to enter a year between 2021 to 2100
+    """
+
     obj = ''
     title = ''
     msg = ''
@@ -146,7 +199,7 @@ def validPeriod(month_arg=None, year_arg=None):
               "October", "November", "December"
               )
 
-    years = [str(x) for x in range(2021, 2100)]
+    years = [str(x) for x in range(2021, 2101)]
 
     if month_arg is None or year_arg is None:
         month, year = getPeriod()

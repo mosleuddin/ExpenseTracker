@@ -1,17 +1,34 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
 import shutil
 
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
-from PySide6.QtWidgets import QMainWindow, QInputDialog, QApplication, QFileDialog, QMessageBox
+from PySide6.QtWidgets import QMainWindow, QInputDialog, QApplication, QFileDialog
 
-from db.table_account import getAllAccountNumbers
-from db.table_balance import updateTotal, AccountBalanceSummary
+from db.table_balance import InitializeBalanceTable, AccountBalanceSummary
 from db.table_basic_details import getOwner, getPeriod
-from db.table_trans import TransDateMismatch
+from db.table_trans import transDateMismatch
 from design.ui_home import Ui_HomeWindow
 from db.table_user import viewUser, resetUserCredentials
-from modules.module import CustomMessage, resize_and_move, showMismatchMessage
+from modules.module import MsgBox, resize_and_move, showMismatchMessage
 from views.month_end_actions import InitializeTransaction
 from views.opening_balance import ShowOpeningBalance
 
@@ -43,15 +60,15 @@ class Home(QMainWindow):
 
         self.ui = Ui_HomeWindow()
         self.ui.setupUi(self)
-        resize_and_move(self, None, .8, .8)
-        self.setWindowState(Qt.WindowFullScreen)
+        resize_and_move(self, None, .95, .9)
+        # self.setWindowState(Qt.WindowFullScreen)
 
         self.showBasicInfo()
         self.loadOwnerImage()
         self.updateAccountBalanceSummary()
         self.show()
 
-        if TransDateMismatch():
+        if transDateMismatch():
             showMismatchMessage(self)
 
         QApplication.instance().focusChanged.connect(self.onFocusChanged)
@@ -67,27 +84,28 @@ class Home(QMainWindow):
         month, year = getPeriod()
 
         self.ui.labelOwner.setText(f"{owner}")
-        self.ui.labelAddress.setText(f"({address})")
+        self.ui.labelAddress.setText(f"{address}")
 
         self.ui.labelMonth.setText(f"{month}")
         self.ui.labelYear.setText(f"{year}")
 
     def updateAccountBalanceSummary(self):
-        account_numbers = getAllAccountNumbers(self)
-        for account_number in account_numbers:
-            updateTotal(self, account_number=account_number)
-
+        InitializeBalanceTable()
         self.balance_model = AccountBalanceSummary()
         self.ui.tableView.setModel(self.balance_model)
 
-        self.ui.tableView.setColumnWidth(0, 175)
-        self.ui.tableView.setColumnWidth(1, 300)
-        self.ui.tableView.setColumnWidth(2, 300)
-        self.ui.tableView.setColumnWidth(3, 90)
-        self.ui.tableView.setColumnWidth(4, 90)
-        self.ui.tableView.setColumnWidth(5, 90)
-        self.ui.tableView.setColumnWidth(6, 90)
-        self.ui.tableView.setColumnWidth(7, 90)
+        rows = self.balance_model.rowCount()
+        for row in range(rows):
+            self.ui.tableView.setRowHeight(row, 50)
+
+        self.ui.tableView.setColumnWidth(0, 215)
+        self.ui.tableView.setColumnWidth(1, 275)
+        self.ui.tableView.setColumnWidth(2, 250)
+        self.ui.tableView.setColumnWidth(3, 110)
+        self.ui.tableView.setColumnWidth(4, 110)
+        self.ui.tableView.setColumnWidth(5, 110)
+        self.ui.tableView.setColumnWidth(6, 110)
+        self.ui.tableView.setColumnWidth(7, 110)
 
         cash_balance = self.balance_model.cash_balance
         bank_balance = self.balance_model.bank_balance
@@ -112,7 +130,7 @@ class Home(QMainWindow):
 
     def loadOwnerImage(self):
         img = "src/icons/app_image.png"
-        pixmap = QPixmap(img).scaled(600, 200, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        pixmap = QPixmap(img).scaled(375, 125, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         self.ui.labelImage.setPixmap(pixmap)
 
     def changeOwnerImage(self):
@@ -121,7 +139,7 @@ class Home(QMainWindow):
         if src:
             img = "src/icons/app_image.png"
             shutil.copyfile(src, img, follow_symlinks=True)
-            pixmap = QPixmap(img).scaled(600, 200, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            pixmap = QPixmap(img).scaled(375, 125, Qt.KeepAspectRatio, Qt.SmoothTransformation)
             self.ui.labelImage.setPixmap(pixmap)
             self.ui.labelImage.setAlignment(Qt.AlignRight)
 
@@ -208,7 +226,7 @@ class Home(QMainWindow):
 
     # #########################  function for initialization  #########################
     def initializeData(self):
-        if TransDateMismatch():
+        if transDateMismatch():
             title = "Initialization can not be done"
             showMismatchMessage(self, title=title)
             return
@@ -222,9 +240,9 @@ class Home(QMainWindow):
 
     def closeEvent(self, event):
         title = 'Confirm Exit'
-        msg = '<h4 color: rgb(255, 0, 0);>Are you sure you want to exit?</h4>'
+        msg = 'Are you sure you want to exit?'
 
-        if CustomMessage().confirm(title, msg, 'E&xit', '&Cancel'):
+        if MsgBox(title, msg, 'E&xit', '&Cancel').confirm():
             self.query.finish()
             self.balance_model.query.finish()
             self.conn.close()

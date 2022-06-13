@@ -1,3 +1,24 @@
+
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+
 # -*- coding: utf-8 -*-
 
 ################################################################################
@@ -39,92 +60,63 @@ class Ui_PeriodMismatch(object):
         icon.addFile(u":/icons/expense_tracker_sm.png", QSize(), QIcon.Normal, QIcon.Off)
         PeriodMismatch.setWindowIcon(icon)
         PeriodMismatch.setStyleSheet(u"*{\n"
-"background-color: rgb(200, 200, 200);\n"
-"\n"
+"     background-color :#10141b;\n"
+"	color:rgba(255, 255, 255, .50);\n"
+"	font-size: 16px;\n"
 "}\n"
 "\n"
 "#centralWidget{\n"
-"background-color: #343b47;\n"
+"	background-color: #343b47;\n"
 "}\n"
 "\n"
 "#labelMessage{\n"
-"color: rgb(255, 255, 255);\n"
-"background-color: rgb(0, 139, 139);\n"
+"	color: rgb(239, 41, 41);\n"
 "}\n"
 "\n"
-"\n"
+"#labelHeading{\n"
+"	color: rgba(255, 255, 255, .60);\n"
+"}\n"
 "\n"
 "QDateEdit{\n"
-"	color: rgb(0, 0, 255);\n"
-"	background-color: rgb(255, 255, 255);\n"
+"	color: rgba(255, 255, 0, .60);\n"
+"	background-color: #343b47;\n"
+"\n"
 "}\n"
 "\n"
+"QLineEdit, #labelBankName, #labelCustomerName{\n"
+"  color:rgba(0, 255, 255, .60);\n"
+"}\n"
+"\n"
+"\n"
 "QPushButton{\n"
-"	width: 125px;\n"
-"	height: 30px;\n"
+"    background-color:#10141b;\n"
+" 	color:rgba(0, 255, 0, .50);\n"
+"    width: 100px;\n"
+"	height: 18px;\n"
 "	text-align: center;\n"
 "	padding: 5px, 10px;\n"
-"	border: 2px solid #264BF6;\n"
-"	border-radius: 15px;\n"
-"	color: rgb(255,255, 255);\n"
-"	background-color: rgb(0, 30, 100);\n"
+"	border: 1px solid #264BF6;\n"
+"	border-radius: 10px;\n"
 "\n"
 "}\n"
 "\n"
 "QPushButton::hover{\n"
-"	background-color: rgb(130, 30, 100);\n"
-"    color: white;\n"
+"	background-color: rgba(0, 0, 255, .30);\n"
+"     color: rgba(255, 255, 255, .50);\n"
 "}\n"
 "\n"
 "QPushButton::disabled{\n"
-"	color: rgb(0, 0, 0);\n"
-"	background-color: rgb(136, 138, 133);\n"
+"	background-color: rgba(0, 0, 0, .50);\n"
+"     color: rgba(255, 255, 255, .50);\n"
 "}\n"
 "\n"
-"#frameDelete QPushButton{\n"
-"	width: 0px;\n"
-"	height: 30px;\n"
-"	text-align: center;\n"
-"	padding: 5px, 10px;\n"
+"\n"
+"#frameDelete QPushB"
+                        "utton{\n"
 "	margin: 10px;\n"
-"	border: 2px solid #264BF6;\n"
-"	border-radius: 15px;\n"
-"    background-color: rgb(200, 200, 200);"
-                        "\n"
-"	color: rgb(255, 0, 0);\n"
+"	color: rgba(239, 41, 41, .85);\n"
 "}\n"
-"\n"
-"#frameDelete QPushButton::hover{\n"
-"	background-color: rgb(130, 30, 100);\n"
-"    color: white;\n"
-"}\n"
-"\n"
-"#frameDelete QPushButton::disabled{\n"
-"	color: rgb(0, 0, 0);\n"
-"	background-color: rgb(136, 138, 133);\n"
-"}\n"
-"\n"
-"\n"
-"#frameSaveCancel QPushButton{\n"
-"	width: 100px;\n"
-"	height: 30px;\n"
-"	text-align: center;\n"
-"	padding: 5px;\n"
-"	border: 2px solid #264BF6;\n"
-"	border-radius: 15px;\n"
-"    background-color: rgb(200, 200, 200);\n"
-"	color: rgb(10, 75, 0);\n"
-"}\n"
-"\n"
-"#frameSaveCancel QPushButton::hover{\n"
-"	background-color: rgb(130, 30, 100);\n"
-"    color: white;\n"
-"}\n"
-"\n"
-"#frameSaveCancel QPushButton::disabled{\n"
-"	color: rgb(0, 0, 0);\n"
-"	background-color: rgb(136, 138, 133);\n"
-"}")
+"")
         PeriodMismatch.setModal(True)
         self.verticalLayout_5 = QVBoxLayout(PeriodMismatch)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
@@ -146,9 +138,7 @@ class Ui_PeriodMismatch(object):
         self.labelMessage.setObjectName(u"labelMessage")
         self.labelMessage.setMinimumSize(QSize(0, 0))
         self.labelMessage.setMaximumSize(QSize(16777215, 16777215))
-        font1 = QFont()
-        font1.setPointSize(14)
-        self.labelMessage.setFont(font1)
+        self.labelMessage.setFont(font)
         self.labelMessage.setStyleSheet(u"")
         self.labelMessage.setAlignment(Qt.AlignCenter)
         self.labelMessage.setMargin(0)
@@ -159,11 +149,10 @@ class Ui_PeriodMismatch(object):
         self.labelHeading.setObjectName(u"labelHeading")
         self.labelHeading.setMinimumSize(QSize(0, 0))
         self.labelHeading.setMaximumSize(QSize(16777215, 16777215))
-        font2 = QFont()
-        font2.setPointSize(12)
-        font2.setBold(False)
-        font2.setUnderline(False)
-        self.labelHeading.setFont(font2)
+        font1 = QFont()
+        font1.setBold(False)
+        font1.setUnderline(False)
+        self.labelHeading.setFont(font1)
         self.labelHeading.setStyleSheet(u"")
         self.labelHeading.setAlignment(Qt.AlignCenter)
         self.labelHeading.setMargin(0)
@@ -224,15 +213,13 @@ class Ui_PeriodMismatch(object):
         self.labelHead.setSizePolicy(sizePolicy1)
         self.labelHead.setMinimumSize(QSize(100, 30))
         self.labelHead.setMaximumSize(QSize(100, 30))
-        font3 = QFont()
-        font3.setPointSize(12)
-        self.labelHead.setFont(font3)
+        self.labelHead.setFont(font)
 
         self.horizontalLayout_4.addWidget(self.labelHead)
 
         self.editHead = QLineEdit(self.frameDetailsTop)
         self.editHead.setObjectName(u"editHead")
-        self.editHead.setEnabled(True)
+        self.editHead.setEnabled(False)
         self.editHead.setMinimumSize(QSize(200, 30))
         self.editHead.setMaximumSize(QSize(200, 30))
         self.editHead.setReadOnly(True)
@@ -257,18 +244,18 @@ class Ui_PeriodMismatch(object):
         self.labelTransDetails.setSizePolicy(sizePolicy2)
         self.labelTransDetails.setMinimumSize(QSize(100, 30))
         self.labelTransDetails.setMaximumSize(QSize(100, 30))
-        self.labelTransDetails.setFont(font3)
+        self.labelTransDetails.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.labelTransDetails)
 
         self.editTransDetails = QLineEdit(self.frameDetailsBottom)
         self.editTransDetails.setObjectName(u"editTransDetails")
-        self.editTransDetails.setEnabled(True)
+        self.editTransDetails.setEnabled(False)
         sizePolicy1.setHeightForWidth(self.editTransDetails.sizePolicy().hasHeightForWidth())
         self.editTransDetails.setSizePolicy(sizePolicy1)
         self.editTransDetails.setMinimumSize(QSize(200, 30))
         self.editTransDetails.setMaximumSize(QSize(200, 30))
-        self.editTransDetails.setFont(font3)
+        self.editTransDetails.setFont(font)
         self.editTransDetails.setStyleSheet(u"")
         self.editTransDetails.setInputMethodHints(Qt.ImhNone)
         self.editTransDetails.setMaxLength(40)
@@ -282,13 +269,13 @@ class Ui_PeriodMismatch(object):
         self.labelAccount.setSizePolicy(sizePolicy1)
         self.labelAccount.setMinimumSize(QSize(100, 30))
         self.labelAccount.setMaximumSize(QSize(100, 30))
-        self.labelAccount.setFont(font3)
+        self.labelAccount.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.labelAccount)
 
         self.editAccount = QLineEdit(self.frameDetailsBottom)
         self.editAccount.setObjectName(u"editAccount")
-        self.editAccount.setEnabled(True)
+        self.editAccount.setEnabled(False)
         self.editAccount.setMinimumSize(QSize(200, 30))
         self.editAccount.setMaximumSize(QSize(200, 30))
         self.editAccount.setReadOnly(True)
@@ -319,8 +306,7 @@ class Ui_PeriodMismatch(object):
         self.labelCustomerName.setSizePolicy(sizePolicy3)
         self.labelCustomerName.setMinimumSize(QSize(0, 30))
         self.labelCustomerName.setMaximumSize(QSize(16777215, 30))
-        self.labelCustomerName.setStyleSheet(u"color: rgb(32, 74, 135);\n"
-"")
+        self.labelCustomerName.setStyleSheet(u"")
 
         self.horizontalLayout_3.addWidget(self.labelCustomerName)
 
@@ -334,8 +320,7 @@ class Ui_PeriodMismatch(object):
         self.labelBankName.setSizePolicy(sizePolicy3)
         self.labelBankName.setMinimumSize(QSize(0, 30))
         self.labelBankName.setMaximumSize(QSize(16777215, 30))
-        self.labelBankName.setStyleSheet(u"color: rgb(32, 74, 135);\n"
-"")
+        self.labelBankName.setStyleSheet(u"")
 
         self.horizontalLayout_3.addWidget(self.labelBankName)
 
@@ -366,18 +351,18 @@ class Ui_PeriodMismatch(object):
         self.labelTransAmount.setSizePolicy(sizePolicy1)
         self.labelTransAmount.setMinimumSize(QSize(100, 30))
         self.labelTransAmount.setMaximumSize(QSize(100, 30))
-        self.labelTransAmount.setFont(font3)
+        self.labelTransAmount.setFont(font)
 
         self.amountLayout.addWidget(self.labelTransAmount, 0, Qt.AlignLeft)
 
         self.editTransAmount = QLineEdit(self.frameAmount)
         self.editTransAmount.setObjectName(u"editTransAmount")
-        self.editTransAmount.setEnabled(True)
+        self.editTransAmount.setEnabled(False)
         sizePolicy1.setHeightForWidth(self.editTransAmount.sizePolicy().hasHeightForWidth())
         self.editTransAmount.setSizePolicy(sizePolicy1)
         self.editTransAmount.setMinimumSize(QSize(200, 30))
         self.editTransAmount.setMaximumSize(QSize(200, 30))
-        self.editTransAmount.setFont(font3)
+        self.editTransAmount.setFont(font)
         self.editTransAmount.setStyleSheet(u"")
         self.editTransAmount.setInputMethodHints(Qt.ImhNone)
         self.editTransAmount.setMaxLength(40)
@@ -413,10 +398,9 @@ class Ui_PeriodMismatch(object):
         self.buttonDelete.setEnabled(True)
         self.buttonDelete.setMinimumSize(QSize(0, 0))
         self.buttonDelete.setMaximumSize(QSize(16777215, 16777215))
-        font4 = QFont()
-        font4.setPointSize(12)
-        font4.setBold(False)
-        self.buttonDelete.setFont(font4)
+        font2 = QFont()
+        font2.setBold(False)
+        self.buttonDelete.setFont(font2)
         self.buttonDelete.setStyleSheet(u"")
         icon1 = QIcon()
         icon1.addFile(u":/icons/icons/cancel.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -491,7 +475,7 @@ class Ui_PeriodMismatch(object):
         self.buttonUpdate.setEnabled(False)
         self.buttonUpdate.setMinimumSize(QSize(0, 0))
         self.buttonUpdate.setMaximumSize(QSize(16777215, 16777215))
-        self.buttonUpdate.setFont(font4)
+        self.buttonUpdate.setFont(font2)
         self.buttonUpdate.setStyleSheet(u"")
         icon6 = QIcon()
         icon6.addFile(u":/icons/icons/ok.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -505,7 +489,7 @@ class Ui_PeriodMismatch(object):
         self.buttonReset.setEnabled(False)
         self.buttonReset.setMinimumSize(QSize(0, 0))
         self.buttonReset.setMaximumSize(QSize(16777215, 16777215))
-        self.buttonReset.setFont(font4)
+        self.buttonReset.setFont(font2)
         self.buttonReset.setStyleSheet(u"")
         icon7 = QIcon()
         icon7.addFile(u":/icons/icons/reset.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -518,7 +502,7 @@ class Ui_PeriodMismatch(object):
         self.buttonClose.setObjectName(u"buttonClose")
         self.buttonClose.setMinimumSize(QSize(0, 0))
         self.buttonClose.setMaximumSize(QSize(16777215, 16777215))
-        self.buttonClose.setFont(font4)
+        self.buttonClose.setFont(font2)
         self.buttonClose.setStyleSheet(u"")
         icon8 = QIcon()
         icon8.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)

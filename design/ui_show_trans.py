@@ -1,3 +1,23 @@
+
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 # -*- coding: utf-8 -*-
 
 ################################################################################
@@ -27,99 +47,75 @@ class Ui_ShowTransactions(object):
         if not ShowTransactions.objectName():
             ShowTransactions.setObjectName(u"ShowTransactions")
         ShowTransactions.setWindowModality(Qt.WindowModal)
-        ShowTransactions.resize(791, 517)
+        ShowTransactions.resize(791, 568)
         font = QFont()
-        font.setPointSize(12)
         ShowTransactions.setFont(font)
         icon = QIcon()
         icon.addFile(u":/icons/icons/view.png", QSize(), QIcon.Normal, QIcon.Off)
         ShowTransactions.setWindowIcon(icon)
-        ShowTransactions.setStyleSheet(u"/*   style for the Root Widget  */\n"
-"*{\n"
-"background-color: rgb(126, 178, 235);\n"
+        ShowTransactions.setStyleSheet(u"*{\n"
+"     background-color :#10141b;\n"
+"  	border: none;\n"
+"	color: rgb(0, 145, 145);\n"
+"	font-size: 16px;\n"
 "}\n"
 "\n"
-"\n"
-"/* style for the groupRadio*/\n"
-"\n"
-"#groupRadio{\n"
-"	border: 1px solid #E72222;\n"
-"	color: rgb(97, 33, 214);\n"
+"#groupRadio, #comboFrame, #buttonFrame{\n"
+"	border: 1px solid #1DAD5F;\n"
 "}\n"
-"\n"
-"\n"
-"#comboFrame{\n"
-"	border: 1px solid #E72222;\n"
-"}\n"
-"\n"
-"#buttonFrame{\n"
-"	border: 1px solid #E72222;\n"
-"}\n"
-"\n"
 "\n"
 "QComboBox{\n"
 "	width: 200px;\n"
 "	height: 30px;\n"
-"	background-color: rgb(225, 225, 225);\n"
+"	background-color: #1f232a;\n"
+"	color:rgba(255, 255, 255, .60);\n"
 "	selection-color: rgb(255, 255, 255);\n"
 "	selection-background-color: rgb(32, 74, 135);\n"
 "	border: 1px solid #264BF6;\n"
-"	border-radius: 0px;\n"
 "}\n"
 "\n"
+"#radioAll,\n"
+"#radioReceipts,\n"
+"#radioPayments{\n"
+"	color:rgba(255, 255, 255, .60);\n"
+"}\n"
+"#tableView{\n"
+"	background-color: #1f232a;\n"
+"	color:rgba(255, 255, 255, .60);\n"
+" }\n"
+"\n"
+"QLineEdit{\n"
+"	background-color: #1f232a;\n"
+"	color:rgba(255, 255, 255, .60);\n"
+"	font-size: 20px \n"
+"}\n"
 "\n"
 "QPushButton{\n"
-"	width: 100px;\n"
-"	height: 30px;\n"
-"	\n"
-"	background-color: rgb(186, 189, 182);\n"
-"	color: rgb(0, 0, 255);\n"
-"\n"
+"    background-color:#10141b;\n"
+" 	color:rgba(0, 255, 0, .60);\n"
+"    width: 80px;\n"
+"	height: 18px;\n"
 "	text-align: center;\n"
-"	\n"
-"	\n"
+"	padding: 5px, 10px;\n"
 "	border: 1px solid #264BF6;\n"
-"	border-radius: 5px;\n"
-"   \n"
-"}\n"
+"	border-radius: 10px;\n"
 "\n"
-"QPushButton::hover{\n"
-"	background-color: rgb(0, 0, 255);\n"
-"    color: white;\n"
-"	\n"
-"	text-align: center;\n"
-"		\n"
-"	border: 1px solid #fff;\n"
+"}\n"
 ""
-                        "	border-radius: 5px;\n"
+                        "\n"
+"QPushButton::hover{\n"
+"	background-color: rgba(0, 0, 255, .30);\n"
 "}\n"
 "\n"
 "QPushButton::disabled{\n"
-"	color: rgb(0, 0, 0);\n"
-"	background-color: rgb(136, 138, 133);\n"
+"	background-color: rgba(0, 0, 0, .50);\n"
+"     color: rgba(255, 255, 255, .60);\n"
 "}\n"
+" \n"
+" \n"
+"        \n"
 "\n"
 "\n"
-"/*  style for the rightFrame  */\n"
-"#tableView{\n"
-"background-color: rgb(200, 231, 231);\n"
-"}\n"
-"\n"
-"#footerFrame{\n"
-"background-color: rgb(200, 231, 231);\n"
-"}\n"
-"\n"
-"#footerFrame QLabel{\n"
-"background-color: rgb(200, 231, 231);\n"
-"}\n"
-"\n"
-"#footerFrame QLineEdit{\n"
-"background-color: rgb(245, 245, 245);\n"
-"}\n"
-"\n"
-"#editTotal{\n"
-"font-size: 20px \n"
-"}\n"
 "\n"
 "")
         ShowTransactions.setModal(True)
@@ -152,7 +148,7 @@ class Ui_ShowTransactions(object):
         self.groupRadio.setFlat(False)
         self.groupRadio.setCheckable(False)
         self.verticalLayout_2 = QVBoxLayout(self.groupRadio)
-        self.verticalLayout_2.setSpacing(0)
+        self.verticalLayout_2.setSpacing(5)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(9, 20, -1, 9)
         self.radioAll = QRadioButton(self.groupRadio)
@@ -179,13 +175,11 @@ class Ui_ShowTransactions(object):
         self.comboFrame.setFrameShape(QFrame.StyledPanel)
         self.comboFrame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_3 = QVBoxLayout(self.comboFrame)
-        self.verticalLayout_3.setSpacing(6)
+        self.verticalLayout_3.setSpacing(15)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.labelAccountNumber = QLabel(self.comboFrame)
         self.labelAccountNumber.setObjectName(u"labelAccountNumber")
-        font1 = QFont()
-        font1.setPointSize(10)
-        self.labelAccountNumber.setFont(font1)
+        self.labelAccountNumber.setFont(font)
 
         self.verticalLayout_3.addWidget(self.labelAccountNumber)
 
@@ -202,7 +196,7 @@ class Ui_ShowTransactions(object):
 
         self.labelHeadName = QLabel(self.comboFrame)
         self.labelHeadName.setObjectName(u"labelHeadName")
-        self.labelHeadName.setFont(font1)
+        self.labelHeadName.setFont(font)
 
         self.verticalLayout_3.addWidget(self.labelHeadName)
 
@@ -216,7 +210,7 @@ class Ui_ShowTransactions(object):
 
         self.labelTransDate = QLabel(self.comboFrame)
         self.labelTransDate.setObjectName(u"labelTransDate")
-        self.labelTransDate.setFont(font1)
+        self.labelTransDate.setFont(font)
 
         self.verticalLayout_3.addWidget(self.labelTransDate)
 
@@ -235,8 +229,7 @@ class Ui_ShowTransactions(object):
         self.buttonSearch.setSizePolicy(sizePolicy2)
         self.buttonSearch.setMinimumSize(QSize(0, 0))
         self.buttonSearch.setMaximumSize(QSize(16777215, 16777215))
-        font2 = QFont()
-        self.buttonSearch.setFont(font2)
+        self.buttonSearch.setFont(font)
         self.buttonSearch.setStyleSheet(u"")
         self.buttonSearch.setIcon(icon)
 
@@ -253,20 +246,20 @@ class Ui_ShowTransactions(object):
         self.verticalLayout_5.setSpacing(15)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.verticalLayout_5.setContentsMargins(9, -1, 9, -1)
-        self.buttonExport = QPushButton(self.buttonFrame)
-        self.buttonExport.setObjectName(u"buttonExport")
-        self.buttonExport.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.buttonExport.sizePolicy().hasHeightForWidth())
-        self.buttonExport.setSizePolicy(sizePolicy2)
-        self.buttonExport.setMinimumSize(QSize(0, 0))
-        self.buttonExport.setMaximumSize(QSize(16777215, 16777215))
-        self.buttonExport.setFont(font)
-        self.buttonExport.setStyleSheet(u"")
+        self.buttonDownload = QPushButton(self.buttonFrame)
+        self.buttonDownload.setObjectName(u"buttonDownload")
+        self.buttonDownload.setEnabled(False)
+        sizePolicy2.setHeightForWidth(self.buttonDownload.sizePolicy().hasHeightForWidth())
+        self.buttonDownload.setSizePolicy(sizePolicy2)
+        self.buttonDownload.setMinimumSize(QSize(0, 0))
+        self.buttonDownload.setMaximumSize(QSize(16777215, 16777215))
+        self.buttonDownload.setFont(font)
+        self.buttonDownload.setStyleSheet(u"")
         icon1 = QIcon()
         icon1.addFile(u":/icons/icons/show_users.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.buttonExport.setIcon(icon1)
+        self.buttonDownload.setIcon(icon1)
 
-        self.verticalLayout_5.addWidget(self.buttonExport)
+        self.verticalLayout_5.addWidget(self.buttonDownload)
 
         self.buttonBack = QPushButton(self.buttonFrame)
         self.buttonBack.setObjectName(u"buttonBack")
@@ -362,7 +355,7 @@ class Ui_ShowTransactions(object):
 
         self.editTotal = QLineEdit(self.footerFrame)
         self.editTotal.setObjectName(u"editTotal")
-        self.editTotal.setFont(font2)
+        self.editTotal.setFont(font)
         self.editTotal.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
         self.editTotal.setReadOnly(True)
 
@@ -381,13 +374,13 @@ class Ui_ShowTransactions(object):
         self.comboHeadName.currentTextChanged.connect(ShowTransactions.onComboTextChanged)
         self.comboTransDate.currentTextChanged.connect(ShowTransactions.onComboTextChanged)
         self.buttonBack.clicked.connect(ShowTransactions.close)
-        self.buttonExport.clicked.connect(ShowTransactions.onExportToPDF)
         self.radioAll.toggled.connect(ShowTransactions.onSelectTransactionType)
         self.radioReceipts.toggled.connect(ShowTransactions.onSelectTransactionType)
         self.radioPayments.toggled.connect(ShowTransactions.onSelectTransactionType)
+        self.buttonDownload.clicked.connect(ShowTransactions.downloadPDF)
 
         self.buttonSearch.setDefault(True)
-        self.buttonExport.setDefault(True)
+        self.buttonDownload.setDefault(True)
         self.buttonBack.setDefault(True)
 
 
@@ -407,7 +400,7 @@ class Ui_ShowTransactions(object):
         self.labelTransDate.setText(QCoreApplication.translate("ShowTransactions", u"Transaction Date", None))
         self.comboTransDate.setPlaceholderText(QCoreApplication.translate("ShowTransactions", u"-----Select  date-----", None))
         self.buttonSearch.setText(QCoreApplication.translate("ShowTransactions", u"&Search", None))
-        self.buttonExport.setText(QCoreApplication.translate("ShowTransactions", u"&Export as PDF", None))
+        self.buttonDownload.setText(QCoreApplication.translate("ShowTransactions", u"&Download", None))
         self.buttonBack.setText(QCoreApplication.translate("ShowTransactions", u"&Back", None))
         self.labelAccount.setText(QCoreApplication.translate("ShowTransactions", u"A/c No", None))
         self.editAccount.setText(QCoreApplication.translate("ShowTransactions", u"All", None))

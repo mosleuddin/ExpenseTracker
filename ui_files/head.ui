@@ -14,7 +14,9 @@
    </rect>
   </property>
   <property name="font">
-   <font/>
+   <font>
+    <pointsize>-1</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Expense Tracker</string>
@@ -24,7 +26,65 @@
     <normaloff>:/icons/expense_tracker_sm.png</normaloff>:/icons/expense_tracker_sm.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">*{
+    		 background-color :#10141b;
+		color: rgb(0, 145, 145);
+		font-size: 16px;
+}
+
+QLabel{
+		color:rgba(255, 255, 255, .60);
+}
+
+QLineEdit{
+            background-color :#1f232a;
+        }
+
+QLineEdit::disabled{
+            background-color :#10141b;
+        }
+
+QComboBox{
+		background-color :#1f232a;
+		selection-color: rgb(255, 255, 255);
+		selection-background-color: rgb(32, 74, 135);
+		border: 1px solid #264BF6;
+}
+
+
+
+#labelMessage{
+	color: rgb(239, 41, 41);
+}
+
+QPushButton{
+ 	color:rgba(0, 255, 0, .50);
+    width: 100px;
+	height: 20px;
+	text-align: center;
+	padding: 5px, 10px;
+	border: 1px solid #264BF6;
+	border-radius: 10px;
+}
+
+QPushButton::hover{
+	background-color: rgba(0, 0, 255, .30);
+     color: rgba(255, 255, 255, .50);
+}
+
+QPushButton::disabled{
+	background-color: rgba(0, 0, 0, .50);
+     color: rgba(255, 255, 255, .50);
+}
+ 
+ 
+        
+
+        
+
+
+
+</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -60,11 +120,12 @@
       </size>
      </property>
      <property name="font">
-      <font/>
+      <font>
+       <pointsize>-1</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(0, 139, 139);
-background-color: rgb(245, 245, 245);</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>TextLabel</string>
@@ -87,20 +148,19 @@ background-color: rgb(245, 245, 245);</string>
      </property>
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
+       <pointsize>-1</pointsize>
        <bold>true</bold>
        <underline>false</underline>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(25, 25, 112);</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>Head</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="margin">
       <number>10</number>
@@ -126,6 +186,9 @@ background-color: rgb(25, 25, 112);</string>
      </property>
      <item>
       <widget class="QComboBox" name="comboHead">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="minimumSize">
         <size>
          <width>200</width>
@@ -139,15 +202,15 @@ background-color: rgb(25, 25, 112);</string>
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <pointsize>-1</pointsize>
+        </font>
        </property>
        <property name="autoFillBackground">
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(245, 245, 245);
-selection-background-color: rgb(64, 107, 191);
-selection-color: rgb(255, 255, 255);</string>
+        <string notr="true"/>
        </property>
        <property name="placeholderText">
         <string>Select head</string>
@@ -185,7 +248,9 @@ selection-color: rgb(255, 255, 255);</string>
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <pointsize>-1</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Head &amp;Name</string>
@@ -197,6 +262,9 @@ selection-color: rgb(255, 255, 255);</string>
      </item>
      <item row="4" column="1">
       <widget class="QLineEdit" name="editHeadName">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="minimumSize">
         <size>
          <width>200</width>
@@ -204,11 +272,12 @@ selection-color: rgb(255, 255, 255);</string>
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <pointsize>-1</pointsize>
+        </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(245, 245, 245);
-</string>
+        <string notr="true"/>
        </property>
        <property name="maxLength">
         <number>32</number>
@@ -240,7 +309,9 @@ selection-color: rgb(255, 255, 255);</string>
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <pointsize>-1</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Head &amp;Type</string>
@@ -266,10 +337,7 @@ selection-color: rgb(255, 255, 255);</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(245, 245, 245);
-selection-background-color: rgb(64, 107, 191);
-selection-color: rgb(255, 255, 255);
-</string>
+        <string notr="true"/>
        </property>
        <property name="placeholderText">
         <string>Select head type</string>
@@ -278,6 +346,9 @@ selection-color: rgb(255, 255, 255);
      </item>
      <item row="2" column="1">
       <widget class="QLineEdit" name="editHeadType">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="minimumSize">
         <size>
          <width>200</width>
@@ -285,8 +356,7 @@ selection-color: rgb(255, 255, 255);
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(245, 245, 245);
-</string>
+        <string notr="true"/>
        </property>
        <property name="maxLength">
         <number>32</number>
@@ -301,7 +371,7 @@ selection-color: rgb(255, 255, 255);
    <item>
     <layout class="QHBoxLayout" name="buttonLayout">
      <property name="spacing">
-      <number>5</number>
+      <number>15</number>
      </property>
      <property name="leftMargin">
       <number>50</number>
@@ -332,24 +402,24 @@ selection-color: rgb(255, 255, 255);
       <widget class="QPushButton" name="buttonBack">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>30</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>30</height>
+         <width>16777215</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>-1</pointsize>
          <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>&amp;Back</string>
@@ -367,24 +437,24 @@ selection-color: rgb(255, 255, 255);
        </property>
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>30</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>30</height>
+         <width>16777215</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>-1</pointsize>
          <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>&amp;Cancel</string>
@@ -402,24 +472,24 @@ selection-color: rgb(255, 255, 255);
        </property>
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>30</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>30</height>
+         <width>16777215</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>-1</pointsize>
          <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>&amp;Ok</string>

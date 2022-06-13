@@ -1,19 +1,39 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon, QIntValidator
 from PySide6.QtSql import QSqlQueryModel
-from PySide6.QtWidgets import QDialog, QLineEdit, QTableView, QLabel
+from PySide6.QtWidgets import QDialog, QTableView, QLabel
 
-from modules.module import CustomMessage, resize_and_move, valid_char, valid_space
+from modules.module import MsgBox, resize_and_move, valid_char, valid_space
 from design.ui_account import Ui_AccountWindow
 from design.ui_account_view import Ui_ViewAccount
 from db.table_account import *
-from db.table_balance import insertOpeningBalance, updateOpeningBalance, getOpeningBalance
+from db.table_balance import insertOpeningBalance
 
 
 class Account(QDialog):
     def __init__(self, parent=None):
         super(Account, self).__init__(parent)
         self.parent = parent
+        self.bg = 'background-color :#10141b;'
 
         self.setWindowTitle('Expense Tracker')
         self.common_icon = QIcon('src/icons/common.png')
@@ -42,12 +62,7 @@ class Account(QDialog):
 
         # configure comboBankName
         for bank_name in self.parent.bank_names_list:
-            self.ui.comboBankName.addItem(self.common_icon, bank_name)
-
-        self.ui.editAccountNumber.addAction(self.common_icon, QLineEdit.ActionPosition.LeadingPosition)
-        self.ui.editCustomerName.addAction(self.common_icon, QLineEdit.ActionPosition.LeadingPosition)
-        self.ui.editBranchName.addAction(self.common_icon, QLineEdit.ActionPosition.LeadingPosition)
-        self.ui.editBalance.addAction(self.common_icon, QLineEdit.ActionPosition.LeadingPosition)
+            self.ui.comboBankName.addItem(bank_name)
 
     def showBody(self, arg=True):
         if arg:
@@ -126,7 +141,6 @@ class AddAccount(Account):
         super(AddAccount, self).__init__(parent)
         self.parent = parent
         self.task = 'add'
-        self.setStyleSheet('background-color: rgb(255,239,213);')
 
         self.showCombo(False)
         self.ui.labelOpeningBalance.show()
@@ -203,7 +217,7 @@ class AddAccount(Account):
             title = 'Account Number'
             msg = 'Only digits are allowed'
 
-        elif bankAccountExists(account_number, 'add'):
+        elif bankAccountExists(account_number):
             obj = self.ui.editAccountNumber
             title = 'Account Number'
             msg = f'A/c No.  {account_number} exists!!!'
@@ -222,7 +236,7 @@ class AddAccount(Account):
             self.ui.labelMessage.show()
             self.showBody()
             return
-        CustomMessage().warn(title, msg, '&Got it')
+        MsgBox(title, msg, '&Got it').warn()
         self.ui.buttonOk.setEnabled(False)
         obj.setFocus()
         if obj != self.ui.comboBankName:
@@ -235,8 +249,6 @@ class EditAccount(Account):
         super(EditAccount, self).__init__(parent)
         self.parent = parent
         self.task = 'edit'
-        self.bg = 'background-color: rgb(255,228,225)'
-        self.setStyleSheet(self.bg)
 
         self.showBody(False)
         populateComboAccount(self)
@@ -308,7 +320,7 @@ class EditAccount(Account):
             self.showBody(False)
             self.showCombo(True)
             return
-        CustomMessage().warn(title, msg, '&Got it')
+        MsgBox(title, msg, '&Got it').warn()
         obj.setFocus()
         if obj != self.ui.comboBankName:
             obj.end(False)
@@ -320,8 +332,6 @@ class DeleteAccount(Account):
         super(DeleteAccount, self).__init__(parent)
         self.parent = parent
         self.task = 'delete'
-        self.bg = 'background-color: rgb(255,240,245);'
-        self.setStyleSheet(self.bg)
 
         self.showBody(False)
         populateComboAccount(self)
@@ -332,19 +342,25 @@ class DeleteAccount(Account):
 
     def onOkPressed(self):
         account_number = self.ui.editAccountNumber.text().strip()
-        title = 'Confirm Delete'
-        msg = f' Delete account number "{account_number}" ?'
-        if CustomMessage().confirm(title, msg, '&Delete', '&Cancel'):
-            removeAccount(self, account_number)
-            msg = f'Bank Account No. "{account_number}" deleted successfully'
-            self.showBody(False)
-            self.showCombo(True)
-            populateComboAccount(self)
-            self.ui.labelMessage.setText(msg)
-            self.ui.labelMessage.show()
+
+        if account_related_transaction_exists(account_number):
+            MsgBox(f"{account_number} has related transaction",
+                   f"To remove the account_number, all the related records in the "
+                   f"transaction table must be deleted first").warn()
         else:
-            self.showBody(False)
-            self.showCombo(True)
+            title = 'Confirm Delete'
+            msg = f' Delete account number "{account_number}" ?'
+
+            if MsgBox(title, msg, '&Delete', '&Cancel').confirm():
+                removeAccount(self, account_number)
+                msg = f'Bank Account No. "{account_number}" deleted successfully'
+
+                populateComboAccount(self)
+                self.ui.labelMessage.setText(msg)
+                self.ui.labelMessage.show()
+
+        self.showBody(False)
+        self.showCombo(True)
 
 
 class ViewAccount(QDialog):

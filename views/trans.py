@@ -1,25 +1,47 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QIcon, QIntValidator
+from PySide6.QtGui import QIcon, QIntValidator, QColor
 from PySide6.QtSql import QSqlQueryModel
-from PySide6.QtWidgets import QDialog, QLineEdit, QLabel, QTableView
+from PySide6.QtWidgets import QDialog, QLabel, QTableView
 
 from design.ui_trans import Ui_TransactionWindow
 from design.ui_trans_view import Ui_TransactionView
 from db.table_trans import *
-from modules.module import CustomMessage, resize_and_move, valid_char, valid_space
+from modules.module import MsgBox, resize_and_move, valid_char, valid_space
 
 
 class MyTransaction(QDialog):
     def __init__(self, parent=None, trans_type=None, task=None):
         super(MyTransaction, self).__init__(parent)
         self.parent = parent
+        self.bg = 'background-color :#10141b;'
         self.task = task
+        self.allowed_chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                              ' ', '@', '%', '&', '(', ')', '[', ']', '_', '-', '.'
+
+                              ]
 
         month, year = getPeriod()
         self.trans_month = month
         self.trans_year = year
-
-        self.bg = 'background-color: rgb(239, 224, 200);'
 
         # variables for 'trans' table fields
         self.current_trans_type = trans_type
@@ -53,11 +75,6 @@ class MyTransaction(QDialog):
         # setting validators editTransAmount
         self.ui.editTransId.setValidator(QIntValidator())
         self.ui.editTransAmount.setValidator(QIntValidator())
-
-        # adding icon to LineEdit widgets
-        self.ui.editTransId.addAction(QIcon("src/icons/common.png"), QLineEdit.ActionPosition.LeadingPosition)
-        self.ui.editTransDetails.addAction(QIcon("src/icons/common.png"), QLineEdit.ActionPosition.LeadingPosition)
-        self.ui.editTransAmount.addAction(QIcon("src/icons/common.png"), QLineEdit.ActionPosition.LeadingPosition)
 
         self.ui.buttonOk.setText(f'&{self.task.upper()}')
         self.ui.buttonOk.setIcon(QIcon(f'src/icons/{self.task.lower()}.png'))
@@ -104,7 +121,7 @@ class MyTransaction(QDialog):
 
         if not recordExists(trans_id, trans_type):
             msg = 'Record not found'
-            CustomMessage().warn(title, msg, button)
+            MsgBox(title, msg, button).warn()
             self.ui.editTransId.setFocus()
             self.ui.buttonSearch.setEnabled(False)
             return
@@ -112,7 +129,6 @@ class MyTransaction(QDialog):
         self.showMainWidgets(True)
         populateWidgets(self, trans_id, f'{self.task.lower()}')
         self.ui.dateTrans.setFocus()
-        # self.ui.buttonOk.setEnabled(False)
 
     def onTextEdited(self, text):
         if text:
@@ -170,7 +186,6 @@ class MyTransaction(QDialog):
 class AddTransaction(MyTransaction):
     def __init__(self, parent, trans_type):
         super(AddTransaction, self).__init__(parent, trans_type, 'Add')
-        self.ui.labelHeading.setStyleSheet("color: rgb(25,25,240)")
 
         # hide/show widgets
         self.showMainWidgets(True)
@@ -206,13 +221,13 @@ class AddTransaction(MyTransaction):
         title = 'Insert Record'
         msg = ''
         obj = None
-        chars = [' ', '-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
         # ###########################  Validating date ##############################
-        if not validDate(self, new_date):
+        date_status = validDate(self, new_date)
+        if date_status != "ok" :
             obj = self.ui.dateTrans
             title = f'Incorrect Transaction Date'
-            msg = f'Please select a date from {self.trans_month} {self.trans_year}'
+            msg = date_status
 
         # ###########################  Validating Transaction Details ##############################
         elif len(new_details) < 3:
@@ -220,7 +235,7 @@ class AddTransaction(MyTransaction):
             title = 'Transaction Details'
             msg = 'Minimum 3 characters required'
 
-        elif not valid_char(new_details, chars):
+        elif not valid_char(new_details, self.allowed_chars):
             obj = self.ui.editTransDetails
             title = 'Transaction Details'
             msg = 'Invalid input'
@@ -258,7 +273,7 @@ class AddTransaction(MyTransaction):
             self.ui.labelMessage.show()
             return
 
-        CustomMessage().warn(title, msg, '&Got it')
+        MsgBox(title, msg, '&Got it').warn()
         self.ui.buttonOk.setEnabled(False)
         if obj == self.ui.editTransDetails or obj == self.ui.editTransAmount:
             obj.end(False)
@@ -270,7 +285,6 @@ class EditTransaction(MyTransaction):
     def __init__(self, parent, trans_type):
         super(EditTransaction, self).__init__(parent, trans_type, 'Edit')
         self.parent = parent
-        self.ui.labelHeading.setStyleSheet("color: rgb(25,140,140)")
         self.ui.editTransId.setFocus()
 
     def onOkPressed(self):
@@ -283,7 +297,6 @@ class EditTransaction(MyTransaction):
         title = 'Update Record'
         msg = ''
         obj = None
-        chars = [' ', '-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
         # Check whether data changed or not
 
@@ -309,11 +322,11 @@ class EditTransaction(MyTransaction):
             msg = 'Nothing to update???'
 
         # ###########################  Validating date ##############################
-        elif not validDate(self, new_date):
+        date_status = validDate(self, new_date)
+        if date_status != "ok":
             obj = self.ui.dateTrans
             title = f'Incorrect Transaction Date'
-            msg = f'Please select a date from {self.trans_month} {self.trans_year}'
-
+            msg = date_status
 
         # ###########################  Validating Transaction Details ##############################
         elif len(new_details) < 3:
@@ -321,7 +334,7 @@ class EditTransaction(MyTransaction):
             title = 'Transaction Details'
             msg = 'Minimum 3 characters required'
 
-        elif not valid_char(new_details, chars):
+        elif not valid_char(new_details, self.allowed_chars):
             obj = self.ui.editTransDetails
             title = 'Transaction Details'
             msg = 'Invalid input'
@@ -359,7 +372,7 @@ class EditTransaction(MyTransaction):
             self.showMainWidgets(False)
             return
 
-        CustomMessage().warn(title, msg, '&Got it')
+        MsgBox(title, msg, '&Got it').warn()
         self.ui.buttonOk.setEnabled(False)
         if obj == self.ui.editTransDetails or obj == self.ui.editTransAmount:
             obj.end(False)
@@ -371,21 +384,19 @@ class DeleteTransaction(MyTransaction):
     def __init__(self, parent, trans_type):
         super(DeleteTransaction, self).__init__(parent, trans_type, 'Delete')
         self.parent = parent
-        self.ui.labelHeading.setStyleSheet("color: rgb(240,25,25)")
         self.ui.editTransId.setFocus()
 
     def onOkPressed(self):
         title = 'Confirm Delete'
         msg = f'Do you want delete this record?'
-        if CustomMessage().confirm(title, msg, '&Delete', '&Cancel'):
+        if MsgBox(title, msg, '&Delete', '&Cancel').confirm():
             removeTransaction(self, self.current_trans_id)
-            msg = f'Record deleted successfully'
 
+            msg = f'Record deleted successfully'
             self.ui.labelMessage.setText(msg)
             self.ui.labelMessage.show()
 
-            self.showMainWidgets(False)
-        return
+        self.showMainWidgets(False)
 
 
 class ViewTransaction(QDialog):
@@ -513,7 +524,7 @@ class ViewTransaction(QDialog):
             self.ui.labelPaymentTotal.setText("Total")
             self.ui.editPaymentTotal.setText(str(total))
 
-        self.model = QSqlQueryModel()
+        self.model = ViewTransactionModel()
         self.model.setQuery(self.query)
 
         self.model.setHeaderData(0, Qt.Horizontal, "Id")
@@ -529,20 +540,50 @@ class ViewTransaction(QDialog):
         self.ui.tableView.setModel(self.model)
         self.ui.tableView.setSelectionBehavior(QTableView.SelectRows)
         self.ui.tableView.setColumnWidth(0, 50)
-        self.ui.tableView.setColumnWidth(1, 150)
-        self.ui.tableView.setColumnWidth(2, 150)
+        self.ui.tableView.setColumnWidth(1, 125)
+        self.ui.tableView.setColumnWidth(2, 200)
         self.ui.tableView.setColumnWidth(3, 250)
-        self.ui.tableView.setColumnWidth(4, 175)
-        self.ui.tableView.setColumnWidth(5, 250)
-        self.ui.tableView.setColumnWidth(6, 250)
-        self.ui.tableView.setColumnWidth(7, 100)
+        self.ui.tableView.setColumnWidth(4, 110)
+        self.ui.tableView.setColumnWidth(5, 175)
+        self.ui.tableView.setColumnWidth(6, 150)
 
-        if self.model.rowCount() == 0:
-            self.text_label.show()
-        else:
+        rows = self.model.rowCount()
+        if rows:
             self.text_label.hide()
+            for row in range(rows):
+                # set height of each row
+                self.ui.tableView.setRowHeight(row, 50)
+        else:
+            self.text_label.show()
 
     def closeEvent(self, event):
         self.model.clear()
         self.query.finish()
         event.accept()
+
+
+class ViewTransactionModel(QSqlQueryModel):
+    def __init__(self, query=None):
+        super(ViewTransactionModel, self).__init__()
+        self.setQuery(query)
+
+    def data(self, index, role):
+        if index.isValid():
+            col = index.column()
+            row = index.row()
+
+            if role == Qt.TextAlignmentRole:
+                if col == 4:
+                    return Qt.AlignRight
+
+                if col == 5:
+                    return Qt.AlignHCenter
+                else:
+                    return Qt.AlignLeft
+
+            if role == Qt.ForegroundRole:
+                head = index.sibling(row, 2).data()
+                if head == "ContraReceipt" or head == "ContraPayment":
+                    return QColor("#DA8989")
+
+        return QSqlQueryModel.data(self, index, role)

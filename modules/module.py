@@ -1,8 +1,33 @@
+
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 from PySide6.QtGui import QFont, QIcon
 from PySide6.QtWidgets import QApplication, QPushButton, QMessageBox
 
 
 class CustomButton(QPushButton):
+    """
+    This is a class inherited from QPushButton to make a custom button used in loadData()
+    function of ShowUsers class in credentials.py file
+    """
+
     def __init__(self):
         super(CustomButton, self).__init__()
         self.setIcon(QIcon("src/icons/reset.png"))
@@ -11,72 +36,95 @@ class CustomButton(QPushButton):
 
 
 class CustomButtonBalance(QPushButton):
+    """
+    This is a class inherited from QPushButton to make a custom button used in loadData()
+    function of ShowOpeningBalance class in opening_balance.py file
+    """
+
     def __init__(self):
         super(CustomButtonBalance, self).__init__()
         self.setIcon(QIcon("src/icons/edit.png"))
         self.account_number = None
 
 
-class CustomMessage(QMessageBox):
-    def __init__(self, parent=None):
-        super(CustomMessage, self).__init__(parent)
+class MsgBox(QMessageBox):
+    """
+       This is a class inherited from QMessageBox to make 4 types of messages
+       used in different parts of the application
+    """
 
-    def confirm(self, title='Title', msg='Message', button_0='&Accept', button_1='&Reject'):
-        acceptButton = QPushButton(icon=QIcon('./src/icons/ok.png'), text=button_0)
-        rejectButton = QPushButton(icon=QIcon('./src/icons/cancel.png'), text=button_1)
-        rejectButton.setStyleSheet('background-color: rgb(0, 60, 150)')
+    def __init__(self,
+                 title='Title',
+                 msg='Message',
+                 button_0='&Ok',
+                 button_1='&Cancel'):
+        super(MsgBox, self).__init__()
 
-        self.addButton(acceptButton, QMessageBox.AcceptRole)
-        self.addButton(rejectButton, QMessageBox.RejectRole)
-        self.setDefaultButton(rejectButton)
+        self.title = title
+        self.msg = f"\n\n\n{msg}\n\n\n"
+        self.button0 = button_0
+        self.button1 = button_1
 
-        self.setStyleSheet('background-color: rgb(75, 75, 75); color: rgb(255, 255, 255)')
+        self.setWindowTitle(self.title)
+        self.setText(self.msg)
+
+        self.setStyleSheet('background-color: #10141b; color:rgba(255, 255, 255, 0.60)')
+
+        self.acceptButton = QPushButton(icon=QIcon('./src/icons/ok.png'), text=self.button0)
+        self.rejectButton = QPushButton(icon=QIcon('./src/icons/cancel.png'), text=self.button1)
+
+        button_style = """
+                         QPushButton{
+                            background-color: #10141b; 
+                            color:rgba(255, 255, 255, 0.60);
+                            width: 100px;
+                            height: 20px;
+                            text-align: center;
+                            padding: 5px, 10px;
+                            border: 1px solid #264BF6;
+                            border-radius: 10px;
+                            }
+                    
+                         QPushButton:hover{
+                            background-color: rgba(0, 0, 255, 0.50);
+                            }
+                      """
+
+        self.acceptButton.setStyleSheet(button_style)
+        self.rejectButton.setStyleSheet(button_style)
+
+        self.addButton(self.acceptButton, QMessageBox.AcceptRole)
+
+    def confirm(self):
+        self.addButton(self.rejectButton, QMessageBox.RejectRole)
+        self.setDefaultButton(self.rejectButton)
+
         self.setIcon(QMessageBox.Question)
-        self.setWindowTitle(title)
-        self.setText(msg)
         self.exec()
 
-        if self.clickedButton() == acceptButton:
+        if self.clickedButton() == self.acceptButton:
             return True
         else:
             return False
 
-    def info(self, title='Title', msg='Message', button_0='&Accept'):
-        acceptButton = QPushButton(icon=QIcon('./src/icons/ok.png'), text=button_0)
-        acceptButton.setStyleSheet('background-color: rgb(245, 245, 245); color: rgb(51, 51, 51)')
-        self.addButton(acceptButton, QMessageBox.AcceptRole)
-
-        self.setStyleSheet('background-color: rgb(100, 150, 255); color: rgb(0, 0, 0)')
+    def info(self):
         self.setIcon(QMessageBox.Information)
-        self.setWindowTitle(title)
-        self.setText(msg)
         self.exec()
 
-    def warn(self, title='Title', msg='Message', button_0='&Accept'):
-        acceptButton = QPushButton(icon=QIcon('./src/icons/ok.png'), text=button_0)
-        acceptButton.setStyleSheet('background-color: rgb(245, 245, 245); color: rgb(51, 51, 51)')
-        self.addButton(acceptButton, QMessageBox.AcceptRole)
-
-        self.setStyleSheet('background-color: rgb(255, 200, 200); color: rgb(0, 0, 0)')
+    def warn(self):
         self.setIcon(QMessageBox.Warning)
-        self.setWindowTitle(title)
-        self.setText(msg)
         self.exec()
 
-    def danger(self, title='Title', msg='Message', button_0='&Accept'):
-        acceptButton = QPushButton(icon=QIcon('./src/icons/ok.png'), text=button_0)
-        acceptButton.setStyleSheet('background-color: rgb(255, 0, 0); color: rgb(245, 245, 245)')
-        self.addButton(acceptButton, QMessageBox.AcceptRole)
-
-        self.setStyleSheet('background-color: rgb(255, 255, 0); color: rgb(0, 0, 0)')
+    def danger(self):
         self.setIcon(QMessageBox.Critical)
-        self.setWindowTitle(title)
-        self.setText(msg)
         self.exec()
 
 
-# set custom font
 def custom_font(widget=None, font_size=12, bold=False, underline=False):
+    """
+        The function makes custom font using the parameters.
+        *However the function has not been used by the application.
+    """
     font = QFont()
     font.setPointSize(font_size)
     font.setBold(bold)
@@ -84,8 +132,10 @@ def custom_font(widget=None, font_size=12, bold=False, underline=False):
     widget.setFont(font)
 
 
-# set window size and position
 def resize_and_move(self, parent=None, wd=None, ht=None):
+    """
+    The function helps for resizing and positioning a window
+    """
     geometry = QApplication.primaryScreen().availableGeometry()
     screen_wd = geometry.width()
     screen_ht = geometry.height()
@@ -115,6 +165,10 @@ def resize_and_move(self, parent=None, wd=None, ht=None):
 
 # make widgets read only
 def read_only(bg, *args):
+    """
+    The function makes one or more QLineEdit(s) or QDateEdit(s) readonly
+    and also changes the background colors of the widget(s)
+    """
     for obj in args:
         obj.setReadOnly(True)
         # obj.setFrame(False)
@@ -123,6 +177,9 @@ def read_only(bg, *args):
 
 # validation
 def valid_char(text, allowed_spl_chars=None):
+    """
+    The function checks whether the text entered in a widget is valid or not
+    """
     if allowed_spl_chars is None:
         allowed_spl_chars = [' ']
     if all(char.isalpha() or char in allowed_spl_chars for char in text):
@@ -132,6 +189,9 @@ def valid_char(text, allowed_spl_chars=None):
 
 
 def valid_space(text):
+    """
+    The function checks whether the space(s) entered by the user is valid or not
+    """
     space = 0
     for char in text:
         if char == ' ':
@@ -144,6 +204,9 @@ def valid_space(text):
 
 
 def showMismatchMessage(parent, title=None, button=None):
+    """
+    The function shows a message to the users if transaction mismatch found
+    """
     message_title = title
     message_button = button
 
@@ -180,16 +243,4 @@ def showMismatchMessage(parent, title=None, button=None):
 
     message = message + "\n\n" + horizontal_line + "\n\n"
 
-    CustomMessage(parent).warn(message_title, message, message_button)
-
-
-"""
-class CustomDelegate(QSqlRelationalDelegate):
-    def __init__(self, index, parent):
-        super(CustomDelegate, self).__init__(parent)
-
-    def createEditor(self, index, parent):
-        editor = QLineEdit()
-        editor.setMaxLength(6)
-        return editor
-"""
+    MsgBox(message_title, message, message_button).warn()

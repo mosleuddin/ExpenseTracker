@@ -1,12 +1,31 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QIntValidator
 from PySide6.QtSql import QSqlDatabase
 from PySide6.QtWidgets import QDialog
 
-from db.table_balance import getOpeningBalance, updateOpeningBalance
+from db.table_balance import getOpeningBalanceAndBankDetails, updateOpeningBalance
 from db.table_basic_details import getOwner, getPeriod, updateOwner, updatePeriod, validPeriod
 
-from modules.module import valid_char, valid_space, CustomMessage, resize_and_move
+from modules.module import valid_char, valid_space, MsgBox
 from design.ui_basic_details import Ui_BasicDetailsWindow
 from views.home import Home
 
@@ -27,8 +46,6 @@ class BasicDetailsWindow(QDialog):
         self.show()
 
     def initUI(self):
-        # self.setFixedSize(700, 400)
-        resize_and_move(self, wd=.7, ht=.6)
         self.main_window_open = False  # whether MainWindow is called or not
         self.ui.lblHead.setText("Enter Basic Details")
         self.ui.editCashBalance.setValidator(QIntValidator())
@@ -51,7 +68,7 @@ class BasicDetailsWindow(QDialog):
             active_year = "0"
 
         # get cash balance
-        cash_balance = getOpeningBalance(account_number="Cash")
+        cash_balance = getOpeningBalanceAndBankDetails(account_number="Cash")
         cash_balance = cash_balance[-1].strip()
         if not cash_balance.isnumeric():
             cash_balance = "0"
@@ -213,7 +230,7 @@ class BasicDetailsWindow(QDialog):
                 title = result[2]
                 msg = result[3]
 
-        CustomMessage().warn(title, msg, '&Got it')
+        MsgBox(title, msg, '&Got it').warn()
         self.ui.btnSubmit.setEnabled(False)
         obj.setFocus()
         obj.end(False)

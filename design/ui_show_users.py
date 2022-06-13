@@ -1,17 +1,45 @@
+
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+
 # -*- coding: utf-8 -*-
 
 ################################################################################
 ## Form generated from reading UI file 'show_users.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.1.3
+## Created by: Qt User Interface Compiler version 6.2.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import *  # type: ignore
-from PySide6.QtGui import *  # type: ignore
-from PySide6.QtWidgets import *  # type: ignore
-
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QAbstractItemView, QAbstractScrollArea, QApplication, QDialog,
+    QHBoxLayout, QHeaderView, QLabel, QPushButton,
+    QSizePolicy, QTableWidget, QTableWidgetItem, QVBoxLayout,
+    QWidget)
 from src import resource
 
 class Ui_ShowUsers(object):
@@ -22,9 +50,39 @@ class Ui_ShowUsers(object):
         ShowUsers.resize(716, 500)
         ShowUsers.setMinimumSize(QSize(700, 500))
         font = QFont()
-        font.setPointSize(14)
         ShowUsers.setFont(font)
-        ShowUsers.setStyleSheet(u"background-color: rgb(170, 176, 224);")
+        ShowUsers.setStyleSheet(u"\n"
+"*{\n"
+"  background-color :#10141b;\n"
+"  color:rgba(255, 255, 255, .75);\n"
+"  border: none;\n"
+"  font-size: 16px;\n"
+"}\n"
+"\n"
+"QLabel{\n"
+"  color:rgba(255, 255, 255, .5);\n"
+"}\n"
+"\n"
+"\n"
+"#tableBalance\n"
+"{\n"
+"  background-color: #1f232a;\n"
+"  color:rgba(255, 255, 255, .5);\n"
+"}\n"
+"\n"
+"QPushButton{\n"
+"	height: 30px;\n"
+"	border-radius: 10px;\n"
+"	text-align: center;\n"
+"	padding: 5px, 10px;\n"
+"	border: 1px solid #264BF6;\n"
+"}\n"
+"\n"
+"QPushButton::hover{\n"
+"	background-color: rgba(0, 0, 255, .30);\n"
+"}\n"
+"\n"
+"")
         ShowUsers.setModal(True)
         self.verticalLayout = QVBoxLayout(ShowUsers)
         self.verticalLayout.setSpacing(0)
@@ -33,11 +91,9 @@ class Ui_ShowUsers(object):
         self.labelHeading = QLabel(ShowUsers)
         self.labelHeading.setObjectName(u"labelHeading")
         font1 = QFont()
-        font1.setPointSize(14)
         font1.setBold(True)
         self.labelHeading.setFont(font1)
-        self.labelHeading.setStyleSheet(u"color: rgb(255, 255, 255);\n"
-"background-color: rgb(25, 25, 112);")
+        self.labelHeading.setStyleSheet(u"")
         self.labelHeading.setAlignment(Qt.AlignCenter)
         self.labelHeading.setMargin(10)
 
@@ -49,7 +105,7 @@ class Ui_ShowUsers(object):
         self.tableWidget.setObjectName(u"tableWidget")
         self.tableWidget.setMinimumSize(QSize(500, 300))
         self.tableWidget.setFont(font)
-        self.tableWidget.setStyleSheet(u"background-color: rgb(225, 225,225);")
+        self.tableWidget.setStyleSheet(u"")
         self.tableWidget.setSizeAdjustPolicy(QAbstractScrollArea.AdjustIgnored)
         self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tableWidget.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -72,14 +128,9 @@ class Ui_ShowUsers(object):
         self.horizontalLayout.setContentsMargins(-1, 30, -1, -1)
         self.buttonBack = QPushButton(ShowUsers)
         self.buttonBack.setObjectName(u"buttonBack")
-        self.buttonBack.setMinimumSize(QSize(100, 30))
-        self.buttonBack.setMaximumSize(QSize(100, 30))
-        font2 = QFont()
-        font2.setPointSize(12)
-        self.buttonBack.setFont(font2)
-        self.buttonBack.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"\n"
-"")
+        self.buttonBack.setMinimumSize(QSize(0, 0))
+        self.buttonBack.setMaximumSize(QSize(16777215, 16777215))
+        self.buttonBack.setFont(font)
         icon = QIcon()
         icon.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonBack.setIcon(icon)

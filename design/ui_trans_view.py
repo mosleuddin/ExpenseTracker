@@ -1,3 +1,23 @@
+
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 # -*- coding: utf-8 -*-
 
 ################################################################################
@@ -26,37 +46,77 @@ class Ui_TransactionView(object):
         if not TransactionView.objectName():
             TransactionView.setObjectName(u"TransactionView")
         TransactionView.setWindowModality(Qt.WindowModal)
-        TransactionView.resize(601, 480)
+        TransactionView.resize(677, 480)
         font = QFont()
-        font.setPointSize(14)
         TransactionView.setFont(font)
-        TransactionView.setStyleSheet(u"background-color: rgb(238, 226,152);\n"
+        TransactionView.setStyleSheet(u"*{\n"
+"     background-color :#10141b;\n"
+"	color:rgb(0, 145, 145);\n"
+"  	border: none;\n"
+"	font-size: 16px;\n"
+"}\n"
+"\n"
+"#labelHeading{\n"
+"    background-color: rgba(238, 226,15, .20);\n"
+"}\n"
+"\n"
+"#tableView{\n"
+"	background-color: #1f232a;\n"
+"	color:rgba(255, 255, 255, .60);\n"
+"}\n"
 "\n"
 "QLineEdit{\n"
-"	background-color: rgb(243, 243, 243);\n"
-"}")
+"		background-color: #1f232a;\n"
+"		color:rgba(255, 255, 255, .60);\n"
+"		font-size: 20px;\n"
+"}\n"
+"\n"
+"QPushButton{\n"
+"    background-color:#1f232a;\n"
+" 	color:rgba(0, 255, 0, .60);\n"
+"    width: 80px;\n"
+"	height: 18px;\n"
+"	text-align: center;\n"
+"	padding: 5px, 10px;\n"
+"	border: 1px solid #264BF6;\n"
+"	border-radius: 10px;\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton::hover{\n"
+"	background-color: rgba(0, 0, 255, .30);\n"
+"}\n"
+"")
         TransactionView.setModal(True)
         self.verticalLayout = QVBoxLayout(TransactionView)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(30, 30, 30, 30)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.heading_layout = QHBoxLayout()
+        self.heading_layout.setSpacing(0)
+        self.heading_layout.setObjectName(u"heading_layout")
         self.labelHeading = QLabel(TransactionView)
         self.labelHeading.setObjectName(u"labelHeading")
         font1 = QFont()
-        font1.setPointSize(14)
         font1.setBold(True)
         self.labelHeading.setFont(font1)
-        self.labelHeading.setStyleSheet(u"color: rgb(255, 255, 255);\n"
-"background-color: rgb(25, 25, 112);")
+        self.labelHeading.setStyleSheet(u"")
         self.labelHeading.setAlignment(Qt.AlignCenter)
         self.labelHeading.setMargin(10)
 
-        self.verticalLayout.addWidget(self.labelHeading)
+        self.heading_layout.addWidget(self.labelHeading)
 
+
+        self.verticalLayout.addLayout(self.heading_layout)
+
+        self.table_layout = QHBoxLayout()
+        self.table_layout.setSpacing(0)
+        self.table_layout.setObjectName(u"table_layout")
+        self.table_layout.setContentsMargins(25, 25, 25, 25)
         self.tableView = QTableView(TransactionView)
         self.tableView.setObjectName(u"tableView")
         self.tableView.setFont(font)
-        self.tableView.setStyleSheet(u"background-color: rgb(225, 225,225);")
+        self.tableView.setStyleSheet(u"")
         self.tableView.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.tableView.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tableView.setAlternatingRowColors(False)
@@ -71,65 +131,63 @@ class Ui_TransactionView(object):
         self.tableView.verticalHeader().setVisible(False)
         self.tableView.verticalHeader().setStretchLastSection(False)
 
-        self.verticalLayout.addWidget(self.tableView)
+        self.table_layout.addWidget(self.tableView)
 
-        self.footer = QHBoxLayout()
-        self.footer.setSpacing(10)
-        self.footer.setObjectName(u"footer")
-        self.footer.setContentsMargins(-1, 20, -1, -1)
+
+        self.verticalLayout.addLayout(self.table_layout)
+
+        self.bottom_layout = QHBoxLayout()
+        self.bottom_layout.setSpacing(10)
+        self.bottom_layout.setObjectName(u"bottom_layout")
+        self.bottom_layout.setContentsMargins(25, 0, 25, 25)
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.footer.addItem(self.horizontalSpacer_2)
+        self.bottom_layout.addItem(self.horizontalSpacer_2)
 
         self.labelReceiptTotal = QLabel(TransactionView)
         self.labelReceiptTotal.setObjectName(u"labelReceiptTotal")
 
-        self.footer.addWidget(self.labelReceiptTotal)
+        self.bottom_layout.addWidget(self.labelReceiptTotal)
 
         self.editReceiptTotal = QLineEdit(TransactionView)
         self.editReceiptTotal.setObjectName(u"editReceiptTotal")
-        self.editReceiptTotal.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"font: 14pt \"Ubuntu\";")
+        self.editReceiptTotal.setStyleSheet(u"")
         self.editReceiptTotal.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
         self.editReceiptTotal.setReadOnly(True)
 
-        self.footer.addWidget(self.editReceiptTotal)
+        self.bottom_layout.addWidget(self.editReceiptTotal)
 
         self.labelPaymentTotal = QLabel(TransactionView)
         self.labelPaymentTotal.setObjectName(u"labelPaymentTotal")
 
-        self.footer.addWidget(self.labelPaymentTotal)
+        self.bottom_layout.addWidget(self.labelPaymentTotal)
 
         self.editPaymentTotal = QLineEdit(TransactionView)
         self.editPaymentTotal.setObjectName(u"editPaymentTotal")
-        self.editPaymentTotal.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"font: 14pt \"Ubuntu\";")
+        self.editPaymentTotal.setStyleSheet(u"")
         self.editPaymentTotal.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
         self.editPaymentTotal.setReadOnly(True)
 
-        self.footer.addWidget(self.editPaymentTotal)
+        self.bottom_layout.addWidget(self.editPaymentTotal)
 
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.footer.addItem(self.horizontalSpacer)
+        self.bottom_layout.addItem(self.horizontalSpacer)
 
         self.buttonBack = QPushButton(TransactionView)
         self.buttonBack.setObjectName(u"buttonBack")
         self.buttonBack.setMinimumSize(QSize(100, 30))
         self.buttonBack.setMaximumSize(QSize(100, 30))
-        font2 = QFont()
-        self.buttonBack.setFont(font2)
-        self.buttonBack.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"\n"
-"")
+        self.buttonBack.setFont(font)
+        self.buttonBack.setStyleSheet(u"")
         icon = QIcon()
         icon.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonBack.setIcon(icon)
 
-        self.footer.addWidget(self.buttonBack)
+        self.bottom_layout.addWidget(self.buttonBack)
 
 
-        self.verticalLayout.addLayout(self.footer)
+        self.verticalLayout.addLayout(self.bottom_layout)
 
 
         self.retranslateUi(TransactionView)

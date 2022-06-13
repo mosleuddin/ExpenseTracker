@@ -15,7 +15,7 @@
   </property>
   <property name="font">
    <font>
-    <pointsize>12</pointsize>
+    <pointsize>-1</pointsize>
    </font>
   </property>
   <property name="windowTitle">
@@ -27,41 +27,48 @@
   </property>
   <property name="styleSheet">
    <string notr="true">*{
-	background-color: rgb(245, 237, 193);
-}
+	    background-color :#10141b;
+	    border: none;
+         font-size: 16px;
+	     color:rgba(255, 255, 255, .50);
 
-#labelMessage{
-color: rgb(255, 0, 0);
 }
-
 
 QLineEdit{
-		color: rgb(0, 0, 255);
-        border: 1px solid #264BF6;
+	color: rgba(0, 255, 0, .50);
+	padding: 5px;
+	border-radius: 5px;
+	width: 200px;
+	height: 30px;
+	margin: 5px;
 }
 
-#editBalance{
-	background-color: rgb(245, 245, 245);
-	color: rgb(0, 0, 0);
+QLineEdit::enabled{
+    background-color: #1f232a;
+	color: rgba(255, 255, 255, .75);
+	border: 1px solid #264BF6;
 
 }
 
 QPushButton{
-      background-color : rgb(255, 255, 182);
-      border: 1px solid #264BF6;
-}                    
-
-QPushButton::hover{
-	 background-color : rgb(0, 0, 255); 
-	 color : rgb(255, 255, 255);
+    background-color:#10141b;
+ 	color:rgba(0, 255, 0, .50);
+    width: 120px;
+	height: 20px;
+	padding: 5px, 10px;
+	border: 2px solid #264BF6;
+	border-radius: 10px;
 }
 
 QPushButton::disabled{
 	background-color : rgb(0, 0, 0); 
 	color : rgb(255, 255, 255);
-
 }
-</string>
+
+QPushButton::hover{
+	background-color: rgba(0, 0, 255, .30);
+     color: rgba(255, 255, 255, .50);
+}</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -104,7 +111,7 @@ QPushButton::disabled{
        <widget class="QLabel" name="labelBankName">
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>-1</pointsize>
          </font>
         </property>
         <property name="text">
@@ -114,6 +121,9 @@ QPushButton::disabled{
       </item>
       <item row="2" column="1">
        <widget class="QLineEdit" name="editBankName">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -122,7 +132,7 @@ QPushButton::disabled{
         </property>
         <property name="font">
          <font>
-          <pointsize>16</pointsize>
+          <pointsize>-1</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -146,7 +156,7 @@ QPushButton::disabled{
        <widget class="QLabel" name="labelOpeningBalance">
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>-1</pointsize>
          </font>
         </property>
         <property name="text">
@@ -159,6 +169,9 @@ QPushButton::disabled{
       </item>
       <item row="3" column="1">
        <widget class="QLineEdit" name="editBranchName">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -167,7 +180,7 @@ QPushButton::disabled{
         </property>
         <property name="font">
          <font>
-          <pointsize>16</pointsize>
+          <pointsize>-1</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -189,6 +202,9 @@ QPushButton::disabled{
       </item>
       <item row="1" column="1">
        <widget class="QLineEdit" name="editCustomerName">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -197,7 +213,7 @@ QPushButton::disabled{
         </property>
         <property name="font">
          <font>
-          <pointsize>16</pointsize>
+          <pointsize>-1</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -227,7 +243,7 @@ QPushButton::disabled{
         </property>
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>-1</pointsize>
          </font>
         </property>
         <property name="text">
@@ -248,11 +264,11 @@ QPushButton::disabled{
         </property>
         <property name="font">
          <font>
-          <pointsize>16</pointsize>
+          <pointsize>-1</pointsize>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(245, 245, 245);</string>
+         <string notr="true"/>
         </property>
         <property name="maxLength">
          <number>8</number>
@@ -272,7 +288,7 @@ QPushButton::disabled{
         </property>
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>-1</pointsize>
          </font>
         </property>
         <property name="text">
@@ -287,7 +303,7 @@ QPushButton::disabled{
        <widget class="QLabel" name="labelBranchName">
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>-1</pointsize>
          </font>
         </property>
         <property name="text">
@@ -300,6 +316,9 @@ QPushButton::disabled{
       </item>
       <item row="0" column="1">
        <widget class="QLineEdit" name="editAccountNumber">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -308,7 +327,7 @@ QPushButton::disabled{
         </property>
         <property name="font">
          <font>
-          <pointsize>16</pointsize>
+          <pointsize>-1</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -372,13 +391,13 @@ QPushButton::disabled{
         </property>
         <property name="maximumSize">
          <size>
-          <width>100</width>
-          <height>30</height>
+          <width>16777215</width>
+          <height>16777215</height>
          </size>
         </property>
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>-1</pointsize>
           <bold>false</bold>
          </font>
         </property>
@@ -413,13 +432,13 @@ QPushButton::disabled{
         </property>
         <property name="maximumSize">
          <size>
-          <width>100</width>
-          <height>30</height>
+          <width>16777215</width>
+          <height>16777215</height>
          </size>
         </property>
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>-1</pointsize>
           <bold>false</bold>
          </font>
         </property>

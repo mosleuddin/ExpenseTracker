@@ -1,3 +1,22 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import sqlite3
 
 from PySide6.QtWidgets import QMessageBox
@@ -5,14 +24,18 @@ from PySide6.QtCore import QDate
 from PySide6.QtSql import QSqlQuery
 
 from db.table_basic_details import getPeriod
-from modules.module import read_only
 
 
-def insertTransaction(parent, trans_date, trans_head,
-                      trans_details, trans_account, trans_amount):
+def insertTransaction(parent, trans_date, trans_head, trans_details,
+                      trans_account, trans_amount):
+
+    """
+    The function inserts new transaction into trans table using the parameters values
+    """
+
     tr_date = trans_date.toString("dd-MM-yyyy")
     tr_head_id = getHeadId(trans_head)
-    tr_details = trans_details.title()
+    tr_details = trans_details
     tr_account_id = getAccountId(trans_account)
     tr_amount = int(trans_amount)
 
@@ -43,10 +66,14 @@ def insertTransaction(parent, trans_date, trans_head,
 
 def updateTransaction(parent, trans_id, trans_date, trans_head,
                       trans_details, trans_account, trans_amount):
+    """
+    The function edits an existing transaction in trans table using the parameters values
+    """
+
     tr_id = trans_id
     tr_date = trans_date.toString("dd-MM-yyyy")
     tr_head_id = getHeadId(trans_head)
-    tr_details = trans_details.title()
+    tr_details = trans_details
     tr_account_id = getAccountId(trans_account)
     tr_amount = int(trans_amount)
 
@@ -78,6 +105,10 @@ def updateTransaction(parent, trans_id, trans_date, trans_head,
 
 
 def removeTransaction(parent, trans_id):
+    """
+    The function deletes an existing transaction from trans table using trans_id value
+    """
+
     try:
         query = QSqlQuery()
         query.prepare(""" DELETE from trans
@@ -93,9 +124,12 @@ def removeTransaction(parent, trans_id):
 
 
 def removeAllTransactions(parent):
+    """
+    The function deletes all the records from the trans table
+    """
     try:
         query = QSqlQuery()
-        query.exec(""" DELETE FROM trans """)
+        query.exec("DELETE FROM trans")
         query.finish()
 
     except sqlite3.Error:
@@ -104,6 +138,9 @@ def removeAllTransactions(parent):
 
 
 def getHeadId(head_name):
+    """
+    The function collects HeadId from head table using head_name parameter
+    """
     head_id = None
     query = QSqlQuery()
     query.prepare("SELECT HeadId FROM head WHERE HeadName = :HeadName")
@@ -118,6 +155,10 @@ def getHeadId(head_name):
 
 
 def getAccountId(account_number):
+    """
+    The function collects Account Id from account table using account_number parameter
+    """
+
     account_id = None
 
     query = QSqlQuery()
@@ -133,14 +174,18 @@ def getAccountId(account_number):
 
 
 def populateComboHead(parent, trans_type=''):
+    """
+    The function collects all the HeadName from head table using trans_type parameter
+    and populates the collected data in a combo box
+    """
     query = QSqlQuery()
-    query.prepare("SELECT HeadName FROM head WHERE HeadType = :HeadType")
+    query.prepare("SELECT HeadName FROM head WHERE HeadType = :HeadType ORDER BY HeadName")
     query.bindValue(":HeadType", trans_type)
     query.exec()
 
     while query.next():
         item = query.value(0)
-        parent.ui.comboHead.addItem(parent.parent.common_icon, item)
+        parent.ui.comboHead.addItem(item)
 
     query.finish()
 
@@ -149,11 +194,15 @@ def populateComboHead(parent, trans_type=''):
 
 
 def populateComboAccount(parent):
+    """
+     The function collects all the AccountNumber from account table and
+     populates the collected data in a combo box
+    """
     query = QSqlQuery()
     query.exec("SELECT AccountNumber FROM account ORDER BY AccountId")
     while query.next():
         account_number = query.value(0)
-        parent.ui.comboAccount.addItem(parent.parent.common_icon, account_number)
+        parent.ui.comboAccount.addItem(account_number)
 
     query.finish()
 
@@ -162,6 +211,10 @@ def populateComboAccount(parent):
 
 
 def populateBankDetails(parent, account_number):
+    """
+    The function collects CustomerName and BankName from account table using
+    account_number criteria and update the setText property of two QLabel widgets.
+    """
     customer_name = None
     bank_name = None
 
@@ -182,6 +235,10 @@ def populateBankDetails(parent, account_number):
 
 
 def recordExists(trans_id, trans_type):
+    """
+     The function checks whether any transaction of a
+     particular head_type exists in the trans table or not
+    """
     trans_id = int(trans_id)
 
     query = QSqlQuery()
@@ -202,6 +259,12 @@ def recordExists(trans_id, trans_type):
 
 
 def populateWidgets(parent, trans_id, action=''):
+    """
+    The function collects TransDate, HeadName, TransDetails, AccountNumber, TransAmount
+    data from trans, head and account table using the value of trans_id parameters and
+    populate them in various widgets
+    """
+
     trans_id = int(trans_id)
     date = None
     head_name = None
@@ -247,19 +310,12 @@ def populateWidgets(parent, trans_id, action=''):
 
     # if called from DeleteTransaction class
     if action.lower() == 'delete':
-        # set some widgets readonly
-        read_only(parent.bg, parent.ui.dateTrans,
-                  parent.ui.editTransDetails,
-                  parent.ui.editTransAmount)
-
+        # disable some widgets
+        parent.ui.dateTrans.setEnabled(False)
         parent.ui.comboHead.setEnabled(False)
+        parent.ui.editTransDetails.setEnabled(False)
         parent.ui.comboAccount.setEnabled(False)
-
-        parent.ui.dateTrans.setStyleSheet('background-color: rgb(239, 224, 200); color:rgb(0, 0, 255)')
-        parent.ui.editTransDetails.setStyleSheet('background-color: rgb(239, 224, 200); color:rgb(0, 0, 255)')
-        parent.ui.comboHead.setStyleSheet('background-color: rgb(239, 224, 200); color:rgb(0, 0, 255)')
-        parent.ui.comboAccount.setStyleSheet('background-color: rgb(239, 224, 200); color:rgb(0, 0, 255)')
-        parent.ui.editTransAmount.setStyleSheet('background-color: rgb(239, 224, 200); color:rgb(0, 0, 255)')
+        parent.ui.editTransAmount.setEnabled(False)
 
         # Reassign the text of labels to remove accelerate key
         parent.ui.labelTransDate.setText('Date')
@@ -280,36 +336,36 @@ def populateWidgets(parent, trans_id, action=''):
         parent.ui.dateTrans.setFocus()
 
 
-def setDateRange(parent):
-    month, year = getPeriod()
+def transDateMismatch():
+    """
+    1.  The function collects month and year from period table via getPeriod().
 
-    # get minimum date
-    minimum = f"01-{month}-{year}"
-    min_date = QDate().fromString(minimum, "dd-MMMM-yyyy")
+    2.  Then create QDate() in the format "yyyyMM" using the collected month and year and
+    stores it's value as a string in valid_month_year variable.
 
-    # get maximum date
-    days = min_date.daysInMonth()
-    maximum = f"{days}-{month}-{year}"
-    max_date = QDate().fromString(maximum, "dd-MMMM-yyyy")
+    3. Now selects all TransDate from trans table.
 
-    # set date range to the transDate widget
-    parent.ui.dateTrans.setDateRange(min_date, max_date)
+    4. Each and every date is a string in "dd-MM-yyyy" format.
 
+    5. converts Each and every date to a string in "yyyyMM" format so that it can be compared
+    with the valid_month_year variable.
 
-def TransDateMismatch():
+    6. Lastly check whether each and every date is matching with valid_month_year variable.
+
+    """
     status = False
     date = ""
     month, year = getPeriod()
-    period_month_year = QDate().fromString(f"{year}{month}", "yyyyMMMM").toString("yyyyMM")
+    valid_month_year = QDate().fromString(f"{year}{month}", "yyyyMMMM").toString("yyyyMM")
 
     query = QSqlQuery()
     query.exec("SELECT TransDate FROM trans Order By TransDate")
 
     while query.next():
         date = query.value(0)
-        record_month_year = QDate().fromString(f"{date}", "dd-MM-yyyy").toString("yyyyMM")
+        month_year = QDate().fromString(f"{date}", "dd-MM-yyyy").toString("yyyyMM")
 
-        if record_month_year != period_month_year:
+        if month_year != valid_month_year:
             status = True
             break
 
@@ -318,9 +374,21 @@ def TransDateMismatch():
 
 
 def getMisMatchRecordId():
+    """
+       1.  This function is quite similar to the TransDateMismatch function.
+
+       2.  However this function also select the TransId in addition to the TransDate.
+
+       4. Then it scans all the records and appends the TransId of all the records whose
+        transaction period does not match with the valid_period variable in a list.
+
+       5. Lastly it returns the list of mismatch TransId.
+
+       """
+
     data = []
     month, year = getPeriod()
-    correct_period = QDate().fromString(f"{year}{month}", "yyyyMMMM").toString("yyyyMM")
+    valid_month_year = QDate().fromString(f"{year}{month}", "yyyyMMMM").toString("yyyyMM")
 
     query = QSqlQuery()
     query.exec("SELECT TransId, TransDate FROM trans")
@@ -331,7 +399,7 @@ def getMisMatchRecordId():
 
         period = QDate().fromString(f"{trans_date}", "dd-MM-yyyy").toString("yyyyMM")
 
-        if period != correct_period:
+        if period != valid_month_year:
             data.append(trans_id)
 
     query.finish()
@@ -339,6 +407,16 @@ def getMisMatchRecordId():
 
 
 def populateMisMatchRecord(parent, trans_id):
+    """
+    1.  The function collects all the required fields of a record (from trans table)
+    which has a invalid period.
+
+    2. The record is fetched using the trans_id parameter.
+
+    2.  Lastly it populates the widgets of the calling window accordingly.
+
+    """
+
     trans_id = int(trans_id)
     date = None
     head_name = None
@@ -392,31 +470,29 @@ def populateMisMatchRecord(parent, trans_id):
         parent.ui.labelCustomerName.setText(customer_name)
         parent.ui.labelBankName.setText(bank_name)
 
-    parent.ui.dateTrans.setStyleSheet("background-color:rgb(255, 250, 250); color:rgb(0, 0, 255)")
-
     parent.ui.dateTrans.setFocus()
 
 
 def validDate(parent, date):
-    month, year = getPeriod()
+    """
+    1.  The function performs the date validation in following classes:
+     AddTransaction, EditTransaction and PeriodMisMatch
 
-    # get minimum date
-    minimum = f"01-{month}-{year}"
-    min_date = QDate().fromString(minimum, "dd-MMMM-yyyy")
+    """
 
-    # get maximum date
-    days = min_date.daysInMonth()
-    maximum = f"{days}-{month}-{year}"
-    max_date = QDate().fromString(maximum, "dd-MMMM-yyyy")
+    exp_month, exp_year = getPeriod()
+
+    first_date = QDate().fromString(f"01-{exp_month}-{exp_year}", "dd-MMMM-yyyy")
+    days_in_month = first_date.daysInMonth()
+    last_date = QDate().fromString(f"{days_in_month}-{exp_month}-{exp_year}", "dd-MMMM-yyyy")
 
     # get current date
     current_date = QDate().currentDate()
 
     if date > current_date:
-        return False
-    elif date > max_date:
-        return False
-    elif date < min_date:
-        return False
+        return "Expenditure for future date is not allowed !!!"
     else:
-        return True
+        if date < first_date or date > last_date:
+            return f'Please select a date between {first_date.toString("dd MMMM yyyy")} to {last_date.toString("dd MMMM yyyy")}'
+        else:
+            return "ok"

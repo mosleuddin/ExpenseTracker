@@ -1,10 +1,30 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import sys
+
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon
 from PySide6.QtSql import QSqlDatabase
 from PySide6.QtWidgets import QDialog, QLineEdit
 
-from db.table_balance import getOpeningBalance
+from db.table_balance import getOpeningBalanceAndBankDetails
 from modules.module import resize_and_move
 from design.ui_login import Ui_LoginWindow
 from db.connect import createConnection
@@ -17,26 +37,30 @@ from views.basic_details import BasicDetailsWindow
 class Login(QDialog):
     def __init__(self):
         super(Login, self).__init__()
+
+        self.copyright_text = "Copyright © 2021-2022  Mosleuddin Sarkar"
+
         self.conn = None
+        self.login_success = False
 
         if not createConnection(self):
             sys.exit(1)
 
-        self.login_success = False
         self.initUI()  # set up ui and other related tasks
-
-        self.show()
 
     def initUI(self):
         self.ui = Ui_LoginWindow()
         self.ui.setupUi(self)
         resize_and_move(self, wd=.6, ht=.4)
+        self.setWindowFlags(Qt.FramelessWindowHint)
         self.ui.labelMessage.hide()
         self.ui.editUsername.addAction(QIcon("src/icons/user.png"), QLineEdit.ActionPosition.LeadingPosition)
         self.ui.editPassword.addAction(QIcon("src/icons/password.png"), QLineEdit.ActionPosition.LeadingPosition)
 
         self.ui.editUsername.returnPressed.connect(lambda: self.function_return_pressed('user'))
         self.ui.editPassword.returnPressed.connect(lambda: self.function_return_pressed('pass'))
+
+        self.ui.labelCopyright.setText(self.copyright_text)
 
     def function_return_pressed(self, text):
         if text == 'user':
@@ -63,10 +87,8 @@ class Login(QDialog):
             name, address = getOwner()
 
             result = validPeriod(self)
-            # month, year = getPeriod()
-            # month = month.capitalize()
 
-            cash_balance = getOpeningBalance(account_number="Cash")
+            cash_balance = getOpeningBalanceAndBankDetails(account_number="Cash")
             cash_balance = cash_balance[-1].strip()
             if not cash_balance.isnumeric():
                 cash_balance = "0"

@@ -15,14 +15,48 @@
   </property>
   <property name="font">
    <font>
-    <pointsize>14</pointsize>
+    <pointsize>-1</pointsize>
    </font>
   </property>
   <property name="windowTitle">
    <string>Expense Tracker</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(175, 200, 155);</string>
+   <string notr="true">*{
+     background-color :#10141b;
+	color:rgba(255, 255, 255, .60);
+  	border: none;
+	font-size: 16px;
+}
+
+#labelHeading{
+	color:rgba(20, 145, 145, 1);
+    background-color: rgba(238, 226,15, .20);
+}
+
+
+#tableView{
+	background-color: #1f232a;
+	color: rgb(20, 145, 145);
+}
+
+QPushButton{
+    background-color:#1f232a;
+ 	color:rgba(0, 255, 0, .60);
+    width: 80px;
+	height: 18px;
+	text-align: center;
+	padding: 5px, 10px;
+	border: 1px solid #264BF6;
+	border-radius: 10px;
+
+}
+
+QPushButton::hover{
+	background-color: rgba(0, 0, 255, .30);
+}
+
+</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -32,89 +66,123 @@
     <number>0</number>
    </property>
    <property name="leftMargin">
-    <number>30</number>
+    <number>0</number>
    </property>
    <property name="topMargin">
-    <number>30</number>
+    <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>30</number>
+    <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>30</number>
+    <number>0</number>
    </property>
    <item>
-    <widget class="QLabel" name="labelHeading">
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(32, 74, 135);</string>
-     </property>
-     <property name="text">
-      <string>Expenditure Head</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="margin">
-      <number>10</number>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QTableView" name="tableView">
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(225, 225, 225);</string>
-     </property>
-     <property name="sizeAdjustPolicy">
-      <enum>QAbstractScrollArea::AdjustToContents</enum>
-     </property>
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="alternatingRowColors">
-      <bool>false</bool>
-     </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::SingleSelection</enum>
-     </property>
-     <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectRows</enum>
-     </property>
-     <property name="sortingEnabled">
-      <bool>false</bool>
-     </property>
-     <property name="cornerButtonEnabled">
-      <bool>false</bool>
-     </property>
-     <attribute name="horizontalHeaderStretchLastSection">
-      <bool>true</bool>
-     </attribute>
-     <attribute name="verticalHeaderVisible">
-      <bool>false</bool>
-     </attribute>
-     <attribute name="verticalHeaderStretchLastSection">
-      <bool>false</bool>
-     </attribute>
-    </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="heading_layout">
      <property name="spacing">
       <number>0</number>
      </property>
+     <item>
+      <widget class="QLabel" name="labelHeading">
+       <property name="font">
+        <font>
+         <pointsize>-1</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Expenditure Head</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="margin">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="table_layout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>50</number>
+     </property>
      <property name="topMargin">
-      <number>30</number>
+      <number>25</number>
+     </property>
+     <property name="rightMargin">
+      <number>50</number>
+     </property>
+     <property name="bottomMargin">
+      <number>25</number>
+     </property>
+     <item>
+      <widget class="QTableView" name="tableView">
+       <property name="font">
+        <font>
+         <pointsize>-1</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QAbstractScrollArea::AdjustToContents</enum>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>false</bool>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <property name="sortingEnabled">
+        <bool>false</bool>
+       </property>
+       <property name="cornerButtonEnabled">
+        <bool>false</bool>
+       </property>
+       <attribute name="horizontalHeaderStretchLastSection">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="verticalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderStretchLastSection">
+        <bool>false</bool>
+       </attribute>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="button_layout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>25</number>
      </property>
      <item>
       <widget class="QPushButton" name="buttonBack">
@@ -132,12 +200,12 @@ background-color: rgb(32, 74, 135);</string>
        </property>
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>-1</pointsize>
          <bold>true</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>&amp;Back</string>

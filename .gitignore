@@ -1,6 +1,7 @@
 .idea/
-src/icons/
-src/resource.*
+src/
+
+*.odt
 
 
 

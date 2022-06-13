@@ -10,12 +10,12 @@
     <x>0</x>
     <y>0</y>
     <width>791</width>
-    <height>517</height>
+    <height>568</height>
    </rect>
   </property>
   <property name="font">
    <font>
-    <pointsize>12</pointsize>
+    <pointsize>-1</pointsize>
    </font>
   </property>
   <property name="windowTitle">
@@ -26,91 +26,68 @@
     <normaloff>:/icons/icons/view.png</normaloff>:/icons/icons/view.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">/*   style for the Root Widget  */
-*{
-background-color: rgb(126, 178, 235);
+   <string notr="true">*{
+     background-color :#10141b;
+  	border: none;
+	color: rgb(0, 145, 145);
+	font-size: 16px;
 }
 
-
-/* style for the groupRadio*/
-
-#groupRadio{
-	border: 1px solid #E72222;
-	color: rgb(97, 33, 214);
+#groupRadio, #comboFrame, #buttonFrame{
+	border: 1px solid #1DAD5F;
 }
-
-
-#comboFrame{
-	border: 1px solid #E72222;
-}
-
-#buttonFrame{
-	border: 1px solid #E72222;
-}
-
 
 QComboBox{
 	width: 200px;
 	height: 30px;
-	background-color: rgb(225, 225, 225);
+	background-color: #1f232a;
+	color:rgba(255, 255, 255, .60);
 	selection-color: rgb(255, 255, 255);
 	selection-background-color: rgb(32, 74, 135);
 	border: 1px solid #264BF6;
-	border-radius: 0px;
 }
 
+#radioAll,
+#radioReceipts,
+#radioPayments{
+	color:rgba(255, 255, 255, .60);
+}
+#tableView{
+	background-color: #1f232a;
+	color:rgba(255, 255, 255, .60);
+ }
+
+QLineEdit{
+	background-color: #1f232a;
+	color:rgba(255, 255, 255, .60);
+	font-size: 20px 
+}
 
 QPushButton{
-	width: 100px;
-	height: 30px;
-	
-	background-color: rgb(186, 189, 182);
-	color: rgb(0, 0, 255);
-
+    background-color:#10141b;
+ 	color:rgba(0, 255, 0, .60);
+    width: 80px;
+	height: 18px;
 	text-align: center;
-	
-	
+	padding: 5px, 10px;
 	border: 1px solid #264BF6;
-	border-radius: 5px;
-   
+	border-radius: 10px;
+
 }
 
 QPushButton::hover{
-	background-color: rgb(0, 0, 255);
-    color: white;
-	
-	text-align: center;
-		
-	border: 1px solid #fff;
-	border-radius: 5px;
+	background-color: rgba(0, 0, 255, .30);
 }
 
 QPushButton::disabled{
-	color: rgb(0, 0, 0);
-	background-color: rgb(136, 138, 133);
+	background-color: rgba(0, 0, 0, .50);
+     color: rgba(255, 255, 255, .60);
 }
+ 
+ 
+        
 
 
-/*  style for the rightFrame  */
-#tableView{
-background-color: rgb(200, 231, 231);
-}
-
-#footerFrame{
-background-color: rgb(200, 231, 231);
-}
-
-#footerFrame QLabel{
-background-color: rgb(200, 231, 231);
-}
-
-#footerFrame QLineEdit{
-background-color: rgb(245, 245, 245);
-}
-
-#editTotal{
-font-size: 20px 
-}
 
 </string>
   </property>
@@ -194,7 +171,7 @@ font-size: 20px
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <property name="spacing">
-          <number>0</number>
+          <number>5</number>
          </property>
          <property name="leftMargin">
           <number>9</number>
@@ -242,13 +219,13 @@ font-size: 20px
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <property name="spacing">
-          <number>6</number>
+          <number>15</number>
          </property>
          <item>
           <widget class="QLabel" name="labelAccountNumber">
            <property name="font">
             <font>
-             <pointsize>10</pointsize>
+             <pointsize>-1</pointsize>
             </font>
            </property>
            <property name="text">
@@ -276,7 +253,7 @@ font-size: 20px
           <widget class="QLabel" name="labelHeadName">
            <property name="font">
             <font>
-             <pointsize>10</pointsize>
+             <pointsize>-1</pointsize>
             </font>
            </property>
            <property name="text">
@@ -304,7 +281,7 @@ font-size: 20px
           <widget class="QLabel" name="labelTransDate">
            <property name="font">
             <font>
-             <pointsize>10</pointsize>
+             <pointsize>-1</pointsize>
             </font>
            </property>
            <property name="text">
@@ -352,7 +329,9 @@ font-size: 20px
             </size>
            </property>
            <property name="font">
-            <font/>
+            <font>
+             <pointsize>-1</pointsize>
+            </font>
            </property>
            <property name="styleSheet">
             <string notr="true"/>
@@ -391,7 +370,7 @@ font-size: 20px
           <number>9</number>
          </property>
          <item>
-          <widget class="QPushButton" name="buttonExport">
+          <widget class="QPushButton" name="buttonDownload">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -415,14 +394,14 @@ font-size: 20px
            </property>
            <property name="font">
             <font>
-             <pointsize>12</pointsize>
+             <pointsize>-1</pointsize>
             </font>
            </property>
            <property name="styleSheet">
             <string notr="true"/>
            </property>
            <property name="text">
-            <string>&amp;Export as PDF</string>
+            <string>&amp;Download</string>
            </property>
            <property name="icon">
             <iconset resource="../src/resource.qrc">
@@ -455,7 +434,7 @@ font-size: 20px
            </property>
            <property name="font">
             <font>
-             <pointsize>12</pointsize>
+             <pointsize>-1</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -507,7 +486,7 @@ font-size: 20px
        <widget class="QTableView" name="tableView">
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>-1</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -732,22 +711,6 @@ font-size: 20px
    </hints>
   </connection>
   <connection>
-   <sender>buttonExport</sender>
-   <signal>clicked()</signal>
-   <receiver>ShowTransactions</receiver>
-   <slot>onExportToPDF()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>209</x>
-     <y>423</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>545</x>
-     <y>298</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>radioAll</sender>
    <signal>toggled(bool)</signal>
    <receiver>ShowTransactions</receiver>
@@ -786,8 +749,8 @@ font-size: 20px
    <slot>onSelectTransactionType()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>149</x>
-     <y>89</y>
+     <x>179</x>
+     <y>118</y>
     </hint>
     <hint type="destinationlabel">
      <x>545</x>
@@ -795,11 +758,27 @@ font-size: 20px
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>buttonDownload</sender>
+   <signal>clicked()</signal>
+   <receiver>ShowTransactions</receiver>
+   <slot>downloadPDF()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>119</x>
+     <y>425</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>395</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onComboTextChanged()</slot>
   <slot>onSearch()</slot>
-  <slot>onExportToPDF()</slot>
+  <slot>downloadPDF()</slot>
   <slot>onSelectTransactionType()</slot>
  </slots>
 </ui>

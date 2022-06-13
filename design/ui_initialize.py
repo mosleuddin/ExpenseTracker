@@ -1,3 +1,24 @@
+
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+
 # -*- coding: utf-8 -*-
 
 ################################################################################
@@ -38,70 +59,51 @@ class Ui_InitializeTransactionWindow(object):
         icon.addFile(u":/icons/expense_tracker_sm.png", QSize(), QIcon.Normal, QIcon.Off)
         InitializeTransactionWindow.setWindowIcon(icon)
         InitializeTransactionWindow.setStyleSheet(u"*{\n"
-"	background-color: rgb(240, 230, 220);\n"
+"     background-color :#10141b;\n"
+"	color:rgba(255, 255, 255, .5);\n"
+"	font-size: 16px;\n"
 "}\n"
 "\n"
-"#centralWidget{\n"
-"background-color: #343b47;\n"
-"}\n"
-"\n"
-"QLineEdit{\n"
-"background-color: rgb(255, 255, 255);\n"
-"}\n"
 "\n"
 "#labelMessage{\n"
-"color: rgb(255, 255, 255);\n"
-"background-color: rgb(0, 139, 139);\n"
+"	color: rgb(239, 41, 41);\n"
 "}\n"
 "\n"
 "#labelPassword{\n"
-"	color: rgb(0, 0, 255);\n"
+"	color: rgba(255, 255, 255, .60);\n"
+"\n"
 "}\n"
 "\n"
-"QPushButton\n"
-"{\n"
-"	background-color: rgb(186, 189, 182);\n"
-"	color: rgb(0, 0, 255);\n"
+"QLineEdit{\n"
+"            background-color :#1f232a;\n"
+"            color:rgba(0, 255, 255, .60);\n"
+"            height: 30px;\n"
+"        }\n"
+"\n"
+"QPushButton{\n"
+"    background-color:#10141b;\n"
+" 	color:rgba(0, 255, 0, .50);\n"
+"    width: 75px;\n"
+"	height: 18px;\n"
 "	text-align: center;\n"
-"	border: 2px solid #406FBF;\n"
-"	border-radius: 5px;\n"
+"	padding: 5px, 10px;\n"
+"	border: 1px solid #264BF6;\n"
+"	border-radius: 10px;\n"
+"\n"
 "}\n"
 "\n"
-"\n"
-"QPushButton::hover\n"
-"{\n"
-"	background-color: rgb(0, 0, 255);\n"
-"	color: rgb(255, 255, 255);\n"
-"	text-align: center;\n"
-"	border: 2px solid #60F721;\n"
-"	border-radius: 5px;\n"
+"QPushButton::hover{\n"
+"	background-color: rgba(0, 0, 255, .30);\n"
+"     color: rgba(255, 255, 255, .50);\n"
 "}\n"
-"\n"
-"/* \n"
 "\n"
 "QPushButton::disabled{\n"
-"	background-color: rgb(136, 138, 133);\n"
-"	color: rgb(0, 0, 0);\n"
-"	text-align: center;\n"
-"	border: 2px solid #EFF51A;\n"
-"	border-radius: 5px;\n"
+"	background-color: rgba(0, 0, 0, .50);\n"
+"     color: rgba(255, 255, 255, .50);\n"
 "}\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"#btnAlertProceed,\n"
-"#btnPasswordSubmit{\n"
-"	background-color: rgb(240,"
-                        " 50, 50);\n"
-"	color: rgb(0, 0, 255);\n"
-"	text-align: center;\n"
-"	border: 2px solid #264BF6;\n"
-"	border-radius: 5px;\n"
-"}\n"
-"\n"
-"\n"
-"\n"
+" \n"
+" \n"
+"        \n"
 "\n"
 "")
         InitializeTransactionWindow.setModal(True)
@@ -113,9 +115,7 @@ class Ui_InitializeTransactionWindow(object):
         self.labelMessage.setObjectName(u"labelMessage")
         self.labelMessage.setMinimumSize(QSize(0, 0))
         self.labelMessage.setMaximumSize(QSize(16777215, 40))
-        font1 = QFont()
-        font1.setPointSize(14)
-        self.labelMessage.setFont(font1)
+        self.labelMessage.setFont(font)
         self.labelMessage.setStyleSheet(u"")
         self.labelMessage.setAlignment(Qt.AlignCenter)
         self.labelMessage.setMargin(0)
@@ -165,10 +165,9 @@ class Ui_InitializeTransactionWindow(object):
         self.btnAlertClose.setEnabled(True)
         self.btnAlertClose.setMinimumSize(QSize(100, 30))
         self.btnAlertClose.setMaximumSize(QSize(100, 30))
-        font2 = QFont()
-        font2.setPointSize(12)
-        font2.setBold(False)
-        self.btnAlertClose.setFont(font2)
+        font1 = QFont()
+        font1.setBold(False)
+        self.btnAlertClose.setFont(font1)
         self.btnAlertClose.setStyleSheet(u"")
         icon1 = QIcon()
         icon1.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -182,7 +181,7 @@ class Ui_InitializeTransactionWindow(object):
         self.btnAlertProceed.setEnabled(True)
         self.btnAlertProceed.setMinimumSize(QSize(100, 30))
         self.btnAlertProceed.setMaximumSize(QSize(100, 30))
-        self.btnAlertProceed.setFont(font2)
+        self.btnAlertProceed.setFont(font1)
         self.btnAlertProceed.setStyleSheet(u"")
         icon2 = QIcon()
         icon2.addFile(u":/icons/icons/ok.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -226,7 +225,7 @@ class Ui_InitializeTransactionWindow(object):
         self.labelPassword.setSizePolicy(sizePolicy1)
         self.labelPassword.setMinimumSize(QSize(0, 0))
         self.labelPassword.setMaximumSize(QSize(16777215, 16777215))
-        self.labelPassword.setFont(font1)
+        self.labelPassword.setFont(font)
         self.labelPassword.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_5.addWidget(self.labelPassword)
@@ -237,7 +236,7 @@ class Ui_InitializeTransactionWindow(object):
         self.editPassword.setSizePolicy(sizePolicy1)
         self.editPassword.setMinimumSize(QSize(0, 0))
         self.editPassword.setMaximumSize(QSize(16777215, 16777215))
-        self.editPassword.setFont(font1)
+        self.editPassword.setFont(font)
         self.editPassword.setStyleSheet(u"")
         self.editPassword.setInputMethodHints(Qt.ImhNone)
         self.editPassword.setMaxLength(40)
@@ -261,7 +260,7 @@ class Ui_InitializeTransactionWindow(object):
         self.btnPasswordCancel.setObjectName(u"btnPasswordCancel")
         self.btnPasswordCancel.setMinimumSize(QSize(100, 30))
         self.btnPasswordCancel.setMaximumSize(QSize(100, 30))
-        self.btnPasswordCancel.setFont(font2)
+        self.btnPasswordCancel.setFont(font1)
         self.btnPasswordCancel.setStyleSheet(u"")
         self.btnPasswordCancel.setIcon(icon1)
         self.btnPasswordCancel.setAutoDefault(True)
@@ -273,7 +272,7 @@ class Ui_InitializeTransactionWindow(object):
         self.btnPasswordSubmit.setEnabled(True)
         self.btnPasswordSubmit.setMinimumSize(QSize(100, 30))
         self.btnPasswordSubmit.setMaximumSize(QSize(100, 30))
-        self.btnPasswordSubmit.setFont(font2)
+        self.btnPasswordSubmit.setFont(font1)
         self.btnPasswordSubmit.setStyleSheet(u"")
         self.btnPasswordSubmit.setIcon(icon2)
         self.btnPasswordSubmit.setAutoDefault(True)

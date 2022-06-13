@@ -1,3 +1,22 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 from PySide6.QtSql import QSqlQuery, QSqlDatabase
 
 from db.table_account import cashAccountExists, insertAccount
@@ -5,7 +24,7 @@ from db.table_balance import insertOpeningBalance
 from db.table_basic_details import ownerExists, periodExists, insertOwner, insertPeriod
 from db.table_head import headExists, insertHead
 from db.table_user import userExists, createUser
-from modules.module import CustomMessage
+from modules.module import MsgBox
 
 
 def createConnection(parent):
@@ -15,7 +34,7 @@ def createConnection(parent):
         title = "Database Error"
         msg = f"Unable to connect to the database\n\n{conn.lastError().text().upper()}"
         button_0 = '&Close'
-        CustomMessage().danger(title=title, msg=msg, button_0=button_0)
+        MsgBox(title=title, msg=msg, button_0=button_0).danger()
         return False
     conn.exec("PRAGMA foreign_keys = ON;")
     parent.conn = conn
@@ -108,7 +127,7 @@ def createTables():
 
 
 def appendData():
-    # appended default data to various tables
+    # append default data to various tables
     if not userExists(None):
         createUser(None)
 
@@ -127,4 +146,3 @@ def appendData():
     if not headExists(None):
         insertHead(None, head_type="Receipt", head_name="ContraReceipt")
         insertHead(None, head_type="Payment", head_name="ContraPayment")
-

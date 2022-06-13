@@ -1,3 +1,24 @@
+
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+
 # -*- coding: utf-8 -*-
 
 ################################################################################
@@ -26,7 +47,7 @@ class Ui_TransactionWindow(object):
         if not TransactionWindow.objectName():
             TransactionWindow.setObjectName(u"TransactionWindow")
         TransactionWindow.setWindowModality(Qt.ApplicationModal)
-        TransactionWindow.resize(807, 564)
+        TransactionWindow.resize(878, 564)
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -38,44 +59,79 @@ class Ui_TransactionWindow(object):
         icon.addFile(u":/icons/expense_tracker_sm.png", QSize(), QIcon.Normal, QIcon.Off)
         TransactionWindow.setWindowIcon(icon)
         TransactionWindow.setStyleSheet(u"*{\n"
-"	background-color: rgb(239, 224, 200);\n"
-"}\n"
-"\n"
-"QComboBox{\n"
-"width: 150px;\n"
-"selection-color: rgb(255, 255, 255);\n"
-"background-color: rgb(255, 255, 255);\n"
-"selection-background-color: rgb(32, 74, 135);\n"
-"}\n"
-"\n"
-"QLineEdit{\n"
-"width: 150px;\n"
-"background-color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QDateEdit{\n"
-"	color: rgb(0, 0, 0);\n"
-"	background-color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"#labelMessage{\n"
-"color: rgb(255, 255, 255);\n"
-"background-color: rgb(0, 139, 139);\n"
+"    		background-color :#10141b;\n"
+"		color:rgba(255, 255, 255, .60);\n"
+"		font-size: 16px;\n"
 "}\n"
 "\n"
 "#centralWidget{\n"
-"background-color: #343b47;\n"
+"background-color: rgb(100, 100, 100);\n"
+"\n"
 "}\n"
+"\n"
+"QLabel{\n"
+"		color: rgb(0, 145, 145);\n"
+"}\n"
+"\n"
+"QLineEdit,\n"
+"QDateEdit{\n"
+"            background-color :#1f232a;\n"
+"        }\n"
+"\n"
+"QComboBox{\n"
+"		background-color :#1f232a;\n"
+"		selection-color: rgb(255, 255, 255);\n"
+"		selection-background-color: rgb(32, 74, 135);\n"
+"}\n"
+"\n"
+"QLineEdit::disabled,\n"
+"QDateEdit::disabled,\n"
+"QComboBox::disabled{\n"
+"            background-color :#10141b;\n"
+"        }\n"
+"\n"
+"#labelMessage{\n"
+"	color: rgb(239, 41, 41);\n"
+"}\n"
+"\n"
+"QPushButton{\n"
+" 	color:rgba(0, 255, 0, .50);\n"
+"    width: 100px;\n"
+"	height: 20px;\n"
+"	text-align: center;\n"
+"	padding: 5px, 10px;\n"
+"	border: 1px solid #264BF6;\n"
+"	border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton::hover{\n"
+"	background-color: rgba(0, 0, 255, .30);\n"
+"     color: rgba(255, 255, 255, .50);\n"
+"}\n"
+"\n"
+"Q"
+                        "PushButton::disabled{\n"
+"	background-color: rgba(0, 0, 0, .50);\n"
+"     color: rgba(255, 255, 255, .50);\n"
+"}\n"
+" \n"
+" \n"
+"        \n"
+"\n"
+"        \n"
+"\n"
+"\n"
+"\n"
 "")
         TransactionWindow.setModal(True)
         self.verticalLayout_4 = QVBoxLayout(TransactionWindow)
         self.verticalLayout_4.setSpacing(0)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.verticalLayout_4.setContentsMargins(10, 0, 10, 10)
+        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.centralWidget = QWidget(TransactionWindow)
         self.centralWidget.setObjectName(u"centralWidget")
         self.verticalLayout = QVBoxLayout(self.centralWidget)
-        self.verticalLayout.setSpacing(2)
+        self.verticalLayout.setSpacing(1)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(2, 2, 2, 2)
         self.frameLabels = QFrame(self.centralWidget)
@@ -90,9 +146,7 @@ class Ui_TransactionWindow(object):
         self.labelMessage.setObjectName(u"labelMessage")
         self.labelMessage.setMinimumSize(QSize(0, 0))
         self.labelMessage.setMaximumSize(QSize(16777215, 16777215))
-        font1 = QFont()
-        font1.setPointSize(14)
-        self.labelMessage.setFont(font1)
+        self.labelMessage.setFont(font)
         self.labelMessage.setStyleSheet(u"")
         self.labelMessage.setAlignment(Qt.AlignCenter)
         self.labelMessage.setMargin(0)
@@ -103,11 +157,10 @@ class Ui_TransactionWindow(object):
         self.labelHeading.setObjectName(u"labelHeading")
         self.labelHeading.setMinimumSize(QSize(0, 0))
         self.labelHeading.setMaximumSize(QSize(16777215, 16777215))
-        font2 = QFont()
-        font2.setPointSize(14)
-        font2.setBold(True)
-        font2.setUnderline(False)
-        self.labelHeading.setFont(font2)
+        font1 = QFont()
+        font1.setBold(True)
+        font1.setUnderline(False)
+        self.labelHeading.setFont(font1)
         self.labelHeading.setStyleSheet(u"")
         self.labelHeading.setAlignment(Qt.AlignCenter)
         self.labelHeading.setMargin(0)
@@ -136,7 +189,7 @@ class Ui_TransactionWindow(object):
 
         self.editTransId = QLineEdit(self.frameSearch)
         self.editTransId.setObjectName(u"editTransId")
-        self.editTransId.setMinimumSize(QSize(0, 30))
+        self.editTransId.setMinimumSize(QSize(0, 40))
         self.editTransId.setStyleSheet(u"")
         self.editTransId.setMaxLength(40)
         self.editTransId.setAlignment(Qt.AlignCenter)
@@ -160,7 +213,7 @@ class Ui_TransactionWindow(object):
         self.frameDetails = QFrame(self.centralWidget)
         self.frameDetails.setObjectName(u"frameDetails")
         self.verticalLayout_2 = QVBoxLayout(self.frameDetails)
-        self.verticalLayout_2.setSpacing(0)
+        self.verticalLayout_2.setSpacing(10)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.frameDetailsTop = QFrame(self.frameDetails)
@@ -168,7 +221,7 @@ class Ui_TransactionWindow(object):
         self.horizontalLayout_4 = QHBoxLayout(self.frameDetailsTop)
         self.horizontalLayout_4.setSpacing(0)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_4.setContentsMargins(0, 30, 0, 15)
         self.labelTransDate = QLabel(self.frameDetailsTop)
         self.labelTransDate.setObjectName(u"labelTransDate")
         sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -176,16 +229,17 @@ class Ui_TransactionWindow(object):
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.labelTransDate.sizePolicy().hasHeightForWidth())
         self.labelTransDate.setSizePolicy(sizePolicy1)
-        self.labelTransDate.setMinimumSize(QSize(100, 0))
-        self.labelTransDate.setMaximumSize(QSize(100, 16777215))
+        self.labelTransDate.setMinimumSize(QSize(60, 0))
+        self.labelTransDate.setMaximumSize(QSize(60, 16777215))
 
         self.horizontalLayout_4.addWidget(self.labelTransDate)
 
         self.dateTrans = QDateEdit(self.frameDetailsTop)
         self.dateTrans.setObjectName(u"dateTrans")
+        self.dateTrans.setEnabled(True)
         sizePolicy1.setHeightForWidth(self.dateTrans.sizePolicy().hasHeightForWidth())
         self.dateTrans.setSizePolicy(sizePolicy1)
-        self.dateTrans.setMinimumSize(QSize(200, 0))
+        self.dateTrans.setMinimumSize(QSize(350, 40))
         self.dateTrans.setMaximumSize(QSize(200, 16777215))
         self.dateTrans.setStyleSheet(u"")
         self.dateTrans.setInputMethodHints(Qt.ImhDate)
@@ -208,19 +262,18 @@ class Ui_TransactionWindow(object):
         self.labelHead.setObjectName(u"labelHead")
         sizePolicy1.setHeightForWidth(self.labelHead.sizePolicy().hasHeightForWidth())
         self.labelHead.setSizePolicy(sizePolicy1)
-        self.labelHead.setMinimumSize(QSize(100, 0))
-        self.labelHead.setMaximumSize(QSize(100, 16777215))
-        font3 = QFont()
-        font3.setPointSize(12)
-        self.labelHead.setFont(font3)
+        self.labelHead.setMinimumSize(QSize(60, 0))
+        self.labelHead.setMaximumSize(QSize(60, 16777215))
+        self.labelHead.setFont(font)
 
         self.horizontalLayout_4.addWidget(self.labelHead)
 
         self.comboHead = QComboBox(self.frameDetailsTop)
         self.comboHead.setObjectName(u"comboHead")
+        self.comboHead.setEnabled(True)
         sizePolicy1.setHeightForWidth(self.comboHead.sizePolicy().hasHeightForWidth())
         self.comboHead.setSizePolicy(sizePolicy1)
-        self.comboHead.setMinimumSize(QSize(200, 0))
+        self.comboHead.setMinimumSize(QSize(350, 40))
         self.comboHead.setMaximumSize(QSize(200, 16777215))
         self.comboHead.setStyleSheet(u"")
         self.comboHead.setMaxCount(500)
@@ -235,7 +288,7 @@ class Ui_TransactionWindow(object):
         self.horizontalLayout_2 = QHBoxLayout(self.frameDetailsBottom)
         self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 30)
         self.labelTransDetails = QLabel(self.frameDetailsBottom)
         self.labelTransDetails.setObjectName(u"labelTransDetails")
         sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
@@ -243,9 +296,9 @@ class Ui_TransactionWindow(object):
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.labelTransDetails.sizePolicy().hasHeightForWidth())
         self.labelTransDetails.setSizePolicy(sizePolicy2)
-        self.labelTransDetails.setMinimumSize(QSize(100, 0))
-        self.labelTransDetails.setMaximumSize(QSize(100, 16777215))
-        self.labelTransDetails.setFont(font3)
+        self.labelTransDetails.setMinimumSize(QSize(60, 0))
+        self.labelTransDetails.setMaximumSize(QSize(60, 16777215))
+        self.labelTransDetails.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.labelTransDetails)
 
@@ -253,9 +306,9 @@ class Ui_TransactionWindow(object):
         self.editTransDetails.setObjectName(u"editTransDetails")
         sizePolicy1.setHeightForWidth(self.editTransDetails.sizePolicy().hasHeightForWidth())
         self.editTransDetails.setSizePolicy(sizePolicy1)
-        self.editTransDetails.setMinimumSize(QSize(200, 0))
+        self.editTransDetails.setMinimumSize(QSize(350, 40))
         self.editTransDetails.setMaximumSize(QSize(200, 16777215))
-        self.editTransDetails.setFont(font3)
+        self.editTransDetails.setFont(font)
         self.editTransDetails.setStyleSheet(u"")
         self.editTransDetails.setInputMethodHints(Qt.ImhNone)
         self.editTransDetails.setMaxLength(40)
@@ -266,9 +319,9 @@ class Ui_TransactionWindow(object):
         self.labelAccount.setObjectName(u"labelAccount")
         sizePolicy1.setHeightForWidth(self.labelAccount.sizePolicy().hasHeightForWidth())
         self.labelAccount.setSizePolicy(sizePolicy1)
-        self.labelAccount.setMinimumSize(QSize(100, 0))
-        self.labelAccount.setMaximumSize(QSize(100, 16777215))
-        self.labelAccount.setFont(font3)
+        self.labelAccount.setMinimumSize(QSize(60, 0))
+        self.labelAccount.setMaximumSize(QSize(60, 16777215))
+        self.labelAccount.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.labelAccount)
 
@@ -276,9 +329,9 @@ class Ui_TransactionWindow(object):
         self.comboAccount.setObjectName(u"comboAccount")
         sizePolicy1.setHeightForWidth(self.comboAccount.sizePolicy().hasHeightForWidth())
         self.comboAccount.setSizePolicy(sizePolicy1)
-        self.comboAccount.setMinimumSize(QSize(200, 0))
+        self.comboAccount.setMinimumSize(QSize(350, 40))
         self.comboAccount.setMaximumSize(QSize(200, 16777215))
-        self.comboAccount.setFont(font3)
+        self.comboAccount.setFont(font)
         self.comboAccount.setStyleSheet(u"")
         self.comboAccount.setInputMethodHints(Qt.ImhNone)
         self.comboAccount.setMaxCount(500)
@@ -309,8 +362,7 @@ class Ui_TransactionWindow(object):
         sizePolicy3.setHeightForWidth(self.labelCustomerName.sizePolicy().hasHeightForWidth())
         self.labelCustomerName.setSizePolicy(sizePolicy3)
         self.labelCustomerName.setMinimumSize(QSize(0, 30))
-        self.labelCustomerName.setStyleSheet(u"color: rgb(32, 74, 135);\n"
-"")
+        self.labelCustomerName.setStyleSheet(u"")
 
         self.horizontalLayout_3.addWidget(self.labelCustomerName)
 
@@ -323,8 +375,7 @@ class Ui_TransactionWindow(object):
         sizePolicy3.setHeightForWidth(self.labelBankName.sizePolicy().hasHeightForWidth())
         self.labelBankName.setSizePolicy(sizePolicy3)
         self.labelBankName.setMinimumSize(QSize(0, 30))
-        self.labelBankName.setStyleSheet(u"color: rgb(32, 74, 135);\n"
-"")
+        self.labelBankName.setStyleSheet(u"")
 
         self.horizontalLayout_3.addWidget(self.labelBankName)
 
@@ -355,17 +406,18 @@ class Ui_TransactionWindow(object):
         self.labelTransAmount.setSizePolicy(sizePolicy1)
         self.labelTransAmount.setMinimumSize(QSize(100, 0))
         self.labelTransAmount.setMaximumSize(QSize(100, 16777215))
-        self.labelTransAmount.setFont(font3)
+        self.labelTransAmount.setFont(font)
 
         self.amountLayout.addWidget(self.labelTransAmount, 0, Qt.AlignLeft)
 
         self.editTransAmount = QLineEdit(self.frameAmount)
         self.editTransAmount.setObjectName(u"editTransAmount")
+        self.editTransAmount.setEnabled(True)
         sizePolicy1.setHeightForWidth(self.editTransAmount.sizePolicy().hasHeightForWidth())
         self.editTransAmount.setSizePolicy(sizePolicy1)
-        self.editTransAmount.setMinimumSize(QSize(200, 0))
+        self.editTransAmount.setMinimumSize(QSize(350, 40))
         self.editTransAmount.setMaximumSize(QSize(200, 16777215))
-        self.editTransAmount.setFont(font3)
+        self.editTransAmount.setFont(font)
         self.editTransAmount.setStyleSheet(u"")
         self.editTransAmount.setInputMethodHints(Qt.ImhNone)
         self.editTransAmount.setMaxLength(40)
@@ -382,7 +434,7 @@ class Ui_TransactionWindow(object):
         self.frameButton = QFrame(self.centralWidget)
         self.frameButton.setObjectName(u"frameButton")
         self.buttonLayout = QHBoxLayout(self.frameButton)
-        self.buttonLayout.setSpacing(0)
+        self.buttonLayout.setSpacing(15)
         self.buttonLayout.setObjectName(u"buttonLayout")
         self.buttonLayout.setContentsMargins(0, 0, 40, 0)
         self.horSpacer2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -391,12 +443,11 @@ class Ui_TransactionWindow(object):
 
         self.buttonBack = QPushButton(self.frameButton)
         self.buttonBack.setObjectName(u"buttonBack")
-        self.buttonBack.setMinimumSize(QSize(100, 30))
-        self.buttonBack.setMaximumSize(QSize(100, 30))
-        font4 = QFont()
-        font4.setPointSize(12)
-        font4.setBold(False)
-        self.buttonBack.setFont(font4)
+        self.buttonBack.setMinimumSize(QSize(0, 0))
+        self.buttonBack.setMaximumSize(QSize(16777215, 16777215))
+        font2 = QFont()
+        font2.setBold(False)
+        self.buttonBack.setFont(font2)
         self.buttonBack.setStyleSheet(u"")
         icon1 = QIcon()
         icon1.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -408,9 +459,9 @@ class Ui_TransactionWindow(object):
         self.buttonCancel = QPushButton(self.frameButton)
         self.buttonCancel.setObjectName(u"buttonCancel")
         self.buttonCancel.setEnabled(True)
-        self.buttonCancel.setMinimumSize(QSize(100, 30))
-        self.buttonCancel.setMaximumSize(QSize(100, 30))
-        self.buttonCancel.setFont(font4)
+        self.buttonCancel.setMinimumSize(QSize(0, 0))
+        self.buttonCancel.setMaximumSize(QSize(16777215, 16777215))
+        self.buttonCancel.setFont(font2)
         self.buttonCancel.setStyleSheet(u"")
         icon2 = QIcon()
         icon2.addFile(u":/icons/icons/cancel.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -422,9 +473,9 @@ class Ui_TransactionWindow(object):
         self.buttonOk = QPushButton(self.frameButton)
         self.buttonOk.setObjectName(u"buttonOk")
         self.buttonOk.setEnabled(False)
-        self.buttonOk.setMinimumSize(QSize(100, 30))
-        self.buttonOk.setMaximumSize(QSize(100, 30))
-        self.buttonOk.setFont(font4)
+        self.buttonOk.setMinimumSize(QSize(0, 0))
+        self.buttonOk.setMaximumSize(QSize(16777215, 16777215))
+        self.buttonOk.setFont(font2)
         self.buttonOk.setStyleSheet(u"")
         icon3 = QIcon()
         icon3.addFile(u":/icons/icons/ok.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -480,9 +531,9 @@ class Ui_TransactionWindow(object):
         self.labelHead.setText(QCoreApplication.translate("TransactionWindow", u"&Head", None))
         self.comboHead.setCurrentText("")
         self.comboHead.setPlaceholderText(QCoreApplication.translate("TransactionWindow", u"Select transaction head", None))
-        self.labelTransDetails.setText(QCoreApplication.translate("TransactionWindow", u"&Trans. Details", None))
+        self.labelTransDetails.setText(QCoreApplication.translate("TransactionWindow", u"De&tails", None))
         self.editTransDetails.setPlaceholderText(QCoreApplication.translate("TransactionWindow", u"Enter transaction details", None))
-        self.labelAccount.setText(QCoreApplication.translate("TransactionWindow", u"Account &No.", None))
+        self.labelAccount.setText(QCoreApplication.translate("TransactionWindow", u"A/c  &No", None))
         self.comboAccount.setPlaceholderText(QCoreApplication.translate("TransactionWindow", u"Select bank account number", None))
         self.labelCustomerName.setText(QCoreApplication.translate("TransactionWindow", u"Customer Name", None))
         self.labelBankName.setText(QCoreApplication.translate("TransactionWindow", u"Bank Name", None))

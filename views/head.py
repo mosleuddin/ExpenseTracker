@@ -1,19 +1,39 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon
 from PySide6.QtSql import QSqlQuery, QSqlQueryModel
-from PySide6.QtWidgets import QDialog, QLineEdit, QTableView, QLabel
+from PySide6.QtWidgets import QDialog, QTableView, QLabel
 
-from modules.module import CustomMessage, resize_and_move, valid_char, valid_space
+from modules.module import MsgBox, resize_and_move, valid_char, valid_space
 from design.ui_head import Ui_HeadWindow
 from design.ui_head_view import Ui_ViewHead
 from db.table_head import (insertHead, updateHead, removeHead,
-                           populateComboHead, populateWidgets)
+                           populateComboHead, populateWidgets, head_related_transaction_exists)
 
 
 class Head(QDialog):
     def __init__(self, parent=None):
         super(Head, self).__init__(parent)
         self.parent = parent
+        self.bg = 'background-color :#10141b;'
 
         self.selected_head_id = None
         self.selected_head_type = None
@@ -32,10 +52,7 @@ class Head(QDialog):
 
         # configure comboHeadType
         for item in self.parent.trans_types_list:
-            self.ui.comboHeadType.addItem(self.parent.common_icon, item)
-
-        self.ui.editHeadType.addAction(self.parent.common_icon, QLineEdit.ActionPosition.LeadingPosition)
-        self.ui.editHeadName.addAction(self.parent.common_icon, QLineEdit.ActionPosition.LeadingPosition)
+            self.ui.comboHeadType.addItem(item)
 
     def showWidgets(self):
         self.ui.labelHeadType2.show()
@@ -50,6 +67,7 @@ class Head(QDialog):
         self.ui.comboHeadType.setFocus()
 
     def hideWidgets(self):
+
         self.ui.labelHeadType1.hide()
         self.ui.labelHeadType2.hide()
         self.ui.labelHeadName.hide()
@@ -105,7 +123,6 @@ class AddHead(Head):
     def __init__(self, parent=None):
         super(AddHead, self).__init__(parent)
         self.parent = parent
-        self.setStyleSheet('background-color: LightBlue')
 
         # hide/show widgets
         self.ui.comboHead.hide()
@@ -165,7 +182,7 @@ class AddHead(Head):
             self.ui.comboHead.setFocus()
             self.ui.buttonOk.setEnabled(False)
             return
-        CustomMessage().warn(title, msg, '&Got it')
+        MsgBox(title, msg, '&Got it').warn()
         self.ui.buttonOk.setEnabled(False)
         obj.setFocus()
         if obj != self.ui.comboHeadType:
@@ -177,7 +194,6 @@ class EditHead(Head):
     def __init__(self, parent=None):
         super(EditHead, self).__init__(parent)
         self.parent = parent
-        self.setStyleSheet('background-color: LightYellow')
         populateComboHead(self)
 
         # Change value of some widgets
@@ -232,7 +248,7 @@ class EditHead(Head):
                 self.ui.labelMessage.show()
                 return
 
-        CustomMessage().warn(title, msg, '&Got it')
+        MsgBox(title, msg, '&Got it').warn()
         self.ui.buttonOk.setEnabled(False)
         obj.setFocus()
         if obj != self.ui.comboHeadType:
@@ -252,8 +268,6 @@ class DeleteHead(Head):
     def __init__(self, parent=None):
         super(DeleteHead, self).__init__(parent)
         self.parent = parent
-        self.bg = 'background-color: LightGreen'
-        self.setStyleSheet(self.bg)
         populateComboHead(self)
 
         # Change value of some widgets
@@ -262,25 +276,26 @@ class DeleteHead(Head):
         self.ui.buttonOk.setIcon(QIcon('src/icons/delete.png'))
 
     def onOkPressed(self):
-        '''
-        delegate = self.ui.comboHeadType.itemDelegate()
-        self.ui.labelMessage.setText(str(delegate))
-        self.ui.labelMessage.show()
-        '''
         head_name = self.ui.editHeadName.text().strip().upper()
-        title = 'Confirm Delete'
-        msg = f'Delete head "{head_name}"?'
 
-        if CustomMessage().confirm(title, msg, '&Delete', '&Cancel'):
-            removeHead(self, head_name)
-            msg = f'{head_name} deleted successfully'
+        if head_related_transaction_exists(head_name):
+            MsgBox(f"{head_name} has related transaction",
+                   f"To remove the head, all the related records in the "
+                   f"transaction table must be deleted first").warn()
+        else:
+            title = 'Confirm Delete'
+            msg = f'Delete head "{head_name}"?'
 
-            self.hideWidgets()
-            self.ui.labelHeading.hide()
+            if MsgBox(title, msg, '&Delete', '&Cancel').confirm():
+                removeHead(self, head_name)
+                msg = f'{head_name} deleted successfully'
+                populateComboHead(self)
+                self.ui.labelMessage.setText(msg)
+                self.ui.labelMessage.show()
 
-            self.ui.labelMessage.setText(msg)
-            self.ui.labelMessage.show()
-            return
+        self.hideWidgets()
+        self.ui.comboHead.show()
+        self.ui.comboHead.setCurrentIndex(-1)
 
     def onHeadChanged(self, index):
         head_name = self.ui.comboHead.currentText()

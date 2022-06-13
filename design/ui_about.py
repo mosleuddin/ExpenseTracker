@@ -1,3 +1,25 @@
+
+
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+
 # -*- coding: utf-8 -*-
 
 ################################################################################
@@ -29,7 +51,23 @@ class Ui_AboutWindow(object):
         AboutWindow.setMaximumSize(QSize(32000, 32000))
         font = QFont()
         AboutWindow.setFont(font)
-        AboutWindow.setStyleSheet(u"background-color: rgb(200,200,200);")
+        AboutWindow.setStyleSheet(u"*{\n"
+"	background-color:#10141b;\n"
+"	color: rgba(255, 255, 255, .75);\n"
+"}\n"
+"\n"
+"#browserNotice,\n"
+"#textLicense{\n"
+"	background-color:#1f232a;\n"
+"	color: rgba(255, 255, 255, .50);\n"
+"\n"
+"}\n"
+"\n"
+"\n"
+"#buttonLicense:hover, #buttonWebsite:hover,  #buttonBack:hover{\n"
+"			background-color:#1f232a;\n"
+"}\n"
+"")
         AboutWindow.setModal(True)
         self.verticalLayout = QVBoxLayout(AboutWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -38,9 +76,19 @@ class Ui_AboutWindow(object):
         font1 = QFont()
         font1.setPointSize(12)
         self.tabWidget.setFont(font1)
-        self.tabWidget.setStyleSheet(u"")
         self.tabApp = QWidget()
         self.tabApp.setObjectName(u"tabApp")
+        self.tabApp.setCursor(QCursor(Qt.ArrowCursor))
+#if QT_CONFIG(tooltip)
+        self.tabApp.setToolTip(u"")
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(statustip)
+        self.tabApp.setStatusTip(u"")
+#endif // QT_CONFIG(statustip)
+#if QT_CONFIG(whatsthis)
+        self.tabApp.setWhatsThis(u"")
+#endif // QT_CONFIG(whatsthis)
+        self.tabApp.setStyleSheet(u"")
         self.verticalLayout_3 = QVBoxLayout(self.tabApp)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_2 = QVBoxLayout()
@@ -61,7 +109,8 @@ class Ui_AboutWindow(object):
         self.browserNotice = QTextBrowser(self.tabApp)
         self.browserNotice.setObjectName(u"browserNotice")
         self.browserNotice.setFont(font1)
-        self.browserNotice.setStyleSheet(u"background-color: rgb(211, 215, 207);")
+        self.browserNotice.viewport().setProperty("cursor", QCursor(Qt.ArrowCursor))
+        self.browserNotice.setStyleSheet(u"")
         self.browserNotice.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self.browserNotice.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.browserNotice.setSource(QUrl(u"file:///home/mosley/Practice-Projects/ExpenseTracker/notice.html"))
@@ -72,7 +121,8 @@ class Ui_AboutWindow(object):
         self.textLicense = QTextEdit(self.tabApp)
         self.textLicense.setObjectName(u"textLicense")
         self.textLicense.setFont(font)
-        self.textLicense.setStyleSheet(u"background-color: rgb(211, 215, 207);")
+        self.textLicense.viewport().setProperty("cursor", QCursor(Qt.ArrowCursor))
+        self.textLicense.setStyleSheet(u"")
         self.textLicense.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.textLicense.setUndoRedoEnabled(False)
         self.textLicense.setReadOnly(True)
@@ -84,6 +134,7 @@ class Ui_AboutWindow(object):
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(-1, 15, -1, 15)
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
@@ -93,8 +144,6 @@ class Ui_AboutWindow(object):
         self.buttonLicense.setMinimumSize(QSize(130, 30))
         self.buttonLicense.setMaximumSize(QSize(130, 30))
         self.buttonLicense.setFont(font1)
-        self.buttonLicense.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"")
         icon = QIcon()
         icon.addFile(u":/icons/icons/license.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonLicense.setIcon(icon)
@@ -126,8 +175,7 @@ class Ui_AboutWindow(object):
         self.labelDevCaption = QLabel(self.tabDev)
         self.labelDevCaption.setObjectName(u"labelDevCaption")
         self.labelDevCaption.setFont(font1)
-        self.labelDevCaption.setStyleSheet(u"color: rgb(0, 0, 255\n"
-");")
+        self.labelDevCaption.setStyleSheet(u"")
         self.labelDevCaption.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_4.addWidget(self.labelDevCaption)
@@ -139,7 +187,7 @@ class Ui_AboutWindow(object):
         self.verticalLayout.addWidget(self.tabWidget)
 
         self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setSpacing(0)
+        self.horizontalLayout.setSpacing(15)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -150,8 +198,6 @@ class Ui_AboutWindow(object):
         self.buttonWebsite.setMinimumSize(QSize(100, 30))
         self.buttonWebsite.setMaximumSize(QSize(100, 30))
         self.buttonWebsite.setFont(font1)
-        self.buttonWebsite.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"border-color: rgb(204, 0, 0);")
         icon3 = QIcon()
         icon3.addFile(u":/icons/icons/website.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonWebsite.setIcon(icon3)
@@ -163,8 +209,6 @@ class Ui_AboutWindow(object):
         self.buttonBack.setMinimumSize(QSize(100, 30))
         self.buttonBack.setMaximumSize(QSize(100, 30))
         self.buttonBack.setFont(font1)
-        self.buttonBack.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"border-color: rgb(204, 0, 0);")
         icon4 = QIcon()
         icon4.addFile(u":/icons/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
         self.buttonBack.setIcon(icon4)
@@ -184,7 +228,7 @@ class Ui_AboutWindow(object):
         self.buttonWebsite.clicked.connect(AboutWindow.open_website)
         self.buttonLicense.clicked.connect(AboutWindow.show_license)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(AboutWindow)
@@ -192,12 +236,6 @@ class Ui_AboutWindow(object):
 
     def retranslateUi(self, AboutWindow):
         AboutWindow.setWindowTitle(QCoreApplication.translate("AboutWindow", u"About ExpenseTracker", None))
-#if QT_CONFIG(tooltip)
-        self.tabApp.setToolTip("")
-#endif // QT_CONFIG(tooltip)
-#if QT_CONFIG(statustip)
-        self.tabApp.setStatusTip(QCoreApplication.translate("AboutWindow", u"About the app and the developer", None))
-#endif // QT_CONFIG(statustip)
         self.labelAppImage.setText("")
         self.textLicense.setDocumentTitle("")
         self.textLicense.setMarkdown("")
@@ -209,7 +247,7 @@ class Ui_AboutWindow(object):
         self.buttonLicense.setText(QCoreApplication.translate("AboutWindow", u"&Show License", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabApp), QCoreApplication.translate("AboutWindow", u"&Application", None))
 #if QT_CONFIG(tooltip)
-        self.tabDev.setToolTip(QCoreApplication.translate("AboutWindow", u"About the app and the developer", None))
+        self.tabDev.setToolTip(QCoreApplication.translate("AboutWindow", u"<html><head/><body><p><br/></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.labelDevImage.setText("")
         self.labelDevCaption.setText(QCoreApplication.translate("AboutWindow", u"Designed and Developed by Mosleuddin Sarkar", None))

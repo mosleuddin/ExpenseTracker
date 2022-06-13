@@ -1,3 +1,24 @@
+
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+
 # -*- coding: utf-8 -*-
 
 ################################################################################
@@ -28,7 +49,7 @@ class Ui_HomeWindow(object):
         if not HomeWindow.objectName():
             HomeWindow.setObjectName(u"HomeWindow")
         HomeWindow.setWindowModality(Qt.WindowModal)
-        HomeWindow.resize(1762, 644)
+        HomeWindow.resize(1782, 644)
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -40,7 +61,34 @@ class Ui_HomeWindow(object):
         icon = QIcon()
         icon.addFile(u":/icons/expense_tracker_sm.png", QSize(), QIcon.Normal, QIcon.Off)
         HomeWindow.setWindowIcon(icon)
-        HomeWindow.setStyleSheet(u"background-color: rgb(211, 215, 207);")
+        HomeWindow.setStyleSheet(u"*{\n"
+"	background-color:#10141b;\n"
+"	color:CadetBlue\n"
+"}\n"
+"\n"
+"QMenuBar,\n"
+"QMenu,\n"
+"QToolBar{\n"
+"                     	background-color:  #1f232a;\n"
+"					color:rgba(255, 255, 255, .50);\n"
+"			   		selection-color: rgba(255, 255, 255,  .70);\n"
+"	             	selection-background-color: #10141b;\n"
+" }\n"
+"\n"
+"#tableView{\n"
+"				background-color: #1f232a;\n"
+"				color:rgba(255, 255, 255, .60)\n"
+"}\n"
+"\n"
+"#editCashBalance, \n"
+"#editBankBalance,  \n"
+"#editTotalBalance {\n"
+"			color:rgba(255, 255, 255, .75);\n"
+" }\n"
+"\n"
+"\n"
+"\n"
+"")
         self.actionExit = QAction(HomeWindow)
         self.actionExit.setObjectName(u"actionExit")
         icon1 = QIcon()
@@ -181,18 +229,57 @@ class Ui_HomeWindow(object):
         self.centralwidget = QWidget(HomeWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setSpacing(1)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.imageLayout = QVBoxLayout()
-        self.imageLayout.setObjectName(u"imageLayout")
-        self.imageLayout.setContentsMargins(50, -1, 50, -1)
-        self.labelImage = QLabel(self.centralwidget)
+        self.verticalLayout.setContentsMargins(-1, 0, -1, 0)
+        self.top_widget = QWidget(self.centralwidget)
+        self.top_widget.setObjectName(u"top_widget")
+        self.top_layout = QHBoxLayout(self.top_widget)
+        self.top_layout.setSpacing(10)
+        self.top_layout.setObjectName(u"top_layout")
+        self.top_layout.setContentsMargins(10, 10, 10, 10)
+        self.labelHeading = QLabel(self.top_widget)
+        self.labelHeading.setObjectName(u"labelHeading")
+        font2 = QFont()
+        font2.setPointSize(14)
+        font2.setBold(True)
+        self.labelHeading.setFont(font2)
+        self.labelHeading.setAlignment(Qt.AlignCenter)
+
+        self.top_layout.addWidget(self.labelHeading)
+
+        self.labelOwner = QLabel(self.top_widget)
+        self.labelOwner.setObjectName(u"labelOwner")
+        font3 = QFont()
+        font3.setPointSize(30)
+        font3.setBold(True)
+        font3.setItalic(False)
+        self.labelOwner.setFont(font3)
+        self.labelOwner.setAlignment(Qt.AlignCenter)
+
+        self.top_layout.addWidget(self.labelOwner)
+
+        self.labelAddress = QLabel(self.top_widget)
+        self.labelAddress.setObjectName(u"labelAddress")
+        font4 = QFont()
+        font4.setPointSize(14)
+        font4.setBold(True)
+        font4.setItalic(False)
+        self.labelAddress.setFont(font4)
+        self.labelAddress.setAlignment(Qt.AlignCenter)
+
+        self.top_layout.addWidget(self.labelAddress)
+
+        self.labelImage = QLabel(self.top_widget)
         self.labelImage.setObjectName(u"labelImage")
-        self.labelImage.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.labelImage.setMinimumSize(QSize(0, 0))
+        self.labelImage.setMaximumSize(QSize(16777215, 16777215))
+        self.labelImage.setAlignment(Qt.AlignCenter)
 
-        self.imageLayout.addWidget(self.labelImage)
+        self.top_layout.addWidget(self.labelImage)
 
 
-        self.verticalLayout.addLayout(self.imageLayout)
+        self.verticalLayout.addWidget(self.top_widget)
 
         self.detailsLayout = QHBoxLayout()
         self.detailsLayout.setSpacing(10)
@@ -200,48 +287,21 @@ class Ui_HomeWindow(object):
         self.detailsLayout.setContentsMargins(50, 0, 0, -1)
         self.labelMonth = QLabel(self.centralwidget)
         self.labelMonth.setObjectName(u"labelMonth")
-        font2 = QFont()
-        font2.setPointSize(12)
-        font2.setBold(True)
         self.labelMonth.setFont(font2)
-        self.labelMonth.setStyleSheet(u"color: rgb(97, 33, 214);")
+        self.labelMonth.setAlignment(Qt.AlignCenter)
 
         self.detailsLayout.addWidget(self.labelMonth)
 
         self.labelYear = QLabel(self.centralwidget)
         self.labelYear.setObjectName(u"labelYear")
         self.labelYear.setFont(font2)
-        self.labelYear.setStyleSheet(u"color: rgb(97, 33, 214);")
+        self.labelYear.setAlignment(Qt.AlignCenter)
 
         self.detailsLayout.addWidget(self.labelYear)
 
         self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.detailsLayout.addItem(self.horizontalSpacer_3)
-
-        self.labelOwner = QLabel(self.centralwidget)
-        self.labelOwner.setObjectName(u"labelOwner")
-        font3 = QFont()
-        font3.setPointSize(12)
-        font3.setBold(True)
-        font3.setItalic(True)
-        self.labelOwner.setFont(font3)
-        self.labelOwner.setStyleSheet(u"color: rgb(97, 33, 214);")
-        self.labelOwner.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
-
-        self.detailsLayout.addWidget(self.labelOwner)
-
-        self.labelAddress = QLabel(self.centralwidget)
-        self.labelAddress.setObjectName(u"labelAddress")
-        font4 = QFont()
-        font4.setPointSize(10)
-        font4.setBold(True)
-        font4.setItalic(True)
-        self.labelAddress.setFont(font4)
-        self.labelAddress.setStyleSheet(u"")
-        self.labelAddress.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
-
-        self.detailsLayout.addWidget(self.labelAddress)
 
 
         self.verticalLayout.addLayout(self.detailsLayout)
@@ -259,16 +319,20 @@ class Ui_HomeWindow(object):
         sizePolicy1.setHeightForWidth(self.tableView.sizePolicy().hasHeightForWidth())
         self.tableView.setSizePolicy(sizePolicy1)
         font5 = QFont()
-        font5.setPointSize(16)
+        font5.setPointSize(12)
         self.tableView.setFont(font5)
         self.tableView.setStyleSheet(u"")
         self.tableView.setFrameShadow(QFrame.Plain)
         self.tableView.setSizeAdjustPolicy(QAbstractScrollArea.AdjustIgnored)
+        self.tableView.setAutoScroll(True)
+        self.tableView.setAutoScrollMargin(10)
         self.tableView.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.tableView.setAlternatingRowColors(True)
+        self.tableView.setAlternatingRowColors(False)
         self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)
         self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.tableView.setGridStyle(Qt.DotLine)
+        self.tableView.setVerticalScrollMode(QAbstractItemView.ScrollPerPixel)
+        self.tableView.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
+        self.tableView.setGridStyle(Qt.SolidLine)
         self.tableView.horizontalHeader().setHighlightSections(False)
         self.tableView.horizontalHeader().setStretchLastSection(True)
         self.tableView.verticalHeader().setVisible(False)
@@ -303,7 +367,6 @@ class Ui_HomeWindow(object):
         font7.setPointSize(16)
         font7.setBold(True)
         self.editCashBalance.setFont(font7)
-        self.editCashBalance.setStyleSheet(u"color: rgb(97, 33, 214);")
         self.editCashBalance.setFrame(False)
         self.editCashBalance.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.editCashBalance.setReadOnly(True)
@@ -324,7 +387,6 @@ class Ui_HomeWindow(object):
         self.editBankBalance.setObjectName(u"editBankBalance")
         self.editBankBalance.setMaximumSize(QSize(250, 16777215))
         self.editBankBalance.setFont(font7)
-        self.editBankBalance.setStyleSheet(u"color: rgb(97, 33, 214);")
         self.editBankBalance.setFrame(False)
         self.editBankBalance.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.editBankBalance.setReadOnly(True)
@@ -345,7 +407,6 @@ class Ui_HomeWindow(object):
         self.editTotalBalance.setObjectName(u"editTotalBalance")
         self.editTotalBalance.setMaximumSize(QSize(250, 16777215))
         self.editTotalBalance.setFont(font7)
-        self.editTotalBalance.setStyleSheet(u"color: rgb(97, 33, 214);")
         self.editTotalBalance.setFrame(False)
         self.editTotalBalance.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.editTotalBalance.setReadOnly(True)
@@ -362,38 +423,22 @@ class Ui_HomeWindow(object):
         HomeWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(HomeWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1762, 23))
-        self.menubar.setStyleSheet(u"background-color: rgb(200, 200, 200);")
+        self.menubar.setGeometry(QRect(0, 0, 1782, 23))
+        self.menubar.setStyleSheet(u"")
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
-        self.menuFile.setStyleSheet(u"background-color: rgb(243, 243, 243);\n"
-"selection-background-color: rgb(32, 74, 135);\n"
-"selection-color: rgb(243, 243, 243);")
+        self.menuFile.setStyleSheet(u"")
         self.menuAccount = QMenu(self.menubar)
         self.menuAccount.setObjectName(u"menuAccount")
-        self.menuAccount.setStyleSheet(u"background-color: rgb(243, 243, 243);\n"
-"selection-background-color: rgb(32, 74, 135);\n"
-"selection-color: rgb(243, 243, 243);")
+        self.menuAccount.setStyleSheet(u"")
         self.menuHead = QMenu(self.menubar)
         self.menuHead.setObjectName(u"menuHead")
-        self.menuHead.setStyleSheet(u"background-color: rgb(243, 243, 243);\n"
-"selection-background-color: rgb(32, 74, 135);\n"
-"selection-color: rgb(243, 243, 243);")
         self.menuReceipt = QMenu(self.menubar)
         self.menuReceipt.setObjectName(u"menuReceipt")
-        self.menuReceipt.setStyleSheet(u"background-color: rgb(243, 243, 243);\n"
-"selection-background-color: rgb(32, 74, 135);\n"
-"selection-color: rgb(243, 243, 243);")
         self.menuUsers = QMenu(self.menubar)
         self.menuUsers.setObjectName(u"menuUsers")
-        self.menuUsers.setStyleSheet(u"background-color: rgb(243, 243, 243);\n"
-"selection-background-color: rgb(32, 74, 135);\n"
-"selection-color: rgb(243, 243, 243);")
         self.menuInitiaize = QMenu(self.menubar)
         self.menuInitiaize.setObjectName(u"menuInitiaize")
-        self.menuInitiaize.setStyleSheet(u"background-color: rgb(243, 243, 243);\n"
-"selection-background-color: rgb(32, 74, 135);\n"
-"selection-color: rgb(243, 243, 243);")
         self.menuPayment = QMenu(self.menubar)
         self.menuPayment.setObjectName(u"menuPayment")
         self.menuContraEntries = QMenu(self.menubar)
@@ -405,10 +450,11 @@ class Ui_HomeWindow(object):
         HomeWindow.setStatusBar(self.statusbar)
         self.toolBar = QToolBar(HomeWindow)
         self.toolBar.setObjectName(u"toolBar")
-        self.toolBar.setStyleSheet(u"background-color: rgb(200, 255, 210);\n"
-"")
         self.toolBar.setMovable(False)
         HomeWindow.addToolBar(Qt.TopToolBarArea, self.toolBar)
+#if QT_CONFIG(shortcut)
+        self.labelMonth.setBuddy(self.top_widget)
+#endif // QT_CONFIG(shortcut)
 
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuAccount.menuAction())
@@ -767,11 +813,12 @@ class Ui_HomeWindow(object):
 #if QT_CONFIG(shortcut)
         self.actionPeriodMismatch.setShortcut(QCoreApplication.translate("HomeWindow", u"Ctrl+P", None))
 #endif // QT_CONFIG(shortcut)
-        self.labelImage.setText(QCoreApplication.translate("HomeWindow", u"image", None))
-        self.labelMonth.setText(QCoreApplication.translate("HomeWindow", u"TextLabel", None))
-        self.labelYear.setText(QCoreApplication.translate("HomeWindow", u"TextLabel", None))
+        self.labelHeading.setText(QCoreApplication.translate("HomeWindow", u"Account of monthly expenditure for  ", None))
         self.labelOwner.setText(QCoreApplication.translate("HomeWindow", u"owner", None))
         self.labelAddress.setText(QCoreApplication.translate("HomeWindow", u"address", None))
+        self.labelImage.setText("")
+        self.labelMonth.setText(QCoreApplication.translate("HomeWindow", u"Month", None))
+        self.labelYear.setText(QCoreApplication.translate("HomeWindow", u"Year", None))
         self.labelCashBalance.setText(QCoreApplication.translate("HomeWindow", u" Cash in Hand : ", None))
         self.editCashBalance.setText(QCoreApplication.translate("HomeWindow", u"0", None))
         self.labelBankBalance.setText(QCoreApplication.translate("HomeWindow", u"Cash at Bank :", None))

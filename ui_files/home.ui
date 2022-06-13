@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1762</width>
+    <width>1782</width>
     <height>644</height>
    </rect>
   </property>
@@ -32,29 +32,138 @@
     <normaloff>:/icons/expense_tracker_sm.png</normaloff>:/icons/expense_tracker_sm.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(211, 215, 207);</string>
+   <string notr="true">*{
+	background-color:#10141b;
+	color:CadetBlue
+}
+
+QMenuBar,
+QMenu,
+QToolBar{
+                     	background-color:  #1f232a;
+					color:rgba(255, 255, 255, .50);
+			   		selection-color: rgba(255, 255, 255,  .70);
+	             	selection-background-color: #10141b;
+ }
+
+#tableView{
+				background-color: #1f232a;
+				color:rgba(255, 255, 255, .60)
+}
+
+#editCashBalance, 
+#editBankBalance,  
+#editTotalBalance {
+			color:rgba(255, 255, 255, .75);
+ }
+
+
+
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>1</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
-     <layout class="QVBoxLayout" name="imageLayout">
-      <property name="leftMargin">
-       <number>50</number>
-      </property>
-      <property name="rightMargin">
-       <number>50</number>
-      </property>
-      <item>
-       <widget class="QLabel" name="labelImage">
-        <property name="text">
-         <string>image</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <widget class="QWidget" name="top_widget" native="true">
+      <layout class="QHBoxLayout" name="top_layout">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
+        <number>10</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="labelHeading">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Account of monthly expenditure for  </string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelOwner">
+         <property name="font">
+          <font>
+           <pointsize>30</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>owner</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelAddress">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>address</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelImage">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </item>
     <item>
      <layout class="QHBoxLayout" name="detailsLayout">
@@ -74,15 +183,18 @@
        <widget class="QLabel" name="labelMonth">
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>14</pointsize>
           <bold>true</bold>
          </font>
         </property>
-        <property name="styleSheet">
-         <string notr="true">color: rgb(97, 33, 214);</string>
-        </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>Month</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="buddy">
+         <cstring>top_widget</cstring>
         </property>
        </widget>
       </item>
@@ -90,15 +202,15 @@
        <widget class="QLabel" name="labelYear">
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>14</pointsize>
           <bold>true</bold>
          </font>
         </property>
-        <property name="styleSheet">
-         <string notr="true">color: rgb(97, 33, 214);</string>
-        </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>Year</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -114,46 +226,6 @@
          </size>
         </property>
        </spacer>
-      </item>
-      <item>
-       <widget class="QLabel" name="labelOwner">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-          <italic>true</italic>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color: rgb(97, 33, 214);</string>
-        </property>
-        <property name="text">
-         <string>owner</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="labelAddress">
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-          <italic>true</italic>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>address</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
       </item>
      </layout>
     </item>
@@ -184,7 +256,7 @@
         </property>
         <property name="font">
          <font>
-          <pointsize>16</pointsize>
+          <pointsize>12</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -196,11 +268,17 @@
         <property name="sizeAdjustPolicy">
          <enum>QAbstractScrollArea::AdjustIgnored</enum>
         </property>
+        <property name="autoScroll">
+         <bool>true</bool>
+        </property>
+        <property name="autoScrollMargin">
+         <number>10</number>
+        </property>
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
         <property name="alternatingRowColors">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="selectionMode">
          <enum>QAbstractItemView::SingleSelection</enum>
@@ -208,8 +286,14 @@
         <property name="selectionBehavior">
          <enum>QAbstractItemView::SelectRows</enum>
         </property>
+        <property name="verticalScrollMode">
+         <enum>QAbstractItemView::ScrollPerPixel</enum>
+        </property>
+        <property name="horizontalScrollMode">
+         <enum>QAbstractItemView::ScrollPerPixel</enum>
+        </property>
         <property name="gridStyle">
-         <enum>Qt::DotLine</enum>
+         <enum>Qt::SolidLine</enum>
         </property>
         <attribute name="horizontalHeaderHighlightSections">
          <bool>false</bool>
@@ -286,9 +370,6 @@
           <bold>true</bold>
          </font>
         </property>
-        <property name="styleSheet">
-         <string notr="true">color: rgb(97, 33, 214);</string>
-        </property>
         <property name="text">
          <string>0</string>
         </property>
@@ -341,9 +422,6 @@
           <pointsize>16</pointsize>
           <bold>true</bold>
          </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color: rgb(97, 33, 214);</string>
         </property>
         <property name="text">
          <string>0</string>
@@ -398,9 +476,6 @@
           <bold>true</bold>
          </font>
         </property>
-        <property name="styleSheet">
-         <string notr="true">color: rgb(97, 33, 214);</string>
-        </property>
         <property name="text">
          <string>0</string>
         </property>
@@ -437,18 +512,16 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1762</width>
+     <width>1782</width>
      <height>23</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(200, 200, 200);</string>
+    <string notr="true"/>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(243, 243, 243);
-selection-background-color: rgb(32, 74, 135);
-selection-color: rgb(243, 243, 243);</string>
+     <string notr="true"/>
     </property>
     <property name="title">
      <string>&amp;File</string>
@@ -464,9 +537,7 @@ selection-color: rgb(243, 243, 243);</string>
    </widget>
    <widget class="QMenu" name="menuAccount">
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(243, 243, 243);
-selection-background-color: rgb(32, 74, 135);
-selection-color: rgb(243, 243, 243);</string>
+     <string notr="true"/>
     </property>
     <property name="title">
      <string>&amp;Account</string>
@@ -479,11 +550,6 @@ selection-color: rgb(243, 243, 243);</string>
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuHead">
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(243, 243, 243);
-selection-background-color: rgb(32, 74, 135);
-selection-color: rgb(243, 243, 243);</string>
-    </property>
     <property name="title">
      <string>&amp;Head</string>
     </property>
@@ -495,11 +561,6 @@ selection-color: rgb(243, 243, 243);</string>
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuReceipt">
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(243, 243, 243);
-selection-background-color: rgb(32, 74, 135);
-selection-color: rgb(243, 243, 243);</string>
-    </property>
     <property name="title">
      <string>&amp;Receipt</string>
     </property>
@@ -511,11 +572,6 @@ selection-color: rgb(243, 243, 243);</string>
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuUsers">
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(243, 243, 243);
-selection-background-color: rgb(32, 74, 135);
-selection-color: rgb(243, 243, 243);</string>
-    </property>
     <property name="title">
      <string>&amp;Users</string>
     </property>
@@ -525,11 +581,6 @@ selection-color: rgb(243, 243, 243);</string>
     <addaction name="actionChangeUsername"/>
    </widget>
    <widget class="QMenu" name="menuInitiaize">
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(243, 243, 243);
-selection-background-color: rgb(32, 74, 135);
-selection-color: rgb(243, 243, 243);</string>
-    </property>
     <property name="title">
      <string>&amp;Month End Action </string>
     </property>
@@ -572,10 +623,6 @@ selection-color: rgb(243, 243, 243);</string>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
     <string>toolBar</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(200, 255, 210);
-</string>
    </property>
    <property name="movable">
     <bool>false</bool>

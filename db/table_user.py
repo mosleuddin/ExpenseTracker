@@ -1,11 +1,33 @@
+"""
+    Copyright © 2021-2022  Mosleuddin Sarkar
+
+    This file is part of ExpenseTracker.
+
+    ExpenseTracker is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ExpenseTracker is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ExpenseTracker.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import sqlite3
 
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QMessageBox
-from modules.module import CustomMessage
+from modules.module import MsgBox
 
 
 def userExists(parent):
+    """
+    The function checks whether an user exists or not
+    """
     users = 0
     try:
         query = QSqlQuery()
@@ -22,6 +44,10 @@ def userExists(parent):
 
 
 def createUser(parent):
+    """
+        The function creates a new user
+    """
+
     users = ['admin', 'user']
     password = ['1234', '1234']
     for i in range(2):
@@ -170,7 +196,7 @@ def changePassword(parent, user_id, new_pwd):
 
         title = "Password changed successfully"
         msg = "\n\nPlease login again using new password."
-        CustomMessage().warn(title, msg, '&Thanks')
+        MsgBox(title, msg, '&Thanks').warn()
 
     except sqlite3.Error:
         QMessageBox.critical(parent, "DataBase Error", "Could not change password!!!")
@@ -198,12 +224,14 @@ def changeUsername(parent, user_id, new_user_name):
 
             title = 'Username changed successfully. \n\nPlease login again using new username.'
             msg = f'\n\n New Username :   {new_user_name}    \n\n'
-            CustomMessage().warn(title, msg, '&Thanks')
+            MsgBox(title, msg, '&Thanks').warn()
 
         except sqlite3.Error:
             QMessageBox.critical(parent, "DataBase Error", "Could not change username!!!")
     else:
-        CustomMessage().warn("Username 'admin' is not available", "Please select a different username", "&Got it")
+        MsgBox("Username 'admin' is not available",
+                      "Please select a different username",
+                      "&Got it").warn()
 
 
 def checkCredentials(parent, user_name, user_pwd):

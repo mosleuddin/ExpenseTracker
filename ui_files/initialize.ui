@@ -23,7 +23,9 @@
    </sizepolicy>
   </property>
   <property name="font">
-   <font/>
+   <font>
+    <pointsize>-1</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Month End Data Initialization</string>
@@ -34,69 +36,51 @@
   </property>
   <property name="styleSheet">
    <string notr="true">*{
-	background-color: rgb(240, 230, 220);
+     background-color :#10141b;
+	color:rgba(255, 255, 255, .5);
+	font-size: 16px;
 }
 
-#centralWidget{
-background-color: #343b47;
-}
-
-QLineEdit{
-background-color: rgb(255, 255, 255);
-}
 
 #labelMessage{
-color: rgb(255, 255, 255);
-background-color: rgb(0, 139, 139);
+	color: rgb(239, 41, 41);
 }
 
 #labelPassword{
-	color: rgb(0, 0, 255);
+	color: rgba(255, 255, 255, .60);
+
 }
 
-QPushButton
-{
-	background-color: rgb(186, 189, 182);
-	color: rgb(0, 0, 255);
+QLineEdit{
+            background-color :#1f232a;
+            color:rgba(0, 255, 255, .60);
+            height: 30px;
+        }
+
+QPushButton{
+    background-color:#10141b;
+ 	color:rgba(0, 255, 0, .50);
+    width: 75px;
+	height: 18px;
 	text-align: center;
-	border: 2px solid #406FBF;
-	border-radius: 5px;
+	padding: 5px, 10px;
+	border: 1px solid #264BF6;
+	border-radius: 10px;
+
 }
 
-
-QPushButton::hover
-{
-	background-color: rgb(0, 0, 255);
-	color: rgb(255, 255, 255);
-	text-align: center;
-	border: 2px solid #60F721;
-	border-radius: 5px;
+QPushButton::hover{
+	background-color: rgba(0, 0, 255, .30);
+     color: rgba(255, 255, 255, .50);
 }
-
-/* 
 
 QPushButton::disabled{
-	background-color: rgb(136, 138, 133);
-	color: rgb(0, 0, 0);
-	text-align: center;
-	border: 2px solid #EFF51A;
-	border-radius: 5px;
+	background-color: rgba(0, 0, 0, .50);
+     color: rgba(255, 255, 255, .50);
 }
-
-
-
-
-#btnAlertProceed,
-#btnPasswordSubmit{
-	background-color: rgb(240, 50, 50);
-	color: rgb(0, 0, 255);
-	text-align: center;
-	border: 2px solid #264BF6;
-	border-radius: 5px;
-}
-
-
-
+ 
+ 
+        
 
 </string>
   </property>
@@ -135,7 +119,7 @@ QPushButton::disabled{
      </property>
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
+       <pointsize>-1</pointsize>
       </font>
      </property>
      <property name="styleSheet">
@@ -275,7 +259,7 @@ QPushButton::disabled{
               </property>
               <property name="font">
                <font>
-                <pointsize>12</pointsize>
+                <pointsize>-1</pointsize>
                 <bold>false</bold>
                </font>
               </property>
@@ -316,7 +300,7 @@ QPushButton::disabled{
               </property>
               <property name="font">
                <font>
-                <pointsize>12</pointsize>
+                <pointsize>-1</pointsize>
                 <bold>false</bold>
                </font>
               </property>
@@ -438,7 +422,7 @@ QPushButton::disabled{
               </property>
               <property name="font">
                <font>
-                <pointsize>14</pointsize>
+                <pointsize>-1</pointsize>
                </font>
               </property>
               <property name="text">
@@ -472,7 +456,7 @@ Once submitted, the action can not be undone.</string>
               </property>
               <property name="font">
                <font>
-                <pointsize>14</pointsize>
+                <pointsize>-1</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -539,7 +523,7 @@ Once submitted, the action can not be undone.</string>
               </property>
               <property name="font">
                <font>
-                <pointsize>12</pointsize>
+                <pointsize>-1</pointsize>
                 <bold>false</bold>
                </font>
               </property>
@@ -580,7 +564,7 @@ Once submitted, the action can not be undone.</string>
               </property>
               <property name="font">
                <font>
-                <pointsize>12</pointsize>
+                <pointsize>-1</pointsize>
                 <bold>false</bold>
                </font>
               </property>

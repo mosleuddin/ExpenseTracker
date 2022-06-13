@@ -23,7 +23,23 @@
    <string>About ExpenseTracker</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(200,200,200);</string>
+   <string notr="true">*{
+	background-color:#10141b;
+	color: rgba(255, 255, 255, .75);
+}
+
+#browserNotice,
+#textLicense{
+	background-color:#1f232a;
+	color: rgba(255, 255, 255, .50);
+
+}
+
+
+#buttonLicense:hover, #buttonWebsite:hover,  #buttonBack:hover{
+			background-color:#1f232a;
+}
+</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -36,18 +52,24 @@
        <pointsize>12</pointsize>
       </font>
      </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabApp">
+      <property name="cursor">
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
       <property name="toolTip">
-       <string/>
+       <string notr="true"/>
       </property>
       <property name="statusTip">
-       <string>About the app and the developer</string>
+       <string notr="true"/>
+      </property>
+      <property name="whatsThis">
+       <string notr="true"/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <attribute name="icon">
        <iconset>
@@ -86,8 +108,11 @@
              <pointsize>12</pointsize>
             </font>
            </property>
+           <property name="cursor" stdset="0">
+            <cursorShape>ArrowCursor</cursorShape>
+           </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(211, 215, 207);</string>
+            <string notr="true"/>
            </property>
            <property name="verticalScrollBarPolicy">
             <enum>Qt::ScrollBarAsNeeded</enum>
@@ -110,8 +135,11 @@
            <property name="font">
             <font/>
            </property>
+           <property name="cursor" stdset="0">
+            <cursorShape>ArrowCursor</cursorShape>
+           </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(211, 215, 207);</string>
+            <string notr="true"/>
            </property>
            <property name="sizeAdjustPolicy">
             <enum>QAbstractScrollArea::AdjustToContents</enum>
@@ -141,6 +169,12 @@ p, li { white-space: pre-wrap; }
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="topMargin">
+          <number>15</number>
+         </property>
+         <property name="bottomMargin">
+          <number>15</number>
+         </property>
          <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
@@ -173,10 +207,6 @@ p, li { white-space: pre-wrap; }
              <pointsize>12</pointsize>
             </font>
            </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 255, 255);
-</string>
-           </property>
            <property name="text">
             <string>&amp;Show License</string>
            </property>
@@ -195,7 +225,7 @@ p, li { white-space: pre-wrap; }
      </widget>
      <widget class="QWidget" name="tabDev">
       <property name="toolTip">
-       <string>About the app and the developer</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <attribute name="icon">
        <iconset>
@@ -240,8 +270,7 @@ p, li { white-space: pre-wrap; }
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(0, 0, 255
-);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Designed and Developed by Mosleuddin Sarkar</string>
@@ -258,7 +287,7 @@ p, li { white-space: pre-wrap; }
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="spacing">
-      <number>0</number>
+      <number>15</number>
      </property>
      <item>
       <spacer name="horizontalSpacer_2">
@@ -292,10 +321,6 @@ p, li { white-space: pre-wrap; }
          <pointsize>12</pointsize>
         </font>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-border-color: rgb(204, 0, 0);</string>
-       </property>
        <property name="text">
         <string>&amp;Website</string>
        </property>
@@ -323,10 +348,6 @@ border-color: rgb(204, 0, 0);</string>
         <font>
          <pointsize>12</pointsize>
         </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-border-color: rgb(204, 0, 0);</string>
        </property>
        <property name="text">
         <string>&amp;Back</string>
